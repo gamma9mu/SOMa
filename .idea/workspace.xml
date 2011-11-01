@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="01ad1654-7ad2-4538-b034-40c27cc52f78" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java" afterPath="$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/GridType.java" afterPath="$PROJECT_DIR$/src/cs437/som/GridType.java" />
     </list>
     <ignored path="Self-organizing_Map.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,19 +76,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GridType.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GridType.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cs437/som/GridType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="17" selection-start="84" selection-end="84" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LearningRateFunction.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="3" selection-start="414" selection-end="414" vertical-scroll-proportion="0.26086956">
+            <state line="8" column="3" selection-start="321" selection-end="321" vertical-scroll-proportion="0.20869565">
               <folding />
             </state>
           </provider>
@@ -108,7 +99,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/cs437/som/demo/EdgeDetector.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/SOMError.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/network/SimpleSOM.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/SelfOrganizingMap.java" />
@@ -124,6 +114,7 @@
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java" />
+        <option value="$PROJECT_DIR$/src/cs437/som/GridType.java" />
       </list>
     </option>
   </component>
@@ -822,13 +813,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/GridType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="84" selection-end="84" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="3" selection-start="97" selection-end="428" vertical-scroll-proportion="0.13043478">
@@ -839,6 +823,13 @@
     <entry file="file://$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="3" selection-start="414" selection-end="414" vertical-scroll-proportion="0.26086956">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/GridType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="3" selection-start="321" selection-end="321" vertical-scroll-proportion="0.20869565">
           <folding />
         </state>
       </provider>
