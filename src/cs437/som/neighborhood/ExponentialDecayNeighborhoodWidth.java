@@ -14,7 +14,7 @@ package cs437.som.neighborhood;
  */
 public class ExponentialDecayNeighborhoodWidth {
     private final double initialNeighborhoodWidth;
-    private double expectedIterations;
+    private double expectedIterations = 0.0;
 
     public ExponentialDecayNeighborhoodWidth(double initialWidth) {
         initialNeighborhoodWidth = initialWidth;
