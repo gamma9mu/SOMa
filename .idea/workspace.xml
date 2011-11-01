@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="01ad1654-7ad2-4538-b034-40c27cc52f78" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java" afterPath="$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java" afterPath="$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java" />
     </list>
     <ignored path="Self-organizing_Map.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,28 +67,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MexicanHatNeighborhoodWidthFunction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java">
+      <file leaf-file-name="DistanceMetric.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs437/som/DistanceMetric.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="71" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
+            <state line="5" column="17" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GaussianNeighborhoodWidthFunction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java">
+      <file leaf-file-name="GridType.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs437/som/GridType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="2" selection-start="522" selection-end="522" vertical-scroll-proportion="0.0">
+            <state line="5" column="17" selection-start="84" selection-end="84" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NeightborhoodWidthFunction.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java">
+      <file leaf-file-name="LearningRateFunction.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="3" selection-start="432" selection-end="432" vertical-scroll-proportion="0.26086956">
+            <state line="10" column="3" selection-start="414" selection-end="414" vertical-scroll-proportion="0.26086956">
               <folding />
             </state>
           </provider>
@@ -108,7 +108,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/cs437/som/demo/EdgeDetectionRunner.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/demo/EdgeDetector.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/SOMError.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/network/SimpleSOM.java" />
@@ -124,6 +123,7 @@
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java" />
+        <option value="$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java" />
       </list>
     </option>
   </component>
@@ -699,7 +699,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update terminology in Gaussian NW: 'width' -&gt; 'standard deviation'." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve documentation of LearningRateFunction interface." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -720,6 +720,8 @@
     <MESSAGE value="Add formula comment to gaussian NW class." />
     <MESSAGE value="Add formula comment to Ricker wavelet NW class." />
     <MESSAGE value="Update terminology in Gaussian NW: 'width' -&gt; 'standard deviation'." />
+    <MESSAGE value="Improve documentation of NeighborhoodWidthFunction interface." />
+    <MESSAGE value="Improve documentation of LearningRateFunction interface." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -729,27 +731,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/EuclideanDistanceMetric.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="150" selection-end="150" vertical-scroll-proportion="0.20869565">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/ChebyshevDistanceMetric.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="150" selection-end="150" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/network/BasicSquareGridSOM.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="7" selection-start="4021" selection-end="4021" vertical-scroll-proportion="3.2608695">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/network/BasicHexGridSOM.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="75" column="19" selection-start="1848" selection-end="1848" vertical-scroll-proportion="1.2869565">
@@ -820,23 +801,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java">
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="71" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
+        <state line="15" column="2" selection-start="522" selection-end="522" vertical-scroll-proportion="0.39130434">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java">
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="2" selection-start="522" selection-end="522" vertical-scroll-proportion="0.0">
+        <state line="14" column="71" selection-start="593" selection-end="593" vertical-scroll-proportion="0.24347825">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/DistanceMetric.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/GridType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="84" selection-end="84" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="3" selection-start="432" selection-end="432" vertical-scroll-proportion="0.26086956">
+        <state line="5" column="3" selection-start="97" selection-end="428" vertical-scroll-proportion="0.13043478">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="3" selection-start="414" selection-end="414" vertical-scroll-proportion="0.26086956">
           <folding />
         </state>
       </provider>

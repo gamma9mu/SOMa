@@ -2,6 +2,13 @@ package cs437.som;
 
 /**
  * Learning rate strategy for self-organizing maps.
+ *
+ * Implementations of this interface are intended to define the learning rate
+ * used to scale the adaptation of a neuron in an SOM.  Once an object of an
+ * implementing class is given to an SOM, that SOM assumes control of that
+ * object.  It should not be given to multiple SOMs or modified once it has
+ * been handed to an SOM.
+ * 
  */
 public interface LearningRateFunction {
 
