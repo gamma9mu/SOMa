@@ -1,0 +1,47 @@
+package cs437.som.demo;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+/**
+* A simple frame for displaying a square image, scaled to 400x400 in a window.
+*/
+class ImageFrame extends JFrame {
+    private static final int IMAGE_DIMENSION = 400;
+    private static final int FRAME_DIMENSION = 420;
+    Image image;
+
+    public ImageFrame(String title, BufferedImage image) {
+        super(title);
+        this.image = image.getScaledInstance(IMAGE_DIMENSION, IMAGE_DIMENSION,
+                Image.SCALE_DEFAULT);
+        setSize(FRAME_DIMENSION, FRAME_DIMENSION);
+        setLocation(0, 0);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public ImageFrame(String title, BufferedImage image, int x, int y) {
+        super(title);
+        this.image = image.getScaledInstance(IMAGE_DIMENSION, IMAGE_DIMENSION,
+                Image.SCALE_DEFAULT);
+        setSize(FRAME_DIMENSION, FRAME_DIMENSION);
+        setLocation(x, y);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setVisible(true);
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.drawImage(image, 0, 0, IMAGE_DIMENSION, IMAGE_DIMENSION, this);
+    }
+
+    @Override
+    public boolean imageUpdate(Image img, int infoflags, int x, int y, int w, int h) {
+        return (infoflags & ALLBITS) != 0;
+    }
+
+    @Override public String toString() { return "ImageFrame"; }
+}

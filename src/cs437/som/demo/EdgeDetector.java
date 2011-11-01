@@ -1,0 +1,261 @@
+package cs437.som.demo;
+
+import cs437.som.network.BasicHexGridSOM;
+import cs437.som.SelfOrganizingMap;
+import cs437.som.network.BasicSquareGridSOM;
+
+import javax.imageio.ImageIO;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * An image edge detector using a self-organizing map.
+ */
+public class EdgeDetector {
+    private Logger log = Logger.getLogger("EdgeDetector");
+    private SelfOrganizingMap map = null;
+
+    private static final int threeRaiseNine = 19683;
+    private static final int possibleColors = 33554431; /* 2 ** 25 - 1 */
+
+    private EdgeDetector(int size, int iterations, boolean useHex) {
+        if (useHex)
+            map = new BasicHexGridSOM(size, 9, iterations);
+        else
+            map = new BasicSquareGridSOM(size, 9, iterations);
+    }
+
+    private void trainWithRandomPermutations(int n) {
+        int[][] matrices = generateRandomPermutations(n);
+        log.info("Training.");
+        for (int[] matrix : matrices) {
+            map.trainWith(matrix);
+        }
+    }
+
+    private int[][] generateRandomPermutations(int n) {
+        int[][] permutations = new int[n][9];
+        Random r = new SecureRandom();
+
+        log.info("Generating " + n + " random matrices.");
+        for (int i = 0; i < permutations.length; i++) {
+            permutations[i] = new int[] {
+                    r.nextInt(3) - 1, r.nextInt(3) - 1, r.nextInt(3) - 1,
+                    r.nextInt(3) - 1, r.nextInt(3) - 1, r.nextInt(3) - 1,
+                    r.nextInt(3) - 1, r.nextInt(3) - 1, r.nextInt(3) - 1
+            };
+        }
+
+        return permutations;
+    }
+
+    private void trainExhaustively() {
+        int[][] matrices = generateAllPermutations();
+        log.info("Training.");
+        for (int[] matrix : matrices) {
+            map.trainWith(matrix);
+        }
+    }
+
+    private int[][] generateAllPermutations() {
+        int[] possibleValues  = { -1, 0, 1 };
+
+        log.info("Creating " + threeRaiseNine + " (all possible) matrices.");
+
+        int[][] permutations = new int[threeRaiseNine][9];
+        int row = 0;
+        for (int possibleValue0 : possibleValues) {
+            int[] temp = {possibleValue0, 0, 0, 0, 0, 0, 0, 0, 0};
+            for (int possibleValue1 : possibleValues) {
+                temp[1] = possibleValue1;
+                for (int possibleValue2 : possibleValues) {
+                    temp[2] = possibleValue2;
+                    for (int possibleValue3 : possibleValues) {
+                        temp[3] = possibleValue3;
+                        for (int possibleValue4 : possibleValues) {
+                            temp[4] = possibleValue4;
+                            for (int possibleValue5 : possibleValues) {
+                                temp[5] = possibleValue5;
+                                for (int possibleValue6 : possibleValues) {
+                                    temp[6] = possibleValue6;
+                                    for (int possibleValue7 : possibleValues) {
+                                        temp[7] = possibleValue7;
+                                        for (int possibleValue8 : possibleValues) {
+                                            temp[8] = possibleValue8;
+                                            System.arraycopy(temp, 0, permutations[row], 0, 9);
+                                            row++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return permutations;
+    }
+
+    public BufferedImage runOnImage(BufferedImage image) {
+        int height = image.getHeight();
+        int width = image.getWidth();
+
+        log.info("Processing " + width + "x" + height + " image.");
+
+        BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        int colorStep = possibleColors / map.getNeuronCount();
+
+        for (int y = 1; y < height; y++) {
+            for (int x = 1; x < width; x++) {
+                int[] differenceMatrix = getDifferenceMatrix(image, x, y);
+                int best = map.getBestMatchingNeuron(differenceMatrix);
+                out.setRGB(x, y, colorStep * best);
+            }
+        }
+
+        return out;
+    }
+
+    public BufferedImage normalizeImage(BufferedImage image) {
+        int neurons = map.getNeuronCount();
+        Map<Integer, Integer> colorFrequency = new HashMap<Integer, Integer>(neurons * neurons);
+
+        log.info("Normalizing.");
+        log.fine("Computing color frequencies.");
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int color = image.getRGB(x, y);
+                if (colorFrequency.containsKey(color))
+                    colorFrequency.put(color, colorFrequency.get(color) + 1);
+                else
+                    colorFrequency.put(color, 1);
+            }
+        }
+
+        log.fine("Finding most common color.");
+        int mostCommonColor = -1;
+        int max = 0;
+        for (Integer integer : colorFrequency.keySet()) {
+            int count = colorFrequency.get(integer);
+            if (count > max) {
+                max = count;
+                mostCommonColor = integer;
+            }
+        }
+
+        log.fine("Rewriting colors.");
+        BufferedImage out = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        int black = Color.black.getRGB();
+        int white = Color.white.getRGB();
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int color = image.getRGB(x, y);
+                if (color == mostCommonColor)
+                    out.setRGB(x, y, black);
+                else
+                    out.setRGB(x, y, white);
+            }
+        }
+
+        return out;
+    }
+
+    public void writeImage(BufferedImage image, String filename) {
+        try {
+            ImageIO.write(image, "png", new File(filename + ".png"));
+        } catch (IOException e) {
+            log.severe("Exception while writing file: " + filename + ".png");
+            log.log(Level.SEVERE, "Exception: ", e);
+        }
+    }
+
+    private int[] getDifferenceMatrix(BufferedImage img, int x, int y) {
+        int[] matrix = new int[9];
+
+        int center = getPixelColor(img, x, y);
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                int pixel = getPixelColor(img, x + j - 1, y + i - 1);
+                if (pixel == -1) {
+                    matrix[i * 3 + j] = -1;
+                } else {
+                    double difference = colorDistance(center, pixel);
+                    if (difference < 60) {
+                        matrix[i * 3 + j] = 0;
+                    } else {
+                        matrix[i * 3 + j] = 1;
+                    }
+                }
+            }
+        }
+
+        return matrix;
+    }
+
+    private int getPixelColor(BufferedImage image, int x, int y) {
+        if (x < 0 || x > image.getWidth() - 1 || y < 0 || y > image.getHeight() - 1)
+            return -1;
+        return image.getRGB(x, y);
+    }
+
+    private double colorDistance(int one, int two) {
+        int r1 = (one >> 16) & 0xFF, g1 = (one >> 8) & 0xFF, b1 = one & 0xFF;
+        int r2 = (two >> 16) & 0xFF, g2 = (two >> 8) & 0xFF, b2 = two & 0xFF;
+        int dr = r1 - r2, dg = g1 - g2, db = b1 - b2;
+        return Math.sqrt(dr * dr + dg * dg + db * db);
+    }
+
+    @Override
+    public String toString() {
+        return "EdgeDetector{map=" + map + '}';
+    }
+
+    public static EdgeDetector edgeDetectorTrainedWithRandomData(int mapSize, int numberOfmatrices) {
+        EdgeDetector ed = new EdgeDetector(mapSize, numberOfmatrices, false);
+        ed.trainWithRandomPermutations(numberOfmatrices);
+        return ed;
+    }
+
+    public static EdgeDetector edgeDetectorExhaustivelyTrained(int mapSize) {
+        EdgeDetector ed = new EdgeDetector(mapSize, threeRaiseNine, false);
+        ed.trainExhaustively();
+        return ed;
+    }
+
+    public static EdgeDetector edgeDetectorHexTrainedWithRandomData(int mapSize, int numberOfmatrices) {
+        EdgeDetector ed = new EdgeDetector(mapSize, numberOfmatrices, true);
+        ed.trainWithRandomPermutations(numberOfmatrices);
+        return ed;
+    }
+
+    public static EdgeDetector edgeDetectorHexExhaustivelyTrained(int mapSize) {
+        EdgeDetector ed = new EdgeDetector(mapSize, threeRaiseNine, true);
+        ed.trainExhaustively();
+        return ed;
+    }
+
+    public static void main(String[] args) throws IOException {
+        EdgeDetector ed = EdgeDetector.edgeDetectorExhaustivelyTrained(10);
+
+        BufferedImage original = ImageIO.read(new File("image.jpg"));
+        BufferedImage detected = ed.runOnImage(original);
+
+        ed.writeImage(detected, "out");
+
+        BufferedImage normalized = ed.normalizeImage(detected);
+        ed.writeImage(normalized, "out_normalized");
+
+        new ImageFrame("Reference Image", ImageIO.read(new File("known_edges.jpg")), 0, 0);
+        new ImageFrame("Processed Image", detected, 500, 0);
+        new ImageFrame("Normalized Image", normalized, 1000, 0);
+    }
+}
