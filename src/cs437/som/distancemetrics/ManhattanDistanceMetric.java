@@ -5,18 +5,19 @@ import cs437.som.SOMError;
 
 /**
  * Manhattan distance strategy.
+ *
+ * The Manhattan distance of 2 vectors is the sum of the absolute values of the
+ * differences of the individual components of the 2 vectors.
+ *
+ * The exact behavior follows the formula:
+ *      for v_1, v_2 \in \mathbb{R}^n
+ *      \sum_{i=1}^{n}|v_{1_i}-v_{2_i}|
+ *
  */
 public class ManhattanDistanceMetric implements DistanceMetric {
 
     /**
      * Calculate the Manhattan distance between 2 vectors.
-     *
-     * The Euclidean distance of 2 vectors is the square root of the sum of the
-     * squares of the differences of the individual components of the 2 vectors.
-     *
-     * In LaTeX:
-     *      for v_1, v_2 \in \mathbb{R}^n
-     *      \sum_{i=1}^{n}|v_{1_i}-v_{2_i}|
      *
      * @param v0 The first vector.
      * @param v1 The second vector.

@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="01ad1654-7ad2-4538-b034-40c27cc52f78" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/distancemetrics/ChebyshevDistanceMetric.java" afterPath="$PROJECT_DIR$/src/cs437/som/distancemetrics/ChebyshevDistanceMetric.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/distancemetrics/ManhattanDistanceMetric.java" afterPath="$PROJECT_DIR$/src/cs437/som/distancemetrics/ManhattanDistanceMetric.java" />
     </list>
     <ignored path="Self-organizing_Map.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,19 +67,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ChebyshevDistanceMetric.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/ChebyshevDistanceMetric.java">
+      <file leaf-file-name="ExponentialDecayNeighborhoodWidth.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/ExponentialDecayNeighborhoodWidth.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="12" selection-start="339" selection-end="339" vertical-scroll-proportion="0.31304348">
+            <state line="9" column="54" selection-start="299" selection-end="299" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ExponentialDecayNeighborhoodWidth.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/ExponentialDecayNeighborhoodWidth.java">
+      <file leaf-file-name="ManhattanDistanceMetric.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/ManhattanDistanceMetric.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="54" selection-start="299" selection-end="299" vertical-scroll-proportion="0.0">
+            <state line="9" column="3" selection-start="219" selection-end="219" vertical-scroll-proportion="0.2347826">
               <folding />
             </state>
           </provider>
@@ -99,8 +99,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/cs437/som/network/BasicHexGridSOM.java" />
-        <option value="$PROJECT_DIR$/src/cs437/som/network/NetworkBase.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/network/BasicSquareGridSOM.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/network/BasicPlanarSOM.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/ExponentialDecayNeighborhoodWidth.java" />
@@ -115,6 +113,8 @@
         <option value="$PROJECT_DIR$/src/cs437/som/SOMError.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/topology/SkewHexagonalGrid.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/distancemetrics/ChebyshevDistanceMetric.java" />
+        <option value="$PROJECT_DIR$/src/cs437/som/distancemetrics/EuclideanDistanceMetric.java" />
+        <option value="$PROJECT_DIR$/src/cs437/som/distancemetrics/ManhattanDistanceMetric.java" />
       </list>
     </option>
   </component>
@@ -708,7 +708,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve documentation of DistanceMetric interface." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve documentation of Euclidean distance strategy." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -733,6 +733,8 @@
     <MESSAGE value="Improve documentation of LearningRateFunction interface." />
     <MESSAGE value="Improve documentation of GridType interface." />
     <MESSAGE value="Improve documentation of DistanceMetric interface." />
+    <MESSAGE value="Improve documentation of Chebyshev distance strategy." />
+    <MESSAGE value="Improve documentation of Euclidean distance strategy." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -742,20 +744,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/ConstantNeighborhoodWidthFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="34" selection-start="117" selection-end="117" vertical-scroll-proportion="0.13489209">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/HyperbolicNeighborhoodWidthFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="512" selection-end="512" vertical-scroll-proportion="0.4173913">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/LinearDecayNeighborhoodWidthFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="47" selection-start="431" selection-end="431" vertical-scroll-proportion="0.33913043">
@@ -840,6 +828,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/ChebyshevDistanceMetric.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="12" selection-start="339" selection-end="339" vertical-scroll-proportion="0.31304348">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/EuclideanDistanceMetric.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="373" selection-end="373" vertical-scroll-proportion="0.33913043">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/ExponentialDecayNeighborhoodWidth.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="54" selection-start="299" selection-end="299" vertical-scroll-proportion="0.0">
@@ -847,9 +849,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/ChebyshevDistanceMetric.java">
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/ManhattanDistanceMetric.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="12" selection-start="339" selection-end="339" vertical-scroll-proportion="0.31304348">
+        <state line="9" column="3" selection-start="219" selection-end="219" vertical-scroll-proportion="0.2347826">
           <folding />
         </state>
       </provider>
