@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="01ad1654-7ad2-4538-b034-40c27cc52f78" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java" afterPath="$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java" afterPath="$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java" />
     </list>
     <ignored path="Self-organizing_Map.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,10 +76,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GaussianNeighborhoodWidthFunction.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="GaussianNeighborhoodWidthFunction.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="2" selection-start="522" selection-end="522" vertical-scroll-proportion="0.39130434">
+            <state line="15" column="2" selection-start="522" selection-end="522" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NeightborhoodWidthFunction.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="3" selection-start="432" selection-end="432" vertical-scroll-proportion="0.26086956">
               <folding />
             </state>
           </provider>
@@ -99,7 +108,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/cs437/som/network/CustomizableSOM.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/demo/EdgeDetectionRunner.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/demo/EdgeDetector.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/SOMError.java" />
@@ -115,6 +123,7 @@
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/LinearDecayNeighborhoodWidthFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java" />
+        <option value="$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java" />
       </list>
     </option>
   </component>
@@ -204,24 +213,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="cs437.som" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Self-organizing_Map" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Self-organizing_Map" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cs437.som" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="neighborhood" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -708,7 +699,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add formula comment to Ricker wavelet NW class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update terminology in Gaussian NW: 'width' -&gt; 'standard deviation'." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -728,6 +719,7 @@
     <MESSAGE value="Fix lin. decay NW comment." />
     <MESSAGE value="Add formula comment to gaussian NW class." />
     <MESSAGE value="Add formula comment to Ricker wavelet NW class." />
+    <MESSAGE value="Update terminology in Gaussian NW: 'width' -&gt; 'standard deviation'." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -737,13 +729,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/ManhattanDistanceMetric.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="150" selection-end="150" vertical-scroll-proportion="0.20869565">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/distancemetrics/EuclideanDistanceMetric.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="13" selection-start="150" selection-end="150" vertical-scroll-proportion="0.20869565">
@@ -844,7 +829,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="2" selection-start="522" selection-end="522" vertical-scroll-proportion="0.39130434">
+        <state line="15" column="2" selection-start="522" selection-end="522" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="3" selection-start="432" selection-end="432" vertical-scroll-proportion="0.26086956">
           <folding />
         </state>
       </provider>
