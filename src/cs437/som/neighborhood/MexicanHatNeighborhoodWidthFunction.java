@@ -7,6 +7,15 @@ import cs437.som.NeightborhoodWidthFunction;
  * by the so called "Mexican Hat" function (also, the Ricker wavelet or
  * negative normalized second derivative of a Gaussian), centered at 0 and
  * parametrized by the standard deviation.
+ *
+ * The exact behavior follows the formula:
+ *      \frac{2}{\sqrt{3 \sigma} \pi^{\frac{1}{4}}}
+ *      e^{\frac{-t^2}{2 \sigma^2}} (1 - \frac{t^2}{\sigma^2})
+ *  where
+ *      \sigma  is the standard deviation of the corresponding Gaussian
+ *      e       is the base of the natural logarithm
+ *      t       is the current iteration
+ *
  */
 public class MexicanHatNeighborhoodWidthFunction implements NeightborhoodWidthFunction {
     static final double oneFourth = 0.25;
