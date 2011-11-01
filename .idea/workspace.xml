@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="01ad1654-7ad2-4538-b034-40c27cc52f78" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/GridType.java" afterPath="$PROJECT_DIR$/src/cs437/som/GridType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/DistanceMetric.java" afterPath="$PROJECT_DIR$/src/cs437/som/DistanceMetric.java" />
     </list>
     <ignored path="Self-organizing_Map.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,19 +67,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DistanceMetric.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DistanceMetric.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cs437/som/DistanceMetric.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="17" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GridType.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/cs437/som/GridType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="3" selection-start="321" selection-end="321" vertical-scroll-proportion="0.20869565">
+            <state line="10" column="3" selection-start="405" selection-end="405" vertical-scroll-proportion="0.2669039">
               <folding />
             </state>
           </provider>
@@ -99,7 +90,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/cs437/som/SOMError.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/network/SimpleSOM.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/SelfOrganizingMap.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/learningrate/ConstantLearningRateFunction.java" />
@@ -115,6 +105,7 @@
         <option value="$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/LearningRateFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/GridType.java" />
+        <option value="$PROJECT_DIR$/src/cs437/som/DistanceMetric.java" />
       </list>
     </option>
   </component>
@@ -690,7 +681,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve documentation of LearningRateFunction interface." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve documentation of GridType interface." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -713,6 +704,7 @@
     <MESSAGE value="Update terminology in Gaussian NW: 'width' -&gt; 'standard deviation'." />
     <MESSAGE value="Improve documentation of NeighborhoodWidthFunction interface." />
     <MESSAGE value="Improve documentation of LearningRateFunction interface." />
+    <MESSAGE value="Improve documentation of GridType interface." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -806,13 +798,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/DistanceMetric.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/NeightborhoodWidthFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="3" selection-start="97" selection-end="428" vertical-scroll-proportion="0.13043478">
@@ -830,6 +815,13 @@
     <entry file="file://$PROJECT_DIR$/src/cs437/som/GridType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="3" selection-start="321" selection-end="321" vertical-scroll-proportion="0.20869565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/DistanceMetric.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="3" selection-start="405" selection-end="405" vertical-scroll-proportion="0.2669039">
           <folding />
         </state>
       </provider>
