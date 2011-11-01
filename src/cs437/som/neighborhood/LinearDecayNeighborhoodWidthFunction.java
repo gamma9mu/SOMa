@@ -10,7 +10,6 @@ import cs437.som.NeightborhoodWidthFunction;
  *      w_i * (1 - (-t / t_max))
  *  where
  *      w_i   is the initial width of the neighborhood
- *      e     is the base of the natural logarithm
  *      t     is the current iteration
  *      t_max is the maximum expected iteration
  */
