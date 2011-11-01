@@ -4,9 +4,16 @@ import cs437.som.NeightborhoodWidthFunction;
 
 /**
  * Hyperbolic neighborhood width strategy for self-organizing map.
+ *
+ * The exact behavior follows the formula:
+ *      w_i / (t + t_max)
+ *  where
+ *      w_i   is the initial width of the neighborhood
+ *      t     is the current iteration
+ *      t_max is the maximum expected iteration
  */
 public class HyperbolicNeighborhoodWidthFunction implements NeightborhoodWidthFunction {
-    private double expectedIterations;
+    private double expectedIterations = 0.0;
 
     public void setExpectedIterations(int expectedIterations) {
         this.expectedIterations = expectedIterations;
