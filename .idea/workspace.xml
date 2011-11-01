@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="01ad1654-7ad2-4538-b034-40c27cc52f78" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java" afterPath="$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java" afterPath="$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java" />
     </list>
     <ignored path="Self-organizing_Map.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,10 +67,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MexicanHatNeighborhoodWidthFunction.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MexicanHatNeighborhoodWidthFunction.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="71" selection-start="593" selection-end="593" vertical-scroll-proportion="0.24347825">
+            <state line="14" column="71" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GaussianNeighborhoodWidthFunction.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="2" selection-start="522" selection-end="522" vertical-scroll-proportion="0.39130434">
               <folding />
             </state>
           </provider>
@@ -104,8 +113,8 @@
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/ExponentialDecayNeighborhoodWidth.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/HyperbolicNeighborhoodWidthFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/LinearDecayNeighborhoodWidthFunction.java" />
-        <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java" />
         <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java" />
+        <option value="$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java" />
       </list>
     </option>
   </component>
@@ -699,7 +708,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add formula comment to gaussian NW class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add formula comment to Ricker wavelet NW class." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -718,6 +727,7 @@
     <MESSAGE value="Add formula comment to hyperbolic NW class." />
     <MESSAGE value="Fix lin. decay NW comment." />
     <MESSAGE value="Add formula comment to gaussian NW class." />
+    <MESSAGE value="Add formula comment to Ricker wavelet NW class." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -818,13 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="3" selection-start="257" selection-end="518" vertical-scroll-proportion="0.07826087">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/LinearDecayNeighborhoodWidthFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="47" selection-start="431" selection-end="431" vertical-scroll-proportion="0.33913043">
@@ -834,7 +837,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/MexicanHatNeighborhoodWidthFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="71" selection-start="593" selection-end="593" vertical-scroll-proportion="0.24347825">
+        <state line="14" column="71" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs437/som/neighborhood/GaussianNeighborhoodWidthFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="2" selection-start="522" selection-end="522" vertical-scroll-proportion="0.39130434">
           <folding />
         </state>
       </provider>
