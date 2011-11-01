@@ -6,6 +6,14 @@ import cs437.som.NeightborhoodWidthFunction;
  * Neighborhood width strategy for self-organizing maps that decays the width
  * by the Gaussian function, centered at 0 and parametrized by the standard
  * deviation.
+ *
+ * The exact behavior follows the formula:
+ *      \frac{1}{\sigma \sqrt{2 \pi}} e^{\frac{t^2}{2\sigma^2}}
+ *  where
+ *      \sigma is the initial width of the neighborhood
+ *      e      is the base of the natural logarithm
+ *      t      is the current iteration
+ *
  */
 public class GaussianNeighborhoodWidthFunction implements NeightborhoodWidthFunction {
     private final double stdDeviation;
