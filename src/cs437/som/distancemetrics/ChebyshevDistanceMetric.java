@@ -5,18 +5,19 @@ import cs437.som.SOMError;
 
 /**
  * Chebyshev distance strategy.
+ *
+ * The Chebyshev distance of 2 vectors is the maximum of the absolute value of
+ * the differences of the individual components of the 2 vectors.
+ *
+ * The exact behavior follows the formula:
+ *      for v_1, v_2 \in \mathbb{R}^n
+ *      \max|v_{1_i} - v_{2_i}|, i=1..n
+ *
  */
 public class ChebyshevDistanceMetric implements DistanceMetric {
 
     /**
      * Calculate the Chebyshev distance between 2 vectors.
-     *
-     * The Euclidean distance of 2 vectors is the square root of the sum of the
-     * squares of the differences of the individual components of the 2 vectors.
-     *
-     * In LaTeX:
-     *      for v_1, v_2 \in \mathbb{R}^n
-     *      \max|v_{1_i}-v_{2_i}|, i=1..n
      *
      * @param v0 The first vector.
      * @param v1 The second vector.
