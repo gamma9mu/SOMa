@@ -5,7 +5,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       </element>
-      <element id="module-output" name="Self-organizing_Map" />
+      <element id="module-output" name="SOMa" />
     </root>
   </artifact>
 </component>

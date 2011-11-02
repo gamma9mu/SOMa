@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Self-organizing_Map.iml" filepath="$PROJECT_DIR$/Self-organizing_Map.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SOMa.iml" filepath="$PROJECT_DIR$/SOMa.iml" />
     </modules>
   </component>
 </project>
