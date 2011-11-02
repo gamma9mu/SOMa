@@ -16,18 +16,32 @@ public class ExponentialDecayNeighborhoodWidth {
     private final double initialNeighborhoodWidth;
     private double expectedIterations = 0.0;
 
+    /**
+     * Create an exponentially decaying neighborhood width function.
+     *
+     * @param initialWidth The initial width of the neighborhood.
+     */
     public ExponentialDecayNeighborhoodWidth(double initialWidth) {
         initialNeighborhoodWidth = initialWidth;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setExpectedIterations(int expectedIterations) {
         this.expectedIterations = expectedIterations;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public double neighborhoodWidth(int iteration) {
         return initialNeighborhoodWidth * Math.exp(-iteration / expectedIterations);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "ExponentialDecayNeighborhoodWidth";

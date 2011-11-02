@@ -15,14 +15,23 @@ import cs437.som.NeightborhoodWidthFunction;
 public class HyperbolicNeighborhoodWidthFunction implements NeightborhoodWidthFunction {
     private double expectedIterations = 0.0;
 
+    /**
+     * {@inheritDoc}
+     */
     public void setExpectedIterations(int expectedIterations) {
         this.expectedIterations = expectedIterations;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public double neighborhoodWidth(int iteration) {
         return expectedIterations / (expectedIterations + iteration);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "HyperbolicNeighborhoodWidthFunction";

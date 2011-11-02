@@ -18,18 +18,30 @@ import cs437.som.NeightborhoodWidthFunction;
  *
  */
 public class MexicanHatNeighborhoodWidthFunction implements NeightborhoodWidthFunction {
-    static final double oneFourth = 0.25;
+    private static final double oneFourth = 0.25;
     private final double coefficient;
     private final double variance;
 
+    /**
+     * Create a neighborhood width function based on the "Maexican Hat" function.
+     *
+     * @param standardDeviation The standard deviation of the corresponding
+     * Gaussian function.
+     */
     public MexicanHatNeighborhoodWidthFunction(double standardDeviation) {
         coefficient = 2 / (Math.sqrt(3 * standardDeviation) * Math.pow(Math.PI, oneFourth));
         variance = standardDeviation * standardDeviation;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setExpectedIterations(int expectedIterations) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public double neighborhoodWidth(int iteration) {
         double i2 = (double) iteration * iteration;
         return coefficient *
@@ -37,6 +49,9 @@ public class MexicanHatNeighborhoodWidthFunction implements NeightborhoodWidthFu
                 (1 - (i2 / variance));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "MexicanHatNeighborhoodWidthFunction";

@@ -19,19 +19,33 @@ public class GaussianNeighborhoodWidthFunction implements NeightborhoodWidthFunc
     private final double stdDeviation;
     private final double coefficient;
 
+    /**
+     * Create a Gaussian neighborhood width function.
+     *
+     * @param standardDeviation The standard deviation of the Gaussian curve.
+     */
     public GaussianNeighborhoodWidthFunction(double standardDeviation) {
         stdDeviation = standardDeviation;
         coefficient = 1 / (stdDeviation * Math.sqrt(2 * Math.PI));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setExpectedIterations(int expectedIterations) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public double neighborhoodWidth(int iteration) {
         return coefficient *
                 Math.exp((iteration * iteration) / (2 * stdDeviation * stdDeviation));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "GaussianNeighborhoodWidthFunction";

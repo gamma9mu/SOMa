@@ -17,18 +17,32 @@ public class LinearDecayNeighborhoodWidthFunction implements NeightborhoodWidthF
     private final double initialNeighborhoodWidth;
     private double expectedIterations = 0.0;
 
+    /**
+     * Create a neighborhood width function that decays linearly.
+     *
+     * @param initialWidth The initial width of the neighborhood.
+     */
     public LinearDecayNeighborhoodWidthFunction(double initialWidth) {
         initialNeighborhoodWidth = initialWidth;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setExpectedIterations(int expectedIterations) {
         this.expectedIterations = expectedIterations;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public double neighborhoodWidth(int iteration) {
         return initialNeighborhoodWidth * (1.0 - (iteration / expectedIterations));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "LinearDecayNeighborhoodWidthFunction";
