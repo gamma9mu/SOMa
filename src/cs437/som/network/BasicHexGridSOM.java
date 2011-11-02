@@ -34,12 +34,8 @@ public class BasicHexGridSOM extends NetworkBase {
     private int gridSize;
 
     public BasicHexGridSOM(int gridSize, int inputVectorSize, int expectedIterations) {
-        super(inputVectorSize, gridSize * gridSize, expectedIterations);
+        super(inputVectorSize, gridSize * gridSize, expectedIterations, gridSize);
         this.gridSize = gridSize;
-    }
-
-    public int getGridSize() {
-        return gridSize;
     }
 
     /**

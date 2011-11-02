@@ -20,6 +20,7 @@ public abstract class NetworkBase implements SelfOrganizingMap {
     protected int expectedIterations;
 
     protected double[][] weightMatrix;
+    protected int gridSize;
 
     /**
      * Constructs the common functionality for SOMs.
@@ -27,14 +28,16 @@ public abstract class NetworkBase implements SelfOrganizingMap {
      * @param inputVectorSize The length of expected input vectors
      * @param neuronCount The number of neurons the map will contain.
      * @param expectedIterations The expected count of iterations for training.
+     * @param gridSize The neuron grid dimensions.
      */
-    protected NetworkBase(int inputVectorSize, int neuronCount, int expectedIterations) {
+    protected NetworkBase(int inputVectorSize, int neuronCount, int expectedIterations, int gridSize) {
         this.inputVectorSize = inputVectorSize;
         this.neuronCount = neuronCount;
         this.expectedIterations = expectedIterations;
 
         weightMatrix = new double[neuronCount][inputVectorSize];
         initialize();
+        this.gridSize = gridSize;
     }
 
     /**
@@ -260,5 +263,14 @@ public abstract class NetworkBase implements SelfOrganizingMap {
                 ", expectedIterations=" + expectedIterations +
                 ", weightMatrix=" + weightString() +
                 '}';
+    }
+
+    /**
+     * Get the neuron grid dimensions. (Will be changed to 2 dimensions)
+     *
+     * @return The size of one side of a square grid.
+     */
+    public int getGridSize() {
+        return gridSize;
     }
 }

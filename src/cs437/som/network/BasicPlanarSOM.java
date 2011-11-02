@@ -34,7 +34,7 @@ import java.util.Random;
 public class BasicPlanarSOM extends NetworkBase {
 
     public BasicPlanarSOM(int neuronCount, int inputVectorSize, int expectedIterations) {
-        super(inputVectorSize, neuronCount, expectedIterations);
+        super(inputVectorSize, neuronCount, expectedIterations, neuronCount);
     }
 
     /**

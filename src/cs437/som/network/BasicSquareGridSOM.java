@@ -32,15 +32,9 @@ import java.util.Random;
  */
 @SuppressWarnings({"UseOfSystemOutOrSystemErr"})
 public class BasicSquareGridSOM extends NetworkBase {
-    private int gridSize;
 
     public BasicSquareGridSOM(int gridSize, int inputVectorSize, int expectedIterations) {
-        super(inputVectorSize, gridSize * gridSize, expectedIterations);
-        this.gridSize = gridSize;
-    }
-
-    public int getGridSize() {
-        return gridSize;
+        super(inputVectorSize, gridSize * gridSize, expectedIterations, gridSize);
     }
 
     /**
