@@ -20,12 +20,31 @@ import java.util.logging.Logger;
  * An image edge detector using a self-organizing map.
  */
 public class EdgeDetector {
+    /** The minimum distance between 2 colors to classify as a change in detail */
+    private static final int MINIMUM_COLOR_DISTANCE = 60;
+
+    /** Better than stdout... */
     private Logger log = Logger.getLogger("EdgeDetector");
+
+    /** The ED's SOM */
     private SelfOrganizingMap map = null;
 
+    /** The number of possible 3x3 matrices with each element having 3 possible
+     * values
+     */
     private static final int threeRaiseNine = 19683;
-    private static final int possibleColors = 33554431; /* 2 ** 25 - 1 */
 
+    /** The number of possible colors that can be stored in 24 bits (2^25 - 1) */
+    private static final int possibleColors = 33554431;
+
+    /**
+     * Create an edge detector.
+     *
+     * @param size The number of neurons to use in the self-organizing map.
+     * @param iterations The number of iterations used in training the SOM.
+     * @param useHex Whether to use an offset hexagonal grid in the SOM.  True
+     * means use a hexagonal grid and false means use a square grid.
+     */
     private EdgeDetector(int size, int iterations, boolean useHex) {
         if (useHex)
             map = new BasicHexGridSOM(size, 9, iterations);
@@ -33,6 +52,12 @@ public class EdgeDetector {
             map = new BasicSquareGridSOM(size, 9, iterations);
     }
 
+    /**
+     * Train the edge detector's self-organizing map with a random sample of
+     * the possible inputs it may see.
+     *
+     * @param n The number of sample inputs to use for training.
+     */
     private void trainWithRandomPermutations(int n) {
         int[][] matrices = generateRandomPermutations(n);
         log.info("Training.");
@@ -41,6 +66,13 @@ public class EdgeDetector {
         }
     }
 
+    /**
+     * Generate a random sampling of input matrices.
+     *
+     * @param n The number of samples to produce.
+     * @return An array (size n) of double[9], each of which represents a 3x3
+     * matrix in row major form.
+     */
     private int[][] generateRandomPermutations(int n) {
         int[][] permutations = new int[n][9];
         Random r = new SecureRandom();
@@ -57,6 +89,10 @@ public class EdgeDetector {
         return permutations;
     }
 
+    /**
+     * Train the edge detector's self-organizing map with every possible input
+     * matrix being shown to it once.
+     */
     private void trainExhaustively() {
         int[][] matrices = generateAllPermutations();
         log.info("Training.");
@@ -65,6 +101,12 @@ public class EdgeDetector {
         }
     }
 
+    /**
+     * Generate all possible input matrices.
+     *
+     * @return An array (size 19683, or 3^9) of double[9], each of which
+     * represents a 3x3 matrix in row major form.
+     */
     private int[][] generateAllPermutations() {
         int[] possibleValues  = { -1, 0, 1 };
 
@@ -104,6 +146,13 @@ public class EdgeDetector {
         return permutations;
     }
 
+    /**
+     * Detect the edges in an image.
+     *
+     * @param image The image to process.
+     * @return A new image where the pixels correspond to colors assigned to
+     * the individual neurons of the self-organizing map.
+     */
     public BufferedImage runOnImage(BufferedImage image) {
         int height = image.getHeight();
         int width = image.getWidth();
@@ -124,6 +173,23 @@ public class EdgeDetector {
         return out;
     }
 
+    /**
+     * Normalize an image produced in a previous processing.
+     *
+     * The most common color corresponds to the SOM's neuron that responds to a
+     * lack of an edge.  Whatever color that neuron was assigned is converted
+     * to black to serve as the background.  All other colors are converted to
+     * white.
+     *
+     * This operation is predicated on the idea that several neurons will
+     * respond to different features in the image that correspond to parts of
+     * an edge, whereas another single neuron will be most closely associated
+     * with a lack of an edge.
+     *
+     * @param image The image to normalize.
+     * @return A black and white image where the white pixels indicate an edge
+     * in the original image.
+     */
     public BufferedImage normalizeImage(BufferedImage image) {
         int neurons = map.getNeuronCount();
         Map<Integer, Integer> colorFrequency = new HashMap<Integer, Integer>(neurons * neurons);
@@ -168,6 +234,13 @@ public class EdgeDetector {
         return out;
     }
 
+    /**
+     * Write an image to a PNG file.
+     *
+     * @param image The image to store.
+     * @param filename The name of the file to write to (without the ".png"
+     * extension).
+     */
     public void writeImage(BufferedImage image, String filename) {
         try {
             ImageIO.write(image, "png", new File(filename + ".png"));
@@ -189,7 +262,7 @@ public class EdgeDetector {
                     matrix[i * 3 + j] = -1;
                 } else {
                     double difference = colorDistance(center, pixel);
-                    if (difference < 60) {
+                    if (difference < MINIMUM_COLOR_DISTANCE) {
                         matrix[i * 3 + j] = 0;
                     } else {
                         matrix[i * 3 + j] = 1;
@@ -201,12 +274,29 @@ public class EdgeDetector {
         return matrix;
     }
 
+    /**
+     * Retrieve the color of a single pixel in an image.
+     *
+     * @param image The image in question.
+     * @param x The x-axis location of the pixel.
+     * @param y The y-axis locatioj of the pixel.
+     * @return The color, as a 32-bit ARGB value, at (x, y) or -1 if that
+     * location would be outside of the boundaries of the image.
+     */
     private int getPixelColor(BufferedImage image, int x, int y) {
         if (x < 0 || x > image.getWidth() - 1 || y < 0 || y > image.getHeight() - 1)
             return -1;
         return image.getRGB(x, y);
     }
 
+    /**
+     * Calculate the Euclidean difference between two colors using their RGB
+     * values as elements of a 3-dimensional vector.
+     *
+     * @param one The first color as a 32-bit ARGB value.
+     * @param two The second color as a 32-bit ARGB value.
+     * @return The distance between one and two.
+     */
     private double colorDistance(int one, int two) {
         int r1 = (one >> 16) & 0xFF, g1 = (one >> 8) & 0xFF, b1 = one & 0xFF;
         int r2 = (two >> 16) & 0xFF, g2 = (two >> 8) & 0xFF, b2 = two & 0xFF;
@@ -219,24 +309,54 @@ public class EdgeDetector {
         return "EdgeDetector{map=" + map + '}';
     }
 
-    public static EdgeDetector edgeDetectorTrainedWithRandomData(int mapSize, int numberOfmatrices) {
-        EdgeDetector ed = new EdgeDetector(mapSize, numberOfmatrices, false);
-        ed.trainWithRandomPermutations(numberOfmatrices);
+    /**
+     * Convenience method to create an edge detector with a square grid map
+     * that has been trained with a random sampling of inputs.
+     *
+     * @param mapSize The number of neurons to size the map.
+     * @param numberOfMatrices The number of matrices to use in training the ED's map.
+     * @return The trained edge detector.
+     */
+    public static EdgeDetector edgeDetectorTrainedWithRandomData(int mapSize, int numberOfMatrices) {
+        EdgeDetector ed = new EdgeDetector(mapSize, numberOfMatrices, false);
+        ed.trainWithRandomPermutations(numberOfMatrices);
         return ed;
     }
 
+    /**
+     * Convenience method to create an edge detector with a square grid map
+     * that has been exhaustively trained.
+     *
+     * @param mapSize The number of neurons to size the map.
+     * @return The trained edge detector.
+     */
     public static EdgeDetector edgeDetectorExhaustivelyTrained(int mapSize) {
         EdgeDetector ed = new EdgeDetector(mapSize, threeRaiseNine, false);
         ed.trainExhaustively();
         return ed;
     }
 
-    public static EdgeDetector edgeDetectorHexTrainedWithRandomData(int mapSize, int numberOfmatrices) {
-        EdgeDetector ed = new EdgeDetector(mapSize, numberOfmatrices, true);
-        ed.trainWithRandomPermutations(numberOfmatrices);
+    /**
+     * Convenience method to create an edge detector with a hex grid map that
+     * has been trained with a random sampling of inputs.
+     *
+     * @param mapSize The number of neurons to size the map.
+     * @param numberOfMatrices The number of matrices to use in training the ED's map.
+     * @return The trained edge detector.
+     */
+    public static EdgeDetector edgeDetectorHexTrainedWithRandomData(int mapSize, int numberOfMatrices) {
+        EdgeDetector ed = new EdgeDetector(mapSize, numberOfMatrices, true);
+        ed.trainWithRandomPermutations(numberOfMatrices);
         return ed;
     }
 
+    /**
+     * Convenience method to create an edge detector with a hex grid map that
+     * has been exhaustively trained.
+     *
+     * @param mapSize The number of neurons to size the map.
+     * @return The trained edge detector.
+     */
     public static EdgeDetector edgeDetectorHexExhaustivelyTrained(int mapSize) {
         EdgeDetector ed = new EdgeDetector(mapSize, threeRaiseNine, true);
         ed.trainExhaustively();
