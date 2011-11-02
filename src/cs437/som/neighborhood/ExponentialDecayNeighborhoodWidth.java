@@ -1,9 +1,12 @@
 package cs437.som.neighborhood;
 
+import cs437.som.NeighborhoodWidthFunction;
+
 /**
  * Neighborhood width strategy for self-organizing maps that decays the width
  * exponentially as the iterations progress.
  *
+ * <pre>
  * The exact behavior follows the formula:
  *      w_i * e^(-t / t_max)
  *  where
@@ -11,8 +14,9 @@ package cs437.som.neighborhood;
  *      e     is the base of the natural logarithm
  *      t     is the current iteration
  *      t_max is the maximum expected iteration
+ * </pre>
  */
-public class ExponentialDecayNeighborhoodWidth {
+public class ExponentialDecayNeighborhoodWidth implements NeighborhoodWidthFunction {
     private final double initialNeighborhoodWidth;
     private double expectedIterations = 0.0;
 

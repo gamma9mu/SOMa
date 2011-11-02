@@ -82,9 +82,6 @@ public class BasicHexGridSOM extends NetworkBase implements SelfOrganizingMap {
     private static final int iters = 500;
     private static final int iterDelay = 20; /* ms */
 
-    /**
-     * {@inheritDoc}
-     */
     public static void main(String[] args) {
         SelfOrganizingMap som = new BasicHexGridSOM(7, 2, iters);
         Random r = new SecureRandom();

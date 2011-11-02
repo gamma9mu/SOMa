@@ -1,6 +1,6 @@
 package cs437.som.neighborhood;
 
-import cs437.som.NeightborhoodWidthFunction;
+import cs437.som.NeighborhoodWidthFunction;
 
 /**
  * Neighborhood width strategy for self-organizing maps that decays the width
@@ -8,6 +8,7 @@ import cs437.som.NeightborhoodWidthFunction;
  * negative normalized second derivative of a Gaussian), centered at 0 and
  * parametrized by the standard deviation.
  *
+ * <pre>
  * The exact behavior follows the formula:
  *      \frac{2}{\sqrt{3 \sigma} \pi^{\frac{1}{4}}}
  *      e^{\frac{-t^2}{2 \sigma^2}} (1 - \frac{t^2}{\sigma^2})
@@ -15,9 +16,9 @@ import cs437.som.NeightborhoodWidthFunction;
  *      \sigma  is the standard deviation of the corresponding Gaussian
  *      e       is the base of the natural logarithm
  *      t       is the current iteration
- *
+ * </pre>
  */
-public class MexicanHatNeighborhoodWidthFunction implements NeightborhoodWidthFunction {
+public class MexicanHatNeighborhoodWidthFunction implements NeighborhoodWidthFunction {
     private static final double oneFourth = 0.25;
     private final double coefficient;
     private final double variance;

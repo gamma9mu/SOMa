@@ -23,7 +23,7 @@ public class CustomizableSOM implements SelfOrganizingMap {
 
     DistanceMetric distanceMetricStrategy = new EuclideanDistanceMetric();
     LearningRateFunction learningRateFunctionStrategy = new ConstantLearningRateFunction(0.1);
-    NeightborhoodWidthFunction neightborhoodWidthFunctionStrategy = new ConstantNeighborhoodWidthFunction(1.0);
+    NeighborhoodWidthFunction neighborhoodWidthFunctionStrategy = new ConstantNeighborhoodWidthFunction(1.0);
     GridType gridTypeStrategy = new SquareGrid();
 
     public CustomizableSOM(int gridSize, int inputSize, int expectedIterations) {
@@ -53,10 +53,10 @@ public class CustomizableSOM implements SelfOrganizingMap {
         }
     }
 
-    public void setNeightborhoodWidthFunctionStrategy(NeightborhoodWidthFunction strategy) {
+    public void setNeighborhoodWidthFunctionStrategy(NeighborhoodWidthFunction strategy) {
         if (iterations == 0) {
-            neightborhoodWidthFunctionStrategy = strategy;
-            neightborhoodWidthFunctionStrategy.setExpectedIterations(expectedIterations);
+            neighborhoodWidthFunctionStrategy = strategy;
+            neighborhoodWidthFunctionStrategy.setExpectedIterations(expectedIterations);
         } else {
             throw new SOMError("Cannot change neighborhood width strategy after training has begun.");
         }
@@ -164,7 +164,7 @@ public class CustomizableSOM implements SelfOrganizingMap {
 
     private boolean inNeighborhoodOf(int winingestNeuron, int testNeuron) {
         return gridTypeStrategy.gridDistance(winingestNeuron, testNeuron)
-                < neightborhoodWidthFunctionStrategy.neighborhoodWidth(iterations);
+                < neighborhoodWidthFunctionStrategy.neighborhoodWidth(iterations);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class CustomizableSOM implements SelfOrganizingMap {
                 ", expectedIterations=" + expectedIterations +
                 ", distanceMetricStrategy=" + distanceMetricStrategy +
                 ", learningRateFunctionStrategy=" + learningRateFunctionStrategy +
-                ", neightborhoodWidthFunctionStrategy=" + neightborhoodWidthFunctionStrategy +
+                ", neighborhoodWidthFunctionStrategy=" + neighborhoodWidthFunctionStrategy +
                 '}';
     }
 }

@@ -1,11 +1,11 @@
 package cs437.som.neighborhood;
 
-import cs437.som.NeightborhoodWidthFunction;
+import cs437.som.NeighborhoodWidthFunction;
 
 /**
  * Constant neighborhood strategy.
  */
-public class ConstantNeighborhoodWidthFunction implements NeightborhoodWidthFunction {
+public class ConstantNeighborhoodWidthFunction implements NeighborhoodWidthFunction {
     private final double neighborhoodWidth;
 
     /**

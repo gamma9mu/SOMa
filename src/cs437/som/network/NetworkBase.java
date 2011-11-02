@@ -1,6 +1,7 @@
 package cs437.som.network;
 
 import cs437.som.SOMError;
+import cs437.som.SelfOrganizingMap;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import java.util.Random;
 /**
  * Common functionality for basic self-organizing maps.
  */
-public abstract class NetworkBase {
+public abstract class NetworkBase implements SelfOrganizingMap {
     public static final double INITIAL_NEIGHBORHOOD_WIDTH = 5.0;
     public static final double alpha = 0.08;
 

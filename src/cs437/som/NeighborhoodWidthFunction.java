@@ -10,7 +10,7 @@ package cs437.som;
  * has been handed to an SOM.
  * 
  */
-public interface NeightborhoodWidthFunction {
+public interface NeighborhoodWidthFunction {
 
     /**
      * expectedIterations is a write-only property that allows the learning

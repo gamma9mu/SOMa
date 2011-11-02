@@ -1,21 +1,22 @@
 package cs437.som.neighborhood;
 
-import cs437.som.NeightborhoodWidthFunction;
+import cs437.som.NeighborhoodWidthFunction;
 
 /**
  * Neighborhood width strategy for self-organizing maps that decays the width
  * by the Gaussian function, centered at 0 and parametrized by the standard
  * deviation.
  *
+ * <pre>
  * The exact behavior follows the formula:
  *      \frac{1}{\sigma \sqrt{2 \pi}} e^{\frac{t^2}{2\sigma^2}}
  *  where
  *      \sigma is the standard deviation of the Gaussian
  *      e      is the base of the natural logarithm
  *      t      is the current iteration
- *
+ * </pre>
  */
-public class GaussianNeighborhoodWidthFunction implements NeightborhoodWidthFunction {
+public class GaussianNeighborhoodWidthFunction implements NeighborhoodWidthFunction {
     private final double stdDeviation;
     private final double coefficient;
 
