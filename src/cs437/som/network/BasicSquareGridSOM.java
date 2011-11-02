@@ -31,7 +31,7 @@ import java.util.Random;
  * </code>
  */
 @SuppressWarnings({"UseOfSystemOutOrSystemErr"})
-public class BasicSquareGridSOM extends NetworkBase implements SelfOrganizingMap {
+public class BasicSquareGridSOM extends NetworkBase {
     private int gridSize;
 
     public BasicSquareGridSOM(int gridSize, int inputVectorSize, int expectedIterations) {

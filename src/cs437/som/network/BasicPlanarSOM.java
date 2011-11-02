@@ -31,7 +31,7 @@ import java.util.Random;
  * </code>
  */
 @SuppressWarnings({"UseOfSystemOutOrSystemErr"})
-public class BasicPlanarSOM extends NetworkBase implements SelfOrganizingMap {
+public class BasicPlanarSOM extends NetworkBase {
 
     public BasicPlanarSOM(int neuronCount, int inputVectorSize, int expectedIterations) {
         super(inputVectorSize, neuronCount, expectedIterations);

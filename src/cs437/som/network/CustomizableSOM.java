@@ -1,6 +1,11 @@
 package cs437.som.network;
 
-import cs437.som.*;
+import cs437.som.DistanceMetric;
+import cs437.som.GridType;
+import cs437.som.LearningRateFunction;
+import cs437.som.NeighborhoodWidthFunction;
+import cs437.som.SOMError;
+import cs437.som.SelfOrganizingMap;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
 import cs437.som.learningrate.ConstantLearningRateFunction;
 import cs437.som.neighborhood.ConstantNeighborhoodWidthFunction;

@@ -30,7 +30,7 @@ import java.util.Random;
  * </pre>
  * </code>
  */
-public class BasicHexGridSOM extends NetworkBase implements SelfOrganizingMap {
+public class BasicHexGridSOM extends NetworkBase {
     private int gridSize;
 
     public BasicHexGridSOM(int gridSize, int inputVectorSize, int expectedIterations) {
