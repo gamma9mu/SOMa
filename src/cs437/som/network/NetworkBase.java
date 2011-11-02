@@ -1,5 +1,6 @@
 package cs437.som.network;
 
+import cs437.som.Dimension;
 import cs437.som.SOMError;
 import cs437.som.SelfOrganizingMap;
 
@@ -20,24 +21,23 @@ public abstract class NetworkBase implements SelfOrganizingMap {
     protected int expectedIterations;
 
     protected double[][] weightMatrix;
-    protected int gridSize;
+    protected Dimension gridSize;
 
     /**
      * Constructs the common functionality for SOMs.
      *
-     * @param inputVectorSize The length of expected input vectors
-     * @param neuronCount The number of neurons the map will contain.
-     * @param expectedIterations The expected count of iterations for training.
      * @param gridSize The neuron grid dimensions.
+     * @param inputVectorSize The length of expected input vectors
+     * @param expectedIterations The expected count of iterations for training.
      */
-    protected NetworkBase(int inputVectorSize, int neuronCount, int expectedIterations, int gridSize) {
+    protected NetworkBase(Dimension gridSize, int inputVectorSize, int expectedIterations) {
         this.inputVectorSize = inputVectorSize;
-        this.neuronCount = neuronCount;
         this.expectedIterations = expectedIterations;
+        this.gridSize = gridSize;
+        this.neuronCount = gridSize.area;
 
         weightMatrix = new double[neuronCount][inputVectorSize];
         initialize();
-        this.gridSize = gridSize;
     }
 
     /**
@@ -77,10 +77,19 @@ public abstract class NetworkBase implements SelfOrganizingMap {
     }
 
     /**
+     * Get the neuron grid dimensions. (Will be changed to 2 dimensions)
+     *
+     * @return The dimensions of one side of a square grid.
+     */
+    public Dimension getGridSize() {
+        return gridSize;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public int getNeuronCount() {
-        return neuronCount;
+        return gridSize.area;
     }
 
     /**
@@ -258,19 +267,10 @@ public abstract class NetworkBase implements SelfOrganizingMap {
     public String toString() {
         return "NetworkBase{" +
                 "time=" + time +
-                ", neuronCount=" + neuronCount +
+                ", dimensions=" + gridSize +
                 ", inputVectorSize=" + inputVectorSize +
                 ", expectedIterations=" + expectedIterations +
                 ", weightMatrix=" + weightString() +
                 '}';
-    }
-
-    /**
-     * Get the neuron grid dimensions. (Will be changed to 2 dimensions)
-     *
-     * @return The size of one side of a square grid.
-     */
-    public int getGridSize() {
-        return gridSize;
     }
 }

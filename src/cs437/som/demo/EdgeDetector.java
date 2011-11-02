@@ -1,5 +1,6 @@
 package cs437.som.demo;
 
+import cs437.som.Dimension;
 import cs437.som.network.BasicHexGridSOM;
 import cs437.som.SelfOrganizingMap;
 import cs437.som.network.BasicSquareGridSOM;
@@ -45,7 +46,7 @@ public class EdgeDetector {
      * @param useHex Whether to use an offset hexagonal grid in the SOM.  True
      * means use a hexagonal grid and false means use a square grid.
      */
-    private EdgeDetector(int size, int iterations, boolean useHex) {
+    private EdgeDetector(Dimension size, int iterations, boolean useHex) {
         if (useHex)
             map = new BasicHexGridSOM(size, 9, iterations);
         else
@@ -317,7 +318,7 @@ public class EdgeDetector {
      * @param numberOfMatrices The number of matrices to use in training the ED's map.
      * @return The trained edge detector.
      */
-    public static EdgeDetector edgeDetectorTrainedWithRandomData(int mapSize, int numberOfMatrices) {
+    public static EdgeDetector edgeDetectorTrainedWithRandomData(Dimension mapSize, int numberOfMatrices) {
         EdgeDetector ed = new EdgeDetector(mapSize, numberOfMatrices, false);
         ed.trainWithRandomPermutations(numberOfMatrices);
         return ed;
@@ -330,7 +331,7 @@ public class EdgeDetector {
      * @param mapSize The number of neurons to size the map.
      * @return The trained edge detector.
      */
-    public static EdgeDetector edgeDetectorExhaustivelyTrained(int mapSize) {
+    public static EdgeDetector edgeDetectorExhaustivelyTrained(Dimension mapSize) {
         EdgeDetector ed = new EdgeDetector(mapSize, threeRaiseNine, false);
         ed.trainExhaustively();
         return ed;
@@ -344,7 +345,7 @@ public class EdgeDetector {
      * @param numberOfMatrices The number of matrices to use in training the ED's map.
      * @return The trained edge detector.
      */
-    public static EdgeDetector edgeDetectorHexTrainedWithRandomData(int mapSize, int numberOfMatrices) {
+    public static EdgeDetector edgeDetectorHexTrainedWithRandomData(Dimension mapSize, int numberOfMatrices) {
         EdgeDetector ed = new EdgeDetector(mapSize, numberOfMatrices, true);
         ed.trainWithRandomPermutations(numberOfMatrices);
         return ed;
@@ -357,14 +358,14 @@ public class EdgeDetector {
      * @param mapSize The number of neurons to size the map.
      * @return The trained edge detector.
      */
-    public static EdgeDetector edgeDetectorHexExhaustivelyTrained(int mapSize) {
+    public static EdgeDetector edgeDetectorHexExhaustivelyTrained(Dimension mapSize) {
         EdgeDetector ed = new EdgeDetector(mapSize, threeRaiseNine, true);
         ed.trainExhaustively();
         return ed;
     }
 
     public static void main(String[] args) throws IOException {
-        EdgeDetector ed = EdgeDetector.edgeDetectorExhaustivelyTrained(10);
+        EdgeDetector ed = EdgeDetector.edgeDetectorExhaustivelyTrained(new Dimension(10, 7));
 
         BufferedImage original = ImageIO.read(new File("image.jpg"));
         BufferedImage detected = ed.runOnImage(original);
@@ -375,7 +376,7 @@ public class EdgeDetector {
         ed.writeImage(normalized, "out_normalized");
 
         new ImageFrame("Reference Image", ImageIO.read(new File("known_edges.jpg")), 0, 0);
-        new ImageFrame("Processed Image", detected, 500, 0);
-        new ImageFrame("Normalized Image", normalized, 1000, 0);
+        new ImageFrame("Processed Image", detected, 450, 0);
+        new ImageFrame("Normalized Image", normalized, 900, 0);
     }
 }

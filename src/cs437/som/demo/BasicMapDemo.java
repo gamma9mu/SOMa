@@ -1,5 +1,6 @@
 package cs437.som.demo;
 
+import cs437.som.Dimension;
 import cs437.som.SelfOrganizingMap;
 import cs437.som.network.BasicSquareGridSOM;
 import cs437.som.visualization.SOM2dPlotter;
@@ -7,6 +8,7 @@ import cs437.som.visualization.SOM2dPlotter;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.logging.Logger;
+import java.util.zip.DeflaterInputStream;
 
 /**
  * Demonstrates maps with 2-dimensional inputs with nearness grids and a
@@ -101,7 +103,7 @@ public class BasicMapDemo {
     }
 
     public static void main(String[] args) {
-        new BasicMapDemo(new BasicSquareGridSOM(7, 2, 1000)).run();
+        new BasicMapDemo(new BasicSquareGridSOM(new Dimension(7, 8), 2, 1000)).run();
     }
 
     @Override

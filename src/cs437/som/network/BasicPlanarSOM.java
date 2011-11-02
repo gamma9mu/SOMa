@@ -1,5 +1,7 @@
 package cs437.som.network;
 
+import cs437.som.Dimension;
+
 import java.util.Arrays;
 
 /**
@@ -28,7 +30,7 @@ import java.util.Arrays;
 public class BasicPlanarSOM extends NetworkBase {
 
     public BasicPlanarSOM(int neuronCount, int inputVectorSize, int expectedIterations) {
-        super(inputVectorSize, neuronCount, expectedIterations, neuronCount);
+        super(new Dimension(neuronCount, 1), inputVectorSize, expectedIterations);
     }
 
     /**

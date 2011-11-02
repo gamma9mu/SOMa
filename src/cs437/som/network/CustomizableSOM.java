@@ -1,11 +1,6 @@
 package cs437.som.network;
 
-import cs437.som.DistanceMetric;
-import cs437.som.GridType;
-import cs437.som.LearningRateFunction;
-import cs437.som.NeighborhoodWidthFunction;
-import cs437.som.SOMError;
-import cs437.som.SelfOrganizingMap;
+import cs437.som.*;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
 import cs437.som.learningrate.ConstantLearningRateFunction;
 import cs437.som.neighborhood.ConstantNeighborhoodWidthFunction;
@@ -21,7 +16,7 @@ public class CustomizableSOM implements SelfOrganizingMap {
     private final int neuronCount;
     private final int inputSize;
     private final int expectedIterations;
-    private final int gridSize;
+    private final Dimension gridSize;
 
     private int iterations = 0;
     private double[][] weightMatrix;
@@ -31,9 +26,9 @@ public class CustomizableSOM implements SelfOrganizingMap {
     NeighborhoodWidthFunction neighborhoodWidthFunctionStrategy = new ConstantNeighborhoodWidthFunction(1.0);
     GridType gridTypeStrategy = new SquareGrid();
 
-    public CustomizableSOM(int gridSize, int inputSize, int expectedIterations) {
+    public CustomizableSOM(Dimension gridSize, int inputSize, int expectedIterations) {
         this.gridSize = gridSize;
-        this.neuronCount = gridSize * gridSize;
+        this.neuronCount = gridSize.area;
         this.inputSize = inputSize;
         this.expectedIterations = expectedIterations;
 
@@ -80,7 +75,7 @@ public class CustomizableSOM implements SelfOrganizingMap {
         return neuronCount;
     }
 
-    public int getGridSize() {
+    public Dimension getGridSize() {
         return gridSize;
     }
 

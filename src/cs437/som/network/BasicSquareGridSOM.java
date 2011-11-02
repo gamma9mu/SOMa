@@ -1,5 +1,7 @@
 package cs437.som.network;
 
+import cs437.som.Dimension;
+
 import java.util.Arrays;
 
 /**
@@ -27,8 +29,8 @@ import java.util.Arrays;
  */
 public class BasicSquareGridSOM extends NetworkBase {
 
-    public BasicSquareGridSOM(int gridSize, int inputVectorSize, int expectedIterations) {
-        super(inputVectorSize, gridSize * gridSize, expectedIterations, gridSize);
+    public BasicSquareGridSOM(Dimension gridSize, int inputVectorSize, int expectedIterations) {
+        super(gridSize, inputVectorSize, expectedIterations);
     }
 
     /**
@@ -36,10 +38,10 @@ public class BasicSquareGridSOM extends NetworkBase {
      */
     @Override
     protected double neuronDistance(int neuron0, int neuron1) {
-        int row0 = neuron0 / gridSize;
-        int col0 = neuron0 % gridSize;
-        int row1 = neuron1 / gridSize;
-        int col1 = neuron1 % gridSize;
+        int row0 = neuron0 / gridSize.x;
+        int col0 = neuron0 % gridSize.x;
+        int row1 = neuron1 / gridSize.x;
+        int col1 = neuron1 % gridSize.x;
 
         int dr = row1 - row0;
         int dc = col1 - col0;
