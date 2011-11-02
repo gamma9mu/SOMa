@@ -1,11 +1,6 @@
 package cs437.som.network;
 
-import cs437.som.SelfOrganizingMap;
-import cs437.som.visualization.SOM2dPlotter;
-
-import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * A simple self-organizing map, using a hexagonal grid for the neurons.
@@ -75,19 +70,4 @@ public class BasicHexGridSOM extends NetworkBase {
                 ", neuronCount=" + neuronCount + ", inputSize=" + inputVectorSize + '}';
     }
 
-    private static final int iters = 500;
-    private static final int iterDelay = 20; /* ms */
-
-    public static void main(String[] args) {
-        SelfOrganizingMap som = new BasicHexGridSOM(7, 2, iters);
-        Random r = new SecureRandom();
-
-        SOM2dPlotter plot = new SOM2dPlotter(som);
-        for (int i = 0; i < iters; i++) {
-            double[] in = {r.nextDouble() * 10, r.nextDouble() * 10};
-            som.trainWith(in);
-            plot.draw();
-            try { Thread.sleep(iterDelay); } catch (InterruptedException ignored) { }
-        }
-    }
 }
