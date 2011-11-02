@@ -8,7 +8,6 @@ import cs437.som.visualization.SOM2dPlotter;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.logging.Logger;
-import java.util.zip.DeflaterInputStream;
 
 /**
  * Demonstrates maps with 2-dimensional inputs with nearness grids and a

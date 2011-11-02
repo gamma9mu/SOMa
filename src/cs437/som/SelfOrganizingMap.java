@@ -5,12 +5,13 @@ package cs437.som;
  */
 public interface SelfOrganizingMap {
     /**
-     * Get the expected iteration count for map training.  This value should be passed
-     * to the map upon construction and is used for scaling functions during training.
-     * 
+     * Get the expected iteration count for map training.  This value should be
+     * passed to the map upon construction and is used for scaling functions
+     * during training.
+     *
      * @return The expected number of iterations for map training.
      */
-    public int getExpectedIterations();
+    int getExpectedIterations();
 
     /**
      * Get the expected vector length for training the map and matching neurons.
@@ -36,16 +37,17 @@ public interface SelfOrganizingMap {
     double getWeight(int neuron, int weightIndex);
 
     /**
-     * Find the best matching neuron (BMU, for Best Matching Unit).  The BMU is the neuron
-     * who's weights most closely match the input vector.
-     * 
+     * Find the best matching neuron (BMU, for Best Matching Unit).  The BMU is
+     * the neuron who's weights most closely match the input vector.
+     *
      * @param input The input vector to match neurons to.
      * @return The index of the neuron closest to input.
      */
     int getBestMatchingNeuron(double[] input);
 
     /**
-     * Find the best matching neuron (BMU, for Best Matching Unit). Integer convenience method.
+     * Find the best matching neuron (BMU, for Best Matching Unit). Integer
+     * convenience method.
      *
      * @param input The input vector to match neurons to.
      * @return The index of the neuron closest to input.
