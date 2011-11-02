@@ -25,7 +25,6 @@ import java.util.Arrays;
  * </pre>
  * </code>
  */
-@SuppressWarnings({"UseOfSystemOutOrSystemErr"})
 public class BasicSquareGridSOM extends NetworkBase {
 
     public BasicSquareGridSOM(int gridSize, int inputVectorSize, int expectedIterations) {
