@@ -2,6 +2,7 @@ out/
 doc/
 documents/
 reference/
+.idea/workspace.xml
 image.jpg
 known_edges.jpg
 
