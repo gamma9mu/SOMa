@@ -53,25 +53,16 @@ public class ImageFrame extends JFrame {
         setVisible(true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(image, 0, 0, IMAGE_DIMENSION, IMAGE_DIMENSION, this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean imageUpdate(Image img, int infoflags, int x, int y, int w, int h) {
         return (infoflags & ALLBITS) != 0;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override public String toString() { return "ImageFrame"; }
 }
