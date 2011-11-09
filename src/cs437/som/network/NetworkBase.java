@@ -40,9 +40,6 @@ public abstract class NetworkBase implements SelfOrganizingMap {
         initialize();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public int getBestMatchingNeuron(double[] input) {
         checkInput(input);
 
@@ -58,9 +55,6 @@ public abstract class NetworkBase implements SelfOrganizingMap {
         return bestMatch;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public int getBestMatchingNeuron(int[] input) {
         double[] dbls = new double[input.length];
         for (int i = 0; i < input.length; i++) {
@@ -69,9 +63,6 @@ public abstract class NetworkBase implements SelfOrganizingMap {
         return getBestMatchingNeuron(dbls);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public int getExpectedIterations() {
         return expectedIterations;
     }
@@ -85,30 +76,18 @@ public abstract class NetworkBase implements SelfOrganizingMap {
         return gridSize;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public int getNeuronCount() {
         return gridSize.area;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public int getInputLength() {
         return inputVectorSize;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public double getWeight(int neuron, int weightIndex) {
         return weightMatrix[neuron][weightIndex];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void trainWith(double[] data) {
         checkInput(data);
 
@@ -118,9 +97,6 @@ public abstract class NetworkBase implements SelfOrganizingMap {
         time++;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void trainWith(int[] data) {
         double[] dbls = new double[data.length];
         for (int i = 0; i < data.length; i++) {
@@ -260,9 +236,6 @@ public abstract class NetworkBase implements SelfOrganizingMap {
         return sum;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "NetworkBase{" +
