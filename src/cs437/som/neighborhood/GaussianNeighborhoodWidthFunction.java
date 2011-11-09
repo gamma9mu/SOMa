@@ -30,23 +30,14 @@ public class GaussianNeighborhoodWidthFunction implements NeighborhoodWidthFunct
         coefficient = 1 / (stdDeviation * Math.sqrt(2 * Math.PI));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void setExpectedIterations(int expectedIterations) {
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public double neighborhoodWidth(int iteration) {
         return coefficient *
                 Math.exp((iteration * iteration) / (2 * stdDeviation * stdDeviation));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "GaussianNeighborhoodWidthFunction";
