@@ -1,10 +1,8 @@
 .idea/
-.idea/copyright/
 out/
 doc/
 documents/
 reference/
-.idea/workspace.xml
 image.jpg
 known_edges.jpg
 out.png
