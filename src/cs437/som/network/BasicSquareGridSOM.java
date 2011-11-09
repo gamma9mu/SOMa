@@ -33,9 +33,6 @@ public class BasicSquareGridSOM extends NetworkBase {
         super(gridSize, inputVectorSize, expectedIterations);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected double neuronDistance(int neuron0, int neuron1) {
         int row0 = neuron0 / gridSize.x;
@@ -49,9 +46,6 @@ public class BasicSquareGridSOM extends NetworkBase {
         return Math.sqrt((dr * dr) + (dc * dc));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "BasicSquareGridSOM{time=" + time +
