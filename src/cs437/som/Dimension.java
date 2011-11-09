@@ -21,6 +21,7 @@ public class Dimension {
 
     /**
      * Create a new dimension.
+     * 
      * @param x The x value to assume.
      * @param y The y value to assume.
      * @throws SOMError if x or y is less than 0.
@@ -34,9 +35,6 @@ public class Dimension {
         area = x * y;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "Dimension{x=" + x + ", y=" + y + '}';
