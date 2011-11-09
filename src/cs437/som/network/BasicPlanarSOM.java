@@ -33,9 +33,6 @@ public class BasicPlanarSOM extends NetworkBase {
         super(new Dimension(neuronCount, 1), inputVectorSize, expectedIterations);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected double neuronDistance(int neuron0, int neuron1) {
         double sum = 0.0;
@@ -46,9 +43,6 @@ public class BasicPlanarSOM extends NetworkBase {
         return Math.sqrt(sum);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected double neighborhoodWidth() {
         if (time < (expectedIterations / 5))
@@ -56,9 +50,6 @@ public class BasicPlanarSOM extends NetworkBase {
         return 0.0;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "BasicPlanarSOM{weightMatrix=" + (weightMatrix == null ? null : Arrays.toString(weightMatrix)) + '}';
