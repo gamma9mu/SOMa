@@ -17,22 +17,13 @@ public class ConstantNeighborhoodWidthFunction implements NeighborhoodWidthFunct
         neighborhoodWidth = width;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void setExpectedIterations(int expectedIterations) {
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public double neighborhoodWidth(int iteration) {
         return neighborhoodWidth;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "ConstantNeighborhoodWidthFunction";
