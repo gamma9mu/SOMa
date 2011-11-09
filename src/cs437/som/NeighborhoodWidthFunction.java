@@ -8,7 +8,6 @@ package cs437.som;
  * of an implementing class is given to an SOM, that SOM assumes control of
  * that object.  It should not be given to multiple SOMs or modified once it
  * has been handed to an SOM.
- * 
  */
 public interface NeighborhoodWidthFunction {
 
