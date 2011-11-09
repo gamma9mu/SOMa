@@ -33,9 +33,6 @@ public class BasicHexGridSOM extends NetworkBase {
         super(gridSize, inputVectorSize, expectedIterations);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected double neuronDistance(int neuron0, int neuron1) {
         int row0 = neuron0 / gridSize.x;
@@ -60,9 +57,6 @@ public class BasicHexGridSOM extends NetworkBase {
         return (n >= 0) ? 1 : -1;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "BasicHexGridSOM{time=" + time +
