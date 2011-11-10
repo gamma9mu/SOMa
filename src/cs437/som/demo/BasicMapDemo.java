@@ -62,14 +62,12 @@ public class BasicMapDemo {
      * This is then printed to the object's logger with info severity.
      */
     private void log10x10Map() {
-        String lineSep = System.getProperty("line.separator");
-
         StringBuilder sb = new StringBuilder(MAPPING_LINE_WIDTH);
-        sb.append(lineSep);
+        sb.append(System.lineSeparator());
         sb.append("  \t 1  2  3  4  5  6  7  8  9 10");
 
         for (double i = 1.0; i < tenByTenStep; i += 1.0) {
-            sb.append(String.format(lineSep + "%2d\t", (int) Math.round(i)));
+            sb.append(String.format(System.lineSeparator() + "%2d\t", (int) Math.round(i)));
             for (double j = 1.0; j < tenByTenStep; j += 1.0) {
                 sb.append(String.format("%2d ", som.getBestMatchingNeuron(new double[]{i, j})));
             }
@@ -83,15 +81,13 @@ public class BasicMapDemo {
      * logger with info severity.
      */
     private void log10x10NearbyMap() {
-        String lineSep = System.getProperty("line.separator");
-
         StringBuilder sb = new StringBuilder(MAPPING_LINE_WIDTH);
-        sb.append(lineSep);
+        sb.append(System.lineSeparator());
         sb.append("  \t 1  2  3  4  5  6  7  8  9 10");
 
         Random r = new SecureRandom();
         for (double i = 1.0; i < tenByTenStep; i += 1.0) {
-            sb.append(String.format(lineSep + "%2d\t", (int) Math.round(i)));
+            sb.append(String.format(System.lineSeparator() + "%2d\t", (int) Math.round(i)));
             for (double j = 1.0; j < tenByTenStep; j += 1.0) {
                 sb.append(String.format("%2d ",
                         som.getBestMatchingNeuron(new double[]{i + r.nextDouble() - nearnessOffest,

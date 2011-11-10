@@ -112,14 +112,13 @@ public abstract class NetworkBase implements SelfOrganizingMap {
      * weights top to bottom).
      */
     public String weightString() {
-        String newline = System.getProperty("line.separator");
         StringBuilder sb = new StringBuilder(weightMatrix.length * 3);
 
         for (double[] aWeightMatrix : weightMatrix) {
             sb.append(Arrays.toString(aWeightMatrix));
-            sb.append(newline);
+            sb.append(System.lineSeparator());
         }
-        sb.append(newline);
+        sb.append(System.lineSeparator());
         return sb.toString();
     }
 
