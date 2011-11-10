@@ -32,6 +32,7 @@ public class SOMBuilber extends JDialog {
     private CustomizableSOM map = null;
     private int inputSize;
     private int expectedIterations;
+    private boolean isInputConsistent = false;
 
     public SOMBuilber(int inputSize, int expectedIterations) {
         this.inputSize = inputSize;
@@ -86,17 +87,12 @@ public class SOMBuilber extends JDialog {
         distanceCmb.addItem("Chebyshev Distance Metric");
         distanceCmb.addItem("Manhattan Distance Metric");
 
-        widthText.addCaretListener(new CaretListener() {
-            public void caretUpdate(CaretEvent e) {
-                tryToEnableOK();
-            }
-        });
+        CaretListener caretListener = new CaretListener() {
+            public void caretUpdate(CaretEvent e) { tryToEnableOK(); }
+        };
 
-        heightText.addCaretListener(new CaretListener() {
-            public void caretUpdate(CaretEvent e) {
-                tryToEnableOK();
-            }
-        });
+        widthText.addCaretListener(caretListener);
+        heightText.addCaretListener(caretListener);
     }
 
     private void tryToEnableOK() {
@@ -117,7 +113,12 @@ public class SOMBuilber extends JDialog {
                 heightText.setBackground(Color.RED);
         }
 
-        buttonOK.setEnabled(canEnable);
+        isInputConsistent = canEnable;
+        tryEnable();
+    }
+
+    private void tryEnable() {
+        buttonOK.setEnabled(isInputConsistent);
     }
 
     public SelfOrganizingMap getMap() {
