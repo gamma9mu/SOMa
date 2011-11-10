@@ -20,12 +20,11 @@ import cs437.som.SOMError;
  */
 public class SquareGrid implements GridType {
     private int neuronCount = 0;
-    private int height = 0;
     private int width = 0;
 
     public void setNeuronCount(Dimension dimension) {
-        height = dimension.y;
         width = dimension.x;
+        neuronCount = width * dimension.y;
     }
 
     public double gridDistance(int neuron0, int neuron1) {
