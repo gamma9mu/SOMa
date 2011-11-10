@@ -7,7 +7,7 @@ import cs437.som.NeighborhoodWidthFunction;
  *
  * <pre>
  * The exact behavior follows the formula:
- *      \alpha_0 * (\frac{\alpha_{final}}{\alpha_0})^\frac{t}{t_{max}}
+ *      \alpha_0 \cdot (\frac{\alpha_{final}}{\alpha_0})^\frac{t}{t_{max}}
  *  where
  *      \alpha_0       is the learning rate at the first iteration
  *      \alpha_{final} is the learning rate at the last iteration
