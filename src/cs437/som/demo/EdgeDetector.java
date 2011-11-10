@@ -22,7 +22,7 @@ public class EdgeDetector {
     private static final int MINIMUM_COLOR_DISTANCE = 60;
 
     /** Better than stdout... */
-    private Logger log = Logger.getLogger("EdgeDetector");
+    private static Logger log = Logger.getLogger("EdgeDetector");
 
     /** The ED's SOM */
     private SelfOrganizingMap map = null;
@@ -89,7 +89,7 @@ public class EdgeDetector {
      * Train the edge detector's self-organizing map with every possible input
      * matrix being shown to it once.
      */
-    private void trainExhaustively() {
+    public void trainExhaustively() {
         int[][] matrices = generateAllPermutations();
         log.info("Training.");
         for (int[] matrix : matrices) {
@@ -103,7 +103,7 @@ public class EdgeDetector {
      * @return An array (size 19683, or 3^9) of double[9], each of which
      * represents a 3x3 matrix in row major form.
      */
-    private int[][] generateAllPermutations() {
+    public int[][] generateAllPermutations() {
         int[] possibleValues  = { -1, 0, 1 };
 
         log.info("Creating " + threeRaiseNine + " (all possible) matrices.");
@@ -241,22 +241,6 @@ public class EdgeDetector {
         return mostCommonColor;
     }
 
-    /**
-     * Write an image to a PNG file.
-     *
-     * @param image The image to store.
-     * @param filename The name of the file to write to (without the ".png"
-     * extension).
-     */
-    public void writeImage(BufferedImage image, String filename) {
-        try {
-            ImageIO.write(image, "png", new File(filename + ".png"));
-        } catch (IOException e) {
-            log.severe("Exception while writing file: " + filename + ".png");
-            log.log(Level.SEVERE, "Exception: ", e);
-        }
-    }
-
     private int[] getDifferenceMatrix(BufferedImage img, int x, int y) {
         int[] matrix = new int[9];
 
@@ -325,13 +309,29 @@ public class EdgeDetector {
         BufferedImage original = ImageIO.read(new File("image.jpg"));
         BufferedImage detected = ed.runOnImage(original);
 
-        ed.writeImage(detected, "out");
+        writeImage(detected, "out");
 
         BufferedImage normalized = ed.normalizeImage(detected);
-        ed.writeImage(normalized, "out_normalized");
+        writeImage(normalized, "out_normalized");
 
         new ImageFrame("Reference Image", ImageIO.read(new File("known_edges.jpg")), 0, 0);
         new ImageFrame("Processed Image", detected, 450, 0);
         new ImageFrame("Normalized Image", normalized, 900, 0);
+    }
+
+    /**
+     * Write an image to a PNG file.
+     *
+     * @param image The image to store.
+     * @param filename The name of the file to write to (without the ".png"
+     * extension).
+     */
+    public static void writeImage(BufferedImage image, String filename) {
+        try {
+            ImageIO.write(image, "png", new File(filename + ".png"));
+        } catch (IOException e) {
+            log.severe("Exception while writing file: " + filename + ".png");
+            log.log(Level.SEVERE, "Exception: ", e);
+        }
     }
 }
