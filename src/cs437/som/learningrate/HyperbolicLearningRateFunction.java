@@ -1,6 +1,6 @@
 package cs437.som.learningrate;
 
-import cs437.som.NeighborhoodWidthFunction;
+import cs437.som.LearningRateFunction;
 
 /**
  * Hyperbolic learning rate strategy.
@@ -15,7 +15,7 @@ import cs437.som.NeighborhoodWidthFunction;
  *      t_{max}        is the maximum expected iteration
  * </pre>
  */
-public class HyperbolicLearningRateFunction implements NeighborhoodWidthFunction {
+public class HyperbolicLearningRateFunction implements LearningRateFunction {
     private double initialRate;
     private double finalRate;
     private double expectedIterations = 0.0;
@@ -35,7 +35,7 @@ public class HyperbolicLearningRateFunction implements NeighborhoodWidthFunction
         this.expectedIterations = expectedIterations;
     }
 
-    public double neighborhoodWidth(int iteration) {
+    public double learningRate(int iteration) {
         return initialRate * Math.pow((finalRate / initialRate),
                 (iteration / expectedIterations));
     }
