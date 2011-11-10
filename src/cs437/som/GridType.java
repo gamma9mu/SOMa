@@ -14,9 +14,9 @@ public interface GridType {
     /**
      * Inform the GridType how many neurons exist in the map.
      *
-     * @param neuronCount The count of neurons to manage.
+     * @param dimension The dimensions of the grid.
      */
-    void setNeuronCount(int neuronCount);
+    void setNeuronCount(Dimension dimension);
 
     /**
      * Calculate the distance between two neurons in the neuron grid.

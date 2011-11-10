@@ -65,7 +65,7 @@ public class CustomizableSOM implements SelfOrganizingMap {
     public void setGridTypeStrategy(GridType strategy) {
         if (iterations == 0) {
             gridTypeStrategy = strategy;
-            gridTypeStrategy.setNeuronCount(neuronCount);
+            gridTypeStrategy.setNeuronCount(gridSize);
         } else {
             throw new SOMError("Cannot change grid type strategy after training has begun.");
         }
