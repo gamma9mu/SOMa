@@ -7,22 +7,32 @@ import cs437.som.NeighborhoodWidthFunction;
  *
  * <pre>
  * The exact behavior follows the formula:
- *      \frac{w_i}{(t + t_{max})}
+ *      w_0 \cdot (\frac{w_{final}}{w_0})^\frac{t}{t_{max}}
  *  where
- *      w_i     is the initial width of the neighborhood
- *      t       is the current iteration
- *      t_{max} is the maximum expected iteration
+ *      w_0       is the learning rate at the first iteration
+ *      w_{final} is the learning rate at the last iteration
+ *      t              is the current iteration
+ *      t_{max}        is the maximum expected iteration
  * </pre>
  */
-public class HyperbolicNeighborhoodWidthFunction implements NeighborhoodWidthFunction {
+public class HyperbolicNeighborhoodWidthFunction
+        implements NeighborhoodWidthFunction {
     private double expectedIterations = 0.0;
+    private double initialWidth;
+    private double widthRatio;
+
+    public HyperbolicNeighborhoodWidthFunction(double initialWidth,
+                                               double finalWidth) {
+        this.initialWidth = initialWidth;
+        widthRatio = finalWidth / initialWidth;
+    }
 
     public void setExpectedIterations(int expectedIterations) {
         this.expectedIterations = expectedIterations;
     }
 
     public double neighborhoodWidth(int iteration) {
-        return expectedIterations / (expectedIterations + iteration);
+        return initialWidth * Math.pow(widthRatio, (iteration / expectedIterations));
     }
 
     @Override
