@@ -56,7 +56,6 @@ public class SOM3dPlotter extends JFrame {
 
         img.setRGB(0,0, dims.x, dims.y, pts, 0, dims.x);
 
-        img.getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT);
         g.drawImage(img.getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT), 0, 0, null);
 
         getBufferStrategy().show();
