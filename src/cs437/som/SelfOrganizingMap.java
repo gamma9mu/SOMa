@@ -28,6 +28,13 @@ public interface SelfOrganizingMap {
     int getNeuronCount();
 
     /**
+     * Get the neuron grid dimensions. (Will be changed to 2 dimensions)
+     *
+     * @return The dimensions of one side of a square grid.
+     */
+    Dimension getGridSize();
+
+    /**
      * Find a specific neuron's input component weight.
      *
      * @param neuron The neuron's index.
