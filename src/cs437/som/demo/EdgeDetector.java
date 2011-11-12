@@ -103,6 +103,7 @@ public class EdgeDetector {
      * @return An array (size 19683, or 3^9) of double[9], each of which
      * represents a 3x3 matrix in row major form.
      */
+    /*
     public int[][] generateAllPermutations() {
         int[] possibleValues  = { -1, 0, 1 };
 
@@ -141,6 +142,32 @@ public class EdgeDetector {
         }
         return permutations;
     }
+    */
+
+    /**
+     * Generate all possible input matrices.
+     *
+     * @return An array (size 19683, or 3^9) of double[9], each of which
+     * represents a 3x3 matrix in row major form.
+     */
+	private int[][] generateAllPermutations() {
+        int[] possibleValues  = { -1, 0, 1 };
+        int rows = threeRaiseNine;
+        int cols = 9;
+
+		int[][] permutations = new int[rows][cols];
+		int factor;
+
+		for (int i = 0; i < rows; i++) {
+			factor = 1;
+			for (int j = 0; j < cols; j++) {
+				permutations[i][j] = possibleValues[i / factor % possibleValues.length];
+				factor *= possibleValues.length;
+			}
+		}
+
+		return permutations;
+	}
 
     /**
      * Detect the edges in an image.
