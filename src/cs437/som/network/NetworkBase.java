@@ -67,11 +67,6 @@ public abstract class NetworkBase implements SelfOrganizingMap {
         return expectedIterations;
     }
 
-    /**
-     * Get the neuron grid dimensions. (Will be changed to 2 dimensions)
-     *
-     * @return The dimensions of one side of a square grid.
-     */
     public Dimension getGridSize() {
         return gridSize;
     }
