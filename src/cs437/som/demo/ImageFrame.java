@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 * A simple frame for displaying a square image, scaled to 400x400 in a window.
 */
 public class ImageFrame extends JFrame {
+    private static final long serialVersionUID = 0L;
+    
     /** The height and width dimension to which the image will be scaled */
     private static final int IMAGE_DIMENSION = 400;
 
