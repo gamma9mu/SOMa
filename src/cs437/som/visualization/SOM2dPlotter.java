@@ -10,6 +10,8 @@ import java.awt.Graphics;
  * Visualization for SOM with a 2-dimensional input.
  */
 public class SOM2dPlotter extends JFrame {
+    private static final long serialVersionUID = 0L;
+    
     public static final int WIDTH = 400;
     public static final int HEIGHT = 400;
     SelfOrganizingMap map = null;

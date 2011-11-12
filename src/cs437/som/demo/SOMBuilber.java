@@ -17,6 +17,8 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings({"MagicNumber", "FeatureEnvy", "SuppressionAnnotation"})
 public class SOMBuilber extends JDialog {
+    private static final long serialVersionUID = 0L;
+
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
