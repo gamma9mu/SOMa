@@ -15,7 +15,11 @@ public class ImageFrame extends JPanel {
     private static final int IMAGE_DIMENSION = 400;
 
     /** Image cache */
-    private Image scaledImage;
+    private Image scaledImage = null;
+
+    public ImageFrame() {
+        setSize(IMAGE_DIMENSION, IMAGE_DIMENSION);
+    }
 
     /**
      * Display an image in a new frame.
@@ -24,14 +28,25 @@ public class ImageFrame extends JPanel {
      */
     public ImageFrame(BufferedImage image) {
         setSize(IMAGE_DIMENSION, IMAGE_DIMENSION);
-        this.scaledImage = image.getScaledInstance(IMAGE_DIMENSION, IMAGE_DIMENSION,
+        setImage(image);
+    }
+
+    /**
+     * Set the image to display.
+     * 
+     * @param image The image to display.
+     */
+    public void setImage(BufferedImage image) {
+        scaledImage = image.getScaledInstance(IMAGE_DIMENSION, IMAGE_DIMENSION,
                 Image.SCALE_DEFAULT);
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.drawImage(scaledImage, 0, 0, IMAGE_DIMENSION, IMAGE_DIMENSION, this);
+        if (scaledImage != null) {
+            g.drawImage(scaledImage, 0, 0, IMAGE_DIMENSION, IMAGE_DIMENSION, this);
+        }
     }
 
     @Override
