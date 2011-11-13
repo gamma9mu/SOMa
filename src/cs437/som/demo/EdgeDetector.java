@@ -29,12 +29,19 @@ public class EdgeDetector {
     private SelfOrganizingMap map = null;
 
     /** The number of possible 3x3 matrices with each element having 3 possible
-     * values
+     * values.  This is the expected number of iterations for a SOM that will
+     * be exhaustively trained.
      */
-    private static final int threeRaiseNine = 19683;
+    public static final int threeRaiseNine = 19683;
 
     /** The number of possible colors that can be stored in 24 bits (2^25 - 1) */
     private static final int possibleColors = 33554431;
+
+    /**
+     * Create an empty EdgeDetector.
+     */
+    private EdgeDetector() {
+    }
 
     /**
      * Create an edge detector.
@@ -47,6 +54,37 @@ public class EdgeDetector {
         somb.setModal(true);
         somb.setVisible(true);
         map = somb.getMap();
+    }
+
+    /**
+     * Create an EdgeDetector with a given map and train it exhaustively.
+     * 
+     * @param map The SOM the EdgeDetector will use.  The EdgeDetector assumes
+     * ownership of the SOM.
+     * @return An exhaustively trained EdgeDetector.
+     */
+    public static EdgeDetector trainExhaustivelyFromMap(SelfOrganizingMap map) {
+        EdgeDetector ed = new EdgeDetector();
+        ed.map = map;
+        ed.trainExhaustively();
+        return ed;
+    }
+
+    /**
+     * Create an EdgeDetector with a given map and train it with random samples
+     * of possible inputs.
+     *
+     * @param map The SOM the EdgeDetector will use.  The EdgeDetector assumes
+     * ownership of the SOM.
+     * @param samples The number of input samples to train with.
+     * @return An exhaustively trained EdgeDetector.
+     */
+    public static EdgeDetector trainRandomlyFromMap(SelfOrganizingMap map,
+                                                    int samples) {
+        EdgeDetector ed = new EdgeDetector();
+        ed.map = map;
+        ed.trainWithRandomPermutations(samples);
+        return ed;
     }
 
     /**
@@ -346,10 +384,10 @@ public class EdgeDetector {
         f1.setLocation(0,0);
         f1.setVisible(true);
         JFrame f2 = ImageFrame.createInJFrame("Processed Image", detected);
-        f2.setLocation(450,0);
+        f2.setLocation(450, 0);
         f2.setVisible(true);
         JFrame f3 = ImageFrame.createInJFrame("Normalized Image", normalized);
-        f3.setLocation(900,0);
+        f3.setLocation(900, 0);
         f3.setVisible(true);
     }
 
