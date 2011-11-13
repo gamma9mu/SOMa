@@ -32,6 +32,23 @@ public class SOMBuilberConfigPanel {
     private boolean valid = false;
 
     public SOMBuilberConfigPanel() {
+        topologyCmb.addItem("Square Grid");
+        topologyCmb.addItem("Skew Hexagonal Grid");
+
+        learningRateCmb.addItem("Constant Learning Rate Function");
+        learningRateCmb.addItem("Hyperbolic Learning Rate Function");
+
+        neighborhoodCmb.addItem("Constant Neighborhood Width Function");
+        neighborhoodCmb.addItem("Linear Decay Neighborhood Width Function");
+        neighborhoodCmb.addItem("Hyperbolic Neighborhood Width Function");
+        neighborhoodCmb.addItem("Exponential Decay Neighborhood Width");
+        neighborhoodCmb.addItem("Gaussian Neighborhood Width Function");
+        neighborhoodCmb.addItem("Mexican Hat Neighborhood Width Function");
+
+        distanceCmb.addItem("Euclidean Distance Metric");
+        distanceCmb.addItem("Chebyshev Distance Metric");
+        distanceCmb.addItem("Manhattan Distance Metric");
+        
         CaretListener caretListener = new CaretListener() {
             public void caretUpdate(CaretEvent e) { validate(); }
         };
