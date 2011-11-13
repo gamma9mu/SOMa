@@ -1,8 +1,7 @@
 package cs437.som.demo;
 
 import javax.swing.*;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -16,6 +15,16 @@ public class ImageFrame extends JPanel {
 
     /** Image cache */
     private Image scaledImage = null;
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(IMAGE_DIMENSION, IMAGE_DIMENSION);
+    }
+
+    @Override
+    public Dimension getMinimumSize() {
+        return new Dimension(IMAGE_DIMENSION, IMAGE_DIMENSION);
+    }
 
     /**
      * Create an empty panel.
