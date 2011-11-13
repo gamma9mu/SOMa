@@ -3,6 +3,7 @@ package cs437.som.demo;
 import cs437.som.SelfOrganizingMap;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -341,9 +342,15 @@ public class EdgeDetector {
         BufferedImage normalized = ed.normalizeImage(detected);
         writeImage(normalized, "out_normalized");
 
-        new ImageFrame("Reference Image", ImageIO.read(new File("known_edges.jpg")), 0, 0);
-        new ImageFrame("Processed Image", detected, 450, 0);
-        new ImageFrame("Normalized Image", normalized, 900, 0);
+        JFrame f1 = ImageFrame.createInJFrame("Reference Image", ImageIO.read(new File("known_edges.jpg")));
+        f1.setLocation(0,0);
+        f1.setVisible(true);
+        JFrame f2 = ImageFrame.createInJFrame("Processed Image", detected);
+        f2.setLocation(450,0);
+        f2.setVisible(true);
+        JFrame f3 = ImageFrame.createInJFrame("Normalized Image", normalized);
+        f3.setLocation(900,0);
+        f3.setVisible(true);
     }
 
     /**
