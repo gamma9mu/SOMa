@@ -17,12 +17,15 @@ public class ImageFrame extends JPanel {
     /** Image cache */
     private Image scaledImage = null;
 
+    /**
+     * Create an empty panel.
+     */
     public ImageFrame() {
         setSize(IMAGE_DIMENSION, IMAGE_DIMENSION);
     }
 
     /**
-     * Display an image in a new frame.
+     * Display an image in a new panel.
      *
      * @param image The image to display.
      */
