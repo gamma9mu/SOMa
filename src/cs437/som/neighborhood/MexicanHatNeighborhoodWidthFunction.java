@@ -24,7 +24,7 @@ public class MexicanHatNeighborhoodWidthFunction implements NeighborhoodWidthFun
     private final double variance;
 
     /**
-     * Create a neighborhood width function based on the "Maexican Hat" function.
+     * Create a neighborhood width function based on the "Mexican Hat" function.
      *
      * @param standardDeviation The standard deviation of the corresponding
      * Gaussian function.
