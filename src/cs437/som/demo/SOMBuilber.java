@@ -71,6 +71,7 @@ public class SOMBuilber extends JDialog implements PropertyChangeListener {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
+        pack();
     }
 
     /**
