@@ -1,7 +1,8 @@
 package cs437.som;
 
 /**
- * Interface for handling differing self-organizing uniformly.
+ * Interface for handling differing self-organizing maps uniformly.  This
+ * interface is used for maps that will or are undergoing training.
  */
 public interface TrainableSelfOrganizingMap extends SelfOrganizingMap {
     /**
