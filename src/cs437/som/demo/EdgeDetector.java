@@ -27,6 +27,7 @@ public class EdgeDetector {
     static final int BYTEMASK = 0xFF;
     static final int TWO_BYTE_SHIFT = 16;
     static final int ONE_BYTE_SHIFT = 8;
+    static final int FRAME_LOCATION_OFFSET = 400;
 
     /** The ED's SOM */
     private SelfOrganizingMap som = null;
@@ -176,7 +177,8 @@ public class EdgeDetector {
 
         log.info("Processing " + width + 'x' + height + " image.");
 
-        BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage out = new BufferedImage(width, height,
+                BufferedImage.TYPE_INT_RGB);
         int colorStep = possibleColors / som.getNeuronCount();
 
         for (int y = 1; y < height; y++) {
@@ -212,7 +214,8 @@ public class EdgeDetector {
         int mostCommonColor = findMostCommonColor(image);
 
         log.fine("Rewriting colors.");
-        BufferedImage out = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        BufferedImage out = new BufferedImage(image.getWidth(),
+                image.getHeight(), image.getType());
         int black = Color.black.getRGB();
         int white = Color.white.getRGB();
         for (int y = 0; y < image.getHeight(); y++) {
@@ -339,14 +342,15 @@ public class EdgeDetector {
         BufferedImage normalized = ed.normalizeImage(detected);
         writeImage(normalized, "out_normalized");
 
-        JFrame f1 = ImageFrame.createInJFrame("Reference Image", ImageIO.read(new File("known_edges.jpg")));
+        JFrame f1 = ImageFrame.createInJFrame("Reference Image",
+                ImageIO.read(new File("known_edges.jpg")));
         f1.setLocation(0,0);
         f1.setVisible(true);
         JFrame f2 = ImageFrame.createInJFrame("Processed Image", detected);
-        f2.setLocation(450, 0);
+        f2.setLocation(FRAME_LOCATION_OFFSET, 0);
         f2.setVisible(true);
         JFrame f3 = ImageFrame.createInJFrame("Normalized Image", normalized);
-        f3.setLocation(900, 0);
+        f3.setLocation(2 * FRAME_LOCATION_OFFSET, 0);
         f3.setVisible(true);
     }
 
