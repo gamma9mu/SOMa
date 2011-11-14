@@ -3,7 +3,7 @@ package cs437.som.network;
 import cs437.som.*;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
 import cs437.som.learningrate.ConstantLearningRateFunction;
-import cs437.som.neighborhood.ConstantNeighborhoodWidthFunction;
+import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.topology.SquareGrid;
 
 import java.security.SecureRandom;
@@ -21,10 +21,10 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
     private int iterations = 0;
     private double[][] weightMatrix;
 
-    DistanceMetric distanceMetricStrategy = new EuclideanDistanceMetric();
-    LearningRateFunction learningRateFunctionStrategy = new ConstantLearningRateFunction(0.1);
-    NeighborhoodWidthFunction neighborhoodWidthFunctionStrategy = new ConstantNeighborhoodWidthFunction(1.0);
-    GridType gridTypeStrategy = new SquareGrid();
+    DistanceMetric distanceMetricStrategy = null;
+    LearningRateFunction learningRateFunctionStrategy = null;
+    NeighborhoodWidthFunction neighborhoodWidthFunctionStrategy = null;
+    GridType gridTypeStrategy = null;
 
     public CustomizableSOM(Dimension gridSize, int inputSize, int expectedIterations) {
         this.gridSize = gridSize;
@@ -34,6 +34,18 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
 
         weightMatrix = new double[neuronCount][inputSize];
         initialize();
+
+
+        setDistanceMetricStrategy(new EuclideanDistanceMetric());
+        setLearningRateFunctionStrategy(new ConstantLearningRateFunction(0.1));
+        setGridTypeStrategy(new SquareGrid());
+
+        // This calculation is based on a recommendation from Dr. Kohonen in
+        // Kohonen, Teuvo, 1990: The Self-organizing Map. Proc. of the IEEE,
+        // Vol. 78, 1469.
+        int gridRadius = Math.min(gridSize.x, gridSize.y) / 2;
+        setNeighborhoodWidthFunctionStrategy(
+                new LinearDecayNeighborhoodWidthFunction(gridRadius));
     }
 
     public void setDistanceMetricStrategy(DistanceMetric strategy) {
