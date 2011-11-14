@@ -1,6 +1,7 @@
 package cs437.som.demo;
 
 import cs437.som.TrainableSelfOrganizingMap;
+import cs437.som.gui.SOMBuilder;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
