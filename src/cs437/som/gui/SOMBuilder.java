@@ -93,17 +93,6 @@ public class SOMBuilder extends JDialog implements PropertyChangeListener {
         buttonOK.setEnabled(mapConfigPanel.isValid());
     }
 
-    /**
-     * Demo main for SOMBuilder form.
-     * @param args ignored.
-     */
-    public static void main(String[] args) {
-        SOMBuilder dialog = new SOMBuilder(10, 1000);
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }
-
     @Override
     public String toString() {
         return "SOMBuilder";
