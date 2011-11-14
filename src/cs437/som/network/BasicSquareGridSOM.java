@@ -14,7 +14,7 @@ import java.util.Arrays;
  * private static final int iterations = 500;
  *
  * public static void main(String[] args) {
- *     SelfOrganizingMap som = new BasicSquareGridSOM(7, 2, iterations);
+ *     TrainableSelfOrganizingMap som = new BasicSquareGridSOM(7, 2, iterations);
  *     Random r = new SecureRandom();
  *
  *     for (int i = 0; i < iterations; i++) {

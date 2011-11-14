@@ -97,7 +97,7 @@ public class SOMBuilderConfigPanel {
      * @return A CustomizableSOM based on inputSize, expectedIterations and the
      * form's input.
      */
-    public SelfOrganizingMap createSOM(int inputSize, int expectedIterations) {
+    public TrainableSelfOrganizingMap createSOM(int inputSize, int expectedIterations) {
         int x = Integer.parseInt(widthText.getText());
         int y = Integer.parseInt(heightText.getText());
         Dimension dimension = new Dimension(x, y);

@@ -1,7 +1,7 @@
 package cs437.som.demo;
 
 import cs437.som.SOMBuilderConfigPanel;
-import cs437.som.SelfOrganizingMap;
+import cs437.som.TrainableSelfOrganizingMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -136,7 +136,7 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
      */
     private void createSampleSOM() {
         int iterations = Integer.parseInt(iterationCountInput.getText());
-        SelfOrganizingMap som = mapConfig.createSOM(9, iterations);
+        TrainableSelfOrganizingMap som = mapConfig.createSOM(9, iterations);
         ed = EdgeDetector.trainRandomlyFromMap(som, iterations);
     }
 
@@ -145,7 +145,7 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
      */
     private void createExhaustiveSOM() {
         int iterations = EdgeDetector.threeRaiseNine;
-        SelfOrganizingMap som = mapConfig.createSOM(9, iterations);
+        TrainableSelfOrganizingMap som = mapConfig.createSOM(9, iterations);
         ed = EdgeDetector.trainExhaustivelyFromMap(som);
     }
 

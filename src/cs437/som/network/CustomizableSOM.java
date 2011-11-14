@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * A fully customizable self-organizing map.
  */
-public class CustomizableSOM implements SelfOrganizingMap {
+public class CustomizableSOM implements TrainableSelfOrganizingMap {
     private final int neuronCount;
     private final int inputSize;
     private final int expectedIterations;
