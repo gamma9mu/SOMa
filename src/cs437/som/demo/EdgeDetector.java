@@ -24,9 +24,12 @@ public class EdgeDetector {
 
     /** Better than stdout... */
     private static Logger log = Logger.getLogger("EdgeDetector");
+    static final int BYTEMASK = 0xFF;
+    static final int TWO_BYTE_SHIFT = 16;
+    static final int ONE_BYTE_SHIFT = 8;
 
     /** The ED's SOM */
-    private SelfOrganizingMap map = null;
+    private SelfOrganizingMap som = null;
 
     /** The number of possible 3x3 matrices with each element having 3 possible
      * values.  This is the expected number of iterations for a SOM that will
@@ -53,7 +56,7 @@ public class EdgeDetector {
         somb.pack();
         somb.setModal(true);
         somb.setVisible(true);
-        map = somb.getMap();
+        som = somb.getMap();
     }
 
     /**
@@ -65,7 +68,7 @@ public class EdgeDetector {
      */
     public static EdgeDetector trainExhaustivelyFromMap(SelfOrganizingMap map) {
         EdgeDetector ed = new EdgeDetector();
-        ed.map = map;
+        ed.som = map;
         ed.trainExhaustively();
         return ed;
     }
@@ -82,7 +85,7 @@ public class EdgeDetector {
     public static EdgeDetector trainRandomlyFromMap(SelfOrganizingMap map,
                                                     int samples) {
         EdgeDetector ed = new EdgeDetector();
-        ed.map = map;
+        ed.som = map;
         ed.trainWithRandomPermutations(samples);
         return ed;
     }
@@ -97,7 +100,7 @@ public class EdgeDetector {
         int[][] matrices = generateRandomPermutations(n);
         log.info("Training.");
         for (int[] matrix : matrices) {
-            map.trainWith(matrix);
+            som.trainWith(matrix);
         }
     }
 
@@ -132,7 +135,7 @@ public class EdgeDetector {
         int[][] matrices = generateAllPermutations();
         log.info("Training.");
         for (int[] matrix : matrices) {
-            map.trainWith(matrix);
+            som.trainWith(matrix);
         }
     }
 
@@ -148,11 +151,10 @@ public class EdgeDetector {
         int cols = 9;
 
 		int[][] permutations = new int[rows][cols];
-		int factor;
 
-		for (int i = 0; i < rows; i++) {
-			factor = 1;
-			for (int j = 0; j < cols; j++) {
+        for (int i = 0; i < rows; i++) {
+            int factor = 1;
+            for (int j = 0; j < cols; j++) {
 				permutations[i][j] = possibleValues[i / factor % possibleValues.length];
 				factor *= possibleValues.length;
 			}
@@ -175,12 +177,12 @@ public class EdgeDetector {
         log.info("Processing " + width + 'x' + height + " image.");
 
         BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        int colorStep = possibleColors / map.getNeuronCount();
+        int colorStep = possibleColors / som.getNeuronCount();
 
         for (int y = 1; y < height; y++) {
             for (int x = 1; x < width; x++) {
                 int[] differenceMatrix = getDifferenceMatrix(image, x, y);
-                int best = map.getBestMatchingNeuron(differenceMatrix);
+                int best = som.getBestMatchingNeuron(differenceMatrix);
                 out.setRGB(x, y, colorStep * best);
             }
         }
@@ -234,7 +236,7 @@ public class EdgeDetector {
      */
     private int findMostCommonColor(BufferedImage image) {
         Map<Integer, Integer> colorFrequency =
-                new HashMap<Integer, Integer>(map.getNeuronCount());
+                new HashMap<Integer, Integer>(som.getNeuronCount());
         
         log.fine("Computing color frequencies.");
         for (int y = 0; y < image.getHeight(); y++) {
@@ -310,15 +312,19 @@ public class EdgeDetector {
      * @return The distance between one and two.
      */
     private double colorDistance(int one, int two) {
-        int r1 = (one >> 16) & 0xFF, g1 = (one >> 8) & 0xFF, b1 = one & 0xFF;
-        int r2 = (two >> 16) & 0xFF, g2 = (two >> 8) & 0xFF, b2 = two & 0xFF;
+        int r1 = (one >> TWO_BYTE_SHIFT) & BYTEMASK;
+        int g1 = (one >> ONE_BYTE_SHIFT) & BYTEMASK;
+        int b1 = one & BYTEMASK;
+        int r2 = (two >> TWO_BYTE_SHIFT) & BYTEMASK;
+        int g2 = (two >> ONE_BYTE_SHIFT) & BYTEMASK;
+        int b2 = two & BYTEMASK;
         int dr = r1 - r2, dg = g1 - g2, db = b1 - b2;
         return Math.sqrt(dr * dr + dg * dg + db * db);
     }
 
     @Override
     public String toString() {
-        return "EdgeDetector{map=" + map + '}';
+        return "EdgeDetector{som=" + som + '}';
     }
 
     public static void main(String[] args) throws IOException {
