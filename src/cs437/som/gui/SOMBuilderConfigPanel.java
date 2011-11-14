@@ -16,7 +16,6 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.SwingPropertyChangeSupport;
 import java.awt.*;
-import java.awt.Dimension;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.regex.Pattern;
@@ -213,11 +212,27 @@ public class SOMBuilderConfigPanel {
         return SOMBuilderConfigPanel;
     }
 
+    /**
+     * Add a property listener.  Updates will be sent when a change in the
+     * validity of the input occurs.
+     *
+     * @param listener The listener to add.
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
-    
+
+    /**
+     * Stop an object from receiving updates on the validity of the form.
+     *
+     * @param listener The listener to remove.
+     */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public String toString() {
+        return "SOMBuilderConfigPanel";
     }
 }
