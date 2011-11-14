@@ -20,7 +20,7 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
     private final Dimension gridSize;
 
     private int iterations = 0;
-    private double[][] weightMatrix;
+    private final double[][] weightMatrix;
 
     DistanceMetric distanceMetricStrategy = null;
     LearningRateFunction learningRateFunctionStrategy = null;

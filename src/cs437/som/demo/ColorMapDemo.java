@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class ColorMapDemo {
     private static final int MAP_DIMENSION = 250;
     private TrainableSelfOrganizingMap som = null;
-    private Logger logger = Logger.getLogger("ColorMapDemo");
+    private final Logger logger = Logger.getLogger("ColorMapDemo");
 
     /**
      * Create a new SOM demo.

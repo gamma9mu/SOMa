@@ -16,8 +16,8 @@ import cs437.som.LearningRateFunction;
  * </pre>
  */
 public class HyperbolicLearningRateFunction implements LearningRateFunction {
-    private double initialRate;
-    private double finalRate;
+    private final double initialRate;
+    private final double finalRate;
     private double expectedIterations = 0.0;
 
     /**

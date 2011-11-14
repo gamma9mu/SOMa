@@ -20,7 +20,7 @@ public class BasicMapDemo {
     private static final int MAPPING_LINE_WIDTH = 330;
 
     private TrainableSelfOrganizingMap som = null;
-    private Logger logger = Logger.getLogger("BasicMapDemo");
+    private final Logger logger = Logger.getLogger("BasicMapDemo");
 
     /**
      * Create a new SOM demo.

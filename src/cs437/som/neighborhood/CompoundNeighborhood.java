@@ -27,7 +27,7 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
 
     private NeighborhoodWidthFunction currentFunction;
 
-    private Map<Integer, NeighborhoodWidthFunction> widthFunctions
+    private final Map<Integer, NeighborhoodWidthFunction> widthFunctions
             = new HashMap<Integer, NeighborhoodWidthFunction>(2);
 
     public CompoundNeighborhood(NeighborhoodWidthFunction initialWidthFuncton) {

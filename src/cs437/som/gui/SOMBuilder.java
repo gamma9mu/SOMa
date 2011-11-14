@@ -21,8 +21,8 @@ public class SOMBuilder extends JDialog implements PropertyChangeListener {
 
     private TrainableSelfOrganizingMap map = null;
 
-    private int inputSize;
-    private int expectedIterations;
+    private final int inputSize;
+    private final int expectedIterations;
 
     /**
      * Create a new SOMBuilder that will, if successful, return a trainable

@@ -24,7 +24,7 @@ public class EdgeDetector {
     private static final int MINIMUM_COLOR_DISTANCE = 60;
 
     /** Better than stdout... */
-    private static Logger log = Logger.getLogger("EdgeDetector");
+    private static final Logger log = Logger.getLogger("EdgeDetector");
     static final int BYTEMASK = 0xFF;
     static final int TWO_BYTE_SHIFT = 16;
     static final int ONE_BYTE_SHIFT = 8;
