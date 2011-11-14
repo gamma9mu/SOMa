@@ -32,6 +32,9 @@ public class SOMBuilberConfigPanel {
     private Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
     private boolean valid = false;
 
+    /**
+     * Create a new SOMBuilberConfigPanel.
+     */
     public SOMBuilberConfigPanel() {
         topologyCmb.addItem("Square Grid");
         topologyCmb.addItem("Skew Hexagonal Grid");
@@ -58,10 +61,26 @@ public class SOMBuilberConfigPanel {
         heightText.addCaretListener(caretListener);
     }
 
+    /**
+     * Determine if the input to the SOMBuilderConfigPanel corresponds to a
+     * valid SOM.
+     *
+     * @return True if this SOMBuilderConfigPanel can produce a valid
+     * CustomizableSOM and false otherwise.
+     */
     public boolean isValid() {
         return valid;
     }
 
+    /**
+     * Create a CustomizableSOM based on the data in this form.
+     *
+     * @param inputSize The input size of the SOM.
+     * @param expectedIterations The expected iterations the SOM will undergo
+     * in training.
+     * @return A CustomizableSOM based on inputSize, expectedIterations and the
+     * form's input.
+     */
     public SelfOrganizingMap createSOM(int inputSize, int expectedIterations) {
         int x = Integer.parseInt(widthText.getText());
         int y = Integer.parseInt(heightText.getText());
@@ -76,6 +95,11 @@ public class SOMBuilberConfigPanel {
         return som;
     }
 
+    /**
+     * Translate the topology selection in the form to a GridType object.
+     *
+     * @return a GridType for use in a CustomizableSOM.
+     */
     private GridType gridType() {
         switch (topologyCmb.getSelectedIndex()) {
             case 1:
@@ -85,6 +109,11 @@ public class SOMBuilberConfigPanel {
         }
     }
 
+    /**
+     * Translate the learning rate selection in the form to a GridType object.
+     *
+     * @return a LearningRateFunction for use in a CustomizableSOM.
+     */
     private LearningRateFunction learningRateType() {
         switch (learningRateCmb.getSelectedIndex()) {
             case 1:
@@ -94,6 +123,12 @@ public class SOMBuilberConfigPanel {
         }
     }
 
+    /**
+     * Translate the neighborhood width selection in the form to a GridType
+     * object.
+     *
+     * @return a NeighborhoodWidthFunction for use in a CustomizableSOM.
+     */
     private NeighborhoodWidthFunction neighborhoodType() {
         switch (neighborhoodCmb.getSelectedIndex()) {
             case 1:
@@ -111,6 +146,11 @@ public class SOMBuilberConfigPanel {
         }
     }
 
+    /**
+     * Translate the distance metric selection in the form to a GridType object.
+     * 
+     * @return a DistanceMetric for use in a CustomizableSOM.
+     */
     private DistanceMetric distanceType() {
         switch (distanceCmb.getSelectedIndex()) {
             case 1:
@@ -122,6 +162,9 @@ public class SOMBuilberConfigPanel {
         }
     }
 
+    /**
+     * Validate the form's inputs.
+     */
     private void validate() {
         boolean pass = true;
         if (positiveInteger.matcher(widthText.getText()).matches()) {
