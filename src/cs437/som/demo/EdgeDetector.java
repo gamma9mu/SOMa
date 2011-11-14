@@ -335,6 +335,7 @@ public class EdgeDetector {
         ed.trainWithRandomPermutations(100);
 
         BufferedImage original = ImageIO.read(new File("image.jpg"));
+        BufferedImage known = ImageIO.read(new File("known_edges.jpg"));
         BufferedImage detected = ed.runOnImage(original);
 
         writeImage(detected, "out");
@@ -342,16 +343,18 @@ public class EdgeDetector {
         BufferedImage normalized = ed.normalizeImage(detected);
         writeImage(normalized, "out_normalized");
 
-        JFrame f1 = ImageFrame.createInJFrame("Reference Image",
-                ImageIO.read(new File("known_edges.jpg")));
-        f1.setLocation(0,0);
-        f1.setVisible(true);
-        JFrame f2 = ImageFrame.createInJFrame("Processed Image", detected);
-        f2.setLocation(FRAME_LOCATION_OFFSET, 0);
-        f2.setVisible(true);
-        JFrame f3 = ImageFrame.createInJFrame("Normalized Image", normalized);
-        f3.setLocation(2 * FRAME_LOCATION_OFFSET, 0);
-        f3.setVisible(true);
+        // image frame titles
+        String[] titles = {"Reference Image", "Processed Image",
+                "Normalized Image"};
+        // image frame images
+        BufferedImage[] images = {known, detected, normalized};
+
+        // Display images
+        for (int i = 0; i < titles.length; i++) {
+            JFrame f1 = ImageFrame.createInJFrame(titles[i], images[i]);
+            f1.setLocation(i * FRAME_LOCATION_OFFSET,0);
+            f1.setVisible(true);
+        }
     }
 
     /**
