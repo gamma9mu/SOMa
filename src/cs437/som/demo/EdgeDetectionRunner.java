@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
@@ -19,7 +21,7 @@ import java.util.regex.Pattern;
  * A form for running multiple EdgeDetectors and comparing their output to a
  * reference image.
  */
-public class EdgeDetectionRunner {
+public class EdgeDetectionRunner implements PropertyChangeListener {
     private static Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
 
     private JRadioButton exhaustiveRadioButton;
@@ -57,20 +59,11 @@ public class EdgeDetectionRunner {
             public void caretUpdate(CaretEvent e) { validateIterationCount(); }
         });
 
-        holdingFrame = new JFrame();
-        holdingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        holdingFrame.getContentPane().add(edgeDetectionRunnerForm);
-        holdingFrame.pack();
-        holdingFrame.setVisible(true);
         trainButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                trainMap();
-            }
+            public void actionPerformed(ActionEvent e) { trainMap(); }
         });
         runButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                runMap();
-            }
+            public void actionPerformed(ActionEvent e) { runMap(); }
         });
         outputImageCmb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { displayOutputImage(); }
@@ -82,31 +75,50 @@ public class EdgeDetectionRunner {
                 }
             }
         });
+
+        validateForm();
+
+        holdingFrame = new JFrame();
+        holdingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        holdingFrame.getContentPane().add(edgeDetectionRunnerForm);
+        holdingFrame.pack();
+        holdingFrame.setVisible(true);
     }
 
-    private void validateIterationCount() {
-        boolean canEnableTrain = true;
+    /**
+     * Validate the current input and (en-/)disable controls appropriately.
+     */
+    private void validateForm() {
+        boolean mapValid = mapConfig.isValid();
+        boolean iterationCountValid = validateIterationCount();
+        boolean exhaustiveSelected = exhaustiveRadioButton.isSelected();
+
+        boolean eneableTrain = mapValid &&
+                (exhaustiveSelected || iterationCountValid);
+
+        trainButton.setEnabled(eneableTrain);
+        runButton.setEnabled(ed != null);
+    }
+
+    /**
+     * Validate the contents of {@inheritDoc iterationCountInput} and update
+     * its background color appropriately.
+     *
+     * @return True if the contents are valid; false otherwise.
+     */
+    private boolean validateIterationCount() {
+        boolean iterationCountIsValid = false;
         if (positiveInteger.matcher(iterationCountInput.getText()).matches()) {
             iterationCountInput.setBackground(Color.WHITE);
+            iterationCountIsValid = true;
         } else {
             iterationCountInput.setBackground(Color.RED);
-            canEnableTrain = false;
         }
 
-        if (exhaustiveRadioButton.isSelected()) {
-            canEnableTrain = true;
-        }
-
-        trainButton.setEnabled(canEnableTrain);
+        return iterationCountIsValid;
     }
 
     private void trainMap() {
-        runButton.setEnabled(false);
-        
-        if (!mapConfig.isValid()) {
-            return; // TODO WRONG!
-        }
-
         if (exhaustiveRadioButton.isSelected()) {
             createExhaustiveSOM();
         } else {
@@ -140,15 +152,19 @@ public class EdgeDetectionRunner {
         holdingFrame.pack();
     }
 
+    /**
+     * Display the input and output images, if they exist.
+     */
     private void displayImages() {
-        if (inputImage == null) {
-            return;
+        if (inputImage != null) {
+            referenceLabel.setIcon(new ImageIcon(inputImage));
+            displayOutputImage();
         }
-
-        referenceLabel.setIcon(new ImageIcon(inputImage));
-        displayOutputImage();
     }
 
+    /**
+     * Display the output images, if they exist.
+     */
     private void displayOutputImage() {
         if (outputImage == null || normalImage == null) {
             return;
@@ -169,6 +185,21 @@ public class EdgeDetectionRunner {
         return "EdgeDetectionRunner";
     }
 
+    /**
+     * Custom creation and initialization of UI components.
+     */
     private void createUIComponents() {
+        mapConfig.addPropertyChangeListener(this);
+    }
+
+    /**
+     * Listen for validity changes on the SOMBuilderConfigPanel.
+     *
+     * {@inheritDoc}
+     */
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getOldValue() != evt.getNewValue()) {
+            validateForm();
+        }
     }
 }
