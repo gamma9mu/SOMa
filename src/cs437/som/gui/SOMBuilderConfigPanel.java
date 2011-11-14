@@ -1,6 +1,7 @@
 package cs437.som.gui;
 
 import cs437.som.*;
+import cs437.som.Dimension;
 import cs437.som.distancemetrics.ChebyshevDistanceMetric;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
 import cs437.som.distancemetrics.ManhattanDistanceMetric;
@@ -99,84 +100,108 @@ public class SOMBuilderConfigPanel {
      * form's input.
      */
     public TrainableSelfOrganizingMap createSOM(int inputSize, int expectedIterations) {
-        int x = Integer.parseInt(widthText.getText());
-        int y = Integer.parseInt(heightText.getText());
-        cs437.som.Dimension dimension = new cs437.som.Dimension(x, y);
-        CustomizableSOM som = new CustomizableSOM(dimension, inputSize, expectedIterations);
+        CustomizableSOM som = new CustomizableSOM(dimension(), inputSize, expectedIterations);
 
-        som.setGridTypeStrategy(gridType());
-        som.setLearningRateFunctionStrategy(learningRateType());
-        som.setNeighborhoodWidthFunctionStrategy(neighborhoodType());
-        som.setDistanceMetricStrategy(distanceType());
+        gridType(som);
+        learningRateType(som);
+        neighborhoodType(som);
+        distanceType(som);
 
         return som;
     }
 
     /**
-     * Translate the topology selection in the form to a GridType object.
-     *
-     * @return a GridType for use in a CustomizableSOM.
+     * Translate the dimensions in the form input into a Dimension object.
+     * 
+     * @return The {@code Dimension} corresponding to the forms input.
      */
-    private GridType gridType() {
-        switch (topologyCmb.getSelectedIndex()) {
-            case 1:
-                return new SkewHexagonalGrid();
-            default:
-                return new SquareGrid();
+    private Dimension dimension() {
+        int x = Integer.parseInt(widthText.getText());
+        int y = Integer.parseInt(heightText.getText());
+        return new Dimension(x, y);
+    }
+
+    /**
+     * Translate the topology selection in the form to a GridType object and
+     * set a map's grid type to that.
+     *
+     * @param map The map who's grid type will be set.
+     */
+    private void gridType(CustomizableSOM map) {
+        if (topologyCmb.getSelectedIndex() == 1) {
+            map.setGridTypeStrategy(new SkewHexagonalGrid());
+        } else {
+            map.setGridTypeStrategy(new SquareGrid());
         }
     }
 
     /**
-     * Translate the learning rate selection in the form to a GridType object.
+     * Translate the learning rate selection into the form to a GridType object
+     * and set a map's learning rate function to that.
      *
-     * @return a LearningRateFunction for use in a CustomizableSOM.
+     * @param map The map who's learning rate function will be set.
      */
-    private LearningRateFunction learningRateType() {
+    private void learningRateType(CustomizableSOM map) {
+        LearningRateFunction lrf = null;
         switch (learningRateCmb.getSelectedIndex()) {
             case 1:
-                return new HyperbolicLearningRateFunction(0.8, 0.1);
+                lrf = new HyperbolicLearningRateFunction(0.8, 0.1);
+                break;
             default:
-                return new ConstantLearningRateFunction(0.2);
+                lrf =  new ConstantLearningRateFunction(0.2);
         }
+        map.setLearningRateFunctionStrategy(lrf);
     }
 
     /**
-     * Translate the neighborhood width selection in the form to a GridType
-     * object.
+     * Translate the neighborhood width selection into the form to a GridType
+     * object and set a map's neighborhood function to that.
      *
-     * @return a NeighborhoodWidthFunction for use in a CustomizableSOM.
+     * @param map The map who's neighborhood function will be set.
      */
-    private NeighborhoodWidthFunction neighborhoodType() {
+    private void neighborhoodType(CustomizableSOM map) {
+        NeighborhoodWidthFunction nwf = null;
         switch (neighborhoodCmb.getSelectedIndex()) {
             case 1:
-                return new LinearDecayNeighborhoodWidthFunction(10.0);
+                nwf = new LinearDecayNeighborhoodWidthFunction(10.0);
+                break;
             case 2:
-                return new HyperbolicNeighborhoodWidthFunction(10.0, 1.0);
+                nwf = new HyperbolicNeighborhoodWidthFunction(10.0, 1.0);
+                break;
             case 3:
-                return new ExponentialDecayNeighborhoodWidth(10.0);
+                nwf = new ExponentialDecayNeighborhoodWidth(10.0);
+                break;
             case 4:
-                return new GaussianNeighborhoodWidthFunction(3.0);
+                nwf = new GaussianNeighborhoodWidthFunction(3.0);
+                break;
             case 5:
-                return new MexicanHatNeighborhoodWidthFunction(3.0);
+                nwf = new MexicanHatNeighborhoodWidthFunction(3.0);
+                break;
             default:
-                return new ConstantNeighborhoodWidthFunction(1.0);
+                nwf = new ConstantNeighborhoodWidthFunction(1.0);
         }
+        map.setNeighborhoodWidthFunctionStrategy(nwf);
     }
 
     /**
-     * Translate the distance metric selection in the form to a GridType object.
-     * 
-     * @return a DistanceMetric for use in a CustomizableSOM.
+     * Translate the distance metric selection into the form to a GridType
+     * object and set a map's distance type to that.
+     *
+     * @param map The map who's distance type will be set
      */
-    private DistanceMetric distanceType() {
+    private void distanceType(CustomizableSOM map) {
+        DistanceMetric dm = null;
         switch (distanceCmb.getSelectedIndex()) {
             case 1:
-                return new ChebyshevDistanceMetric();
+                dm = new ChebyshevDistanceMetric();
+                break;
             case 2:
-                return new ManhattanDistanceMetric();
+                dm = new ManhattanDistanceMetric();
+                break;
             default:
-                return new EuclideanDistanceMetric();
+                dm = new EuclideanDistanceMetric();
         }
+        map.setDistanceMetricStrategy(dm);
     }
 
     /**
