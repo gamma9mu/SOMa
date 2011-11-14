@@ -13,6 +13,7 @@ import java.util.Random;
  * A fully customizable self-organizing map.
  */
 public class CustomizableSOM implements TrainableSelfOrganizingMap {
+    static final double DEFAULT_LEARNING_RATE = 0.1;
     private final int neuronCount;
     private final int inputSize;
     private final int expectedIterations;
@@ -37,7 +38,8 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
 
 
         setDistanceMetricStrategy(new EuclideanDistanceMetric());
-        setLearningRateFunctionStrategy(new ConstantLearningRateFunction(0.1));
+        setLearningRateFunctionStrategy(
+                new ConstantLearningRateFunction(DEFAULT_LEARNING_RATE));
         setGridTypeStrategy(new SquareGrid());
 
         // This calculation is based on a recommendation from Dr. Kohonen in
