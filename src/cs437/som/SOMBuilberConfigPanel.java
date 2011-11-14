@@ -17,7 +17,8 @@ import java.awt.*;
 import java.util.regex.Pattern;
 
 /**
- * gamma @ 11/11/11 1:15 PM
+ * Provides a JPanel through which a CustomizableSOM can be configured for use
+ * in a Swing application.
  */
 public class SOMBuilberConfigPanel {
     private JComboBox learningRateCmb;
