@@ -1,6 +1,5 @@
 package cs437.som.gui;
 
-import cs437.som.SOMBuilderConfigPanel;
 import cs437.som.TrainableSelfOrganizingMap;
 
 import javax.swing.*;
