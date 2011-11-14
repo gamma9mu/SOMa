@@ -42,9 +42,30 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
 
     private EdgeDetector ed = null;
 
+    /**
+     * Create a new EdgeDetectionRunner.
+     */
     public EdgeDetectionRunner() {
         createUIComponents();
+        validateForm();
+        createHoldingFrame();
+    }
 
+    /**
+     * Create an enclosing JFrame and show it.
+     */
+    private void createHoldingFrame() {
+        holdingFrame = new JFrame();
+        holdingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        holdingFrame.getContentPane().add(edgeDetectionRunnerForm);
+        holdingFrame.pack();
+        holdingFrame.setVisible(true);
+    }
+
+    /**
+     * Set up listeners on the training style radio buttons.
+     */
+    private void setupTrainingRadios() {
         iterationCountInput.setEnabled(false);
         exhaustiveRadioButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -55,19 +76,6 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
             }
         });
 
-        iterationCountInput.addCaretListener(new CaretListener() {
-            public void caretUpdate(CaretEvent e) { validateIterationCount(); }
-        });
-
-        trainButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { trainMap(); }
-        });
-        runButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { runMap(); }
-        });
-        outputImageCmb.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { displayOutputImage(); }
-        });
         sampledRadioButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (sampledRadioButton.isSelected()) {
@@ -75,14 +83,6 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
                 }
             }
         });
-
-        validateForm();
-
-        holdingFrame = new JFrame();
-        holdingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        holdingFrame.getContentPane().add(edgeDetectionRunnerForm);
-        holdingFrame.pack();
-        holdingFrame.setVisible(true);
     }
 
     /**
@@ -101,7 +101,7 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
     }
 
     /**
-     * Validate the contents of {@inheritDoc iterationCountInput} and update
+     * Validate the contents of {@code iterationCountInput} and update
      * its background color appropriately.
      *
      * @return True if the contents are valid; false otherwise.
@@ -118,6 +118,9 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
         return iterationCountIsValid;
     }
 
+    /**
+     * Create and train an EdgeDetector based on the form input.
+     */
     private void trainMap() {
         if (exhaustiveRadioButton.isSelected()) {
             createExhaustiveSOM();
@@ -128,18 +131,27 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
         runButton.setEnabled(true);
     }
 
+    /**
+     * Create and train an EdgeDetector that uses sampled input.
+     */
     private void createSampleSOM() {
         int iterations = Integer.parseInt(iterationCountInput.getText());
         SelfOrganizingMap som = mapConfig.createSOM(9, iterations);
         ed = EdgeDetector.trainRandomlyFromMap(som, iterations);
     }
 
+    /**
+     * Create and train an EdgeDetector that uses exhaustive training.
+     */
     private void createExhaustiveSOM() {
         int iterations = EdgeDetector.threeRaiseNine;
         SelfOrganizingMap som = mapConfig.createSOM(9, iterations);
         ed = EdgeDetector.trainExhaustivelyFromMap(som);
     }
 
+    /**
+     * Run the currently trained map and display the results.
+     */
     private void runMap() {
         try {
             inputImage = ImageIO.read(new File("image.jpg"));
@@ -176,10 +188,6 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
         }
     }
 
-    public static void main(String[] args) {
-        new EdgeDetectionRunner();
-    }
-
     @Override
     public String toString() {
         return "EdgeDetectionRunner";
@@ -190,6 +198,24 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
      */
     private void createUIComponents() {
         mapConfig.addPropertyChangeListener(this);
+
+        setupTrainingRadios();
+
+        iterationCountInput.addCaretListener(new CaretListener() {
+            public void caretUpdate(CaretEvent e) {
+                validateIterationCount();
+            }
+        });
+
+        trainButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { trainMap(); }
+        });
+        runButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { runMap(); }
+        });
+        outputImageCmb.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { displayOutputImage(); }
+        });
     }
 
     /**
@@ -201,5 +227,9 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
         if (evt.getOldValue() != evt.getNewValue()) {
             validateForm();
         }
+    }
+
+    public static void main(String[] args) {
+        new EdgeDetectionRunner();
     }
 }
