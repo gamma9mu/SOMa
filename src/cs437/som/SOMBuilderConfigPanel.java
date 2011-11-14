@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * Provides a JPanel through which a CustomizableSOM can be configured for use
  * in a Swing application.
  */
-public class SOMBuilberConfigPanel {
+public class SOMBuilderConfigPanel {
     private JComboBox learningRateCmb;
     private JComboBox distanceCmb;
     private JComboBox neighborhoodCmb;
@@ -33,9 +33,9 @@ public class SOMBuilberConfigPanel {
     private boolean valid = false;
 
     /**
-     * Create a new SOMBuilberConfigPanel.
+     * Create a new SOMBuilderConfigPanel.
      */
-    public SOMBuilberConfigPanel() {
+    public SOMBuilderConfigPanel() {
         topologyCmb.addItem("Square Grid");
         topologyCmb.addItem("Skew Hexagonal Grid");
 

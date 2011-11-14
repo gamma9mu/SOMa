@@ -1,6 +1,6 @@
 package cs437.som.demo;
 
-import cs437.som.SOMBuilberConfigPanel;
+import cs437.som.SOMBuilderConfigPanel;
 import cs437.som.SelfOrganizingMap;
 
 import javax.imageio.ImageIO;
@@ -25,7 +25,7 @@ public class EdgeDetectionRunner {
     private JRadioButton exhaustiveRadioButton;
     private JRadioButton sampledRadioButton;
     private JTextField iterationCountInput;
-    private SOMBuilberConfigPanel mapConfig;
+    private SOMBuilderConfigPanel mapConfig;
     private JComboBox<String> outputImageCmb;
     private JButton trainButton;
     private JButton runButton;
