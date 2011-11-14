@@ -40,6 +40,6 @@ public class GaussianNeighborhoodWidthFunction implements NeighborhoodWidthFunct
 
     @Override
     public String toString() {
-        return "GaussianNeighborhoodWidthFunction";
+        return "GaussianNeighborhoodWidthFunction " + stdDeviation;
     }
 }

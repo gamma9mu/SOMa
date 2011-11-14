@@ -20,6 +20,7 @@ import cs437.som.NeighborhoodWidthFunction;
  */
 public class MexicanHatNeighborhoodWidthFunction implements NeighborhoodWidthFunction {
     private static final double oneFourth = 0.25;
+    private final double standardDeviation;
     private final double coefficient;
     private final double variance;
 
@@ -30,6 +31,7 @@ public class MexicanHatNeighborhoodWidthFunction implements NeighborhoodWidthFun
      * Gaussian function.
      */
     public MexicanHatNeighborhoodWidthFunction(double standardDeviation) {
+        this.standardDeviation = standardDeviation;
         coefficient = 2 / (Math.sqrt(3 * standardDeviation) * Math.pow(Math.PI, oneFourth));
         variance = standardDeviation * standardDeviation;
     }
@@ -46,6 +48,6 @@ public class MexicanHatNeighborhoodWidthFunction implements NeighborhoodWidthFun
 
     @Override
     public String toString() {
-        return "MexicanHatNeighborhoodWidthFunction";
+        return "MexicanHatNeighborhoodWidthFunction " + standardDeviation;
     }
 }

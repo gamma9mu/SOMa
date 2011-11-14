@@ -26,6 +26,6 @@ public class ConstantNeighborhoodWidthFunction implements NeighborhoodWidthFunct
 
     @Override
     public String toString() {
-        return "ConstantNeighborhoodWidthFunction";
+        return "ConstantNeighborhoodWidthFunction " + neighborhoodWidth;
     }
 }

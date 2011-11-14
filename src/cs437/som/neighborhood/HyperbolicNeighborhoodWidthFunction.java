@@ -18,12 +18,14 @@ import cs437.som.NeighborhoodWidthFunction;
 public class HyperbolicNeighborhoodWidthFunction
         implements NeighborhoodWidthFunction {
     private double expectedIterations = 0.0;
-    private double initialWidth;
-    private double widthRatio;
+    private final double initialWidth;
+    private final double widthRatio;
+    private final double finalWidth;
 
     public HyperbolicNeighborhoodWidthFunction(double initialWidth,
                                                double finalWidth) {
         this.initialWidth = initialWidth;
+        this.finalWidth = finalWidth;
         widthRatio = finalWidth / initialWidth;
     }
 
@@ -37,6 +39,6 @@ public class HyperbolicNeighborhoodWidthFunction
 
     @Override
     public String toString() {
-        return "HyperbolicNeighborhoodWidthFunction";
+        return "HyperbolicNeighborhoodWidthFunction " + initialWidth + ' ' + finalWidth;
     }
 }

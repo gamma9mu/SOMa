@@ -39,6 +39,6 @@ public class ExponentialDecayNeighborhoodWidth implements NeighborhoodWidthFunct
 
     @Override
     public String toString() {
-        return "ExponentialDecayNeighborhoodWidth";
+        return "ExponentialDecayNeighborhoodWidth " + initialNeighborhoodWidth;
     }
 }

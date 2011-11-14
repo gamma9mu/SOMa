@@ -38,6 +38,6 @@ public class LinearDecayNeighborhoodWidthFunction implements NeighborhoodWidthFu
 
     @Override
     public String toString() {
-        return "LinearDecayNeighborhoodWidthFunction";
+        return "LinearDecayNeighborhoodWidthFunction " + initialNeighborhoodWidth;
     }
 }

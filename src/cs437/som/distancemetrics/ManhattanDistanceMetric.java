@@ -38,4 +38,8 @@ public class ManhattanDistanceMetric implements DistanceMetric {
         return sum;
     }
 
+    @Override
+    public String toString() {
+        return "ManhattanDistanceMetric";
+    }
 }
