@@ -13,7 +13,10 @@ import cs437.som.topology.SquareGrid;
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
+import javax.swing.event.SwingPropertyChangeSupport;
 import java.awt.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.regex.Pattern;
 
 /**
@@ -31,6 +34,8 @@ public class SOMBuilderConfigPanel {
 
     private Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
     private boolean valid = false;
+    private PropertyChangeSupport propertyChangeSupport =
+            new SwingPropertyChangeSupport(this, true);
 
     /**
      * Create a new SOMBuilderConfigPanel.
@@ -70,6 +75,17 @@ public class SOMBuilderConfigPanel {
      */
     public boolean isValid() {
         return valid;
+    }
+
+    /**
+     * Internal setter for {@code valid}, used to handle property changes.
+     * 
+     * @param valid The new value of {@code valid}.
+     */
+    private void setValid(boolean valid) {
+        boolean oldvalid = this.valid;
+        this.valid = valid;
+        propertyChangeSupport.firePropertyChange("valid", oldvalid, valid);
     }
 
     /**
@@ -183,7 +199,7 @@ public class SOMBuilderConfigPanel {
                 heightText.setBackground(Color.RED);
         }
 
-        valid = pass;
+        setValid(pass);
     }
 
     /**
@@ -193,5 +209,13 @@ public class SOMBuilderConfigPanel {
      */
     public JPanel getSOMBuilderConfigPanel() {
         return SOMBuilderConfigPanel;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+    
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }
