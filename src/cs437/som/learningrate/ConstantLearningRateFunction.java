@@ -27,6 +27,6 @@ public class ConstantLearningRateFunction implements LearningRateFunction {
 
     @Override
     public String toString() {
-        return "ConstantLearningRateFunction";
+        return "ConstantLearningRateFunction " + learningRate;
     }
 }

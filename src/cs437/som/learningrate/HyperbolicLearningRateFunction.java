@@ -42,6 +42,6 @@ public class HyperbolicLearningRateFunction implements LearningRateFunction {
 
     @Override
     public String toString() {
-        return "HyperbolicLearningRateFunction";
+        return "HyperbolicLearningRateFunction " + initialRate + ' ' + finalRate;
     }
 }

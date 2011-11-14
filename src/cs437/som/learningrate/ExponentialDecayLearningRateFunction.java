@@ -39,6 +39,6 @@ public class ExponentialDecayLearningRateFunction implements LearningRateFunctio
 
     @Override
     public String toString() {
-        return "ExponentialDecayLearningRateFunction";
+        return "ExponentialDecayLearningRateFunction " + initialLearningRate;
     }
 }

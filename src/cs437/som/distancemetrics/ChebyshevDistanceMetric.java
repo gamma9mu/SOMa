@@ -40,4 +40,8 @@ public class ChebyshevDistanceMetric implements DistanceMetric {
         return max;
     }
 
+    @Override
+    public String toString() {
+        return "ChebyshevDistanceMetric";
+    }
 }
