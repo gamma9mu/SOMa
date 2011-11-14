@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <nested-form id="346ae" form-file="cs437/som/SOMBuilberConfigPanel.form" binding="mapConfig">
+      <nested-form id="346ae" form-file="cs437/som/SOMBuilderConfigPanel.form" binding="mapConfig">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="499" height="196"/>
