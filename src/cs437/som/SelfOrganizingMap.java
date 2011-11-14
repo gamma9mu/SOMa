@@ -3,7 +3,7 @@ package cs437.som;
 /**
  * gamma @ 11/13/11 8:49 PM
  */
-public interface SOM {
+public interface SelfOrganizingMap {
     /**
      * Get the expected vector length for training the map and matching neurons.
      *
