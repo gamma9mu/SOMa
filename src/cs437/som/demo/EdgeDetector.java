@@ -142,53 +142,6 @@ public class EdgeDetector {
      * @return An array (size 19683, or 3^9) of double[9], each of which
      * represents a 3x3 matrix in row major form.
      */
-    /*
-    public int[][] generateAllPermutations() {
-        int[] possibleValues  = { -1, 0, 1 };
-
-        log.info("Creating " + threeRaiseNine + " (all possible) matrices.");
-
-        int[][] permutations = new int[threeRaiseNine][9];
-        int row = 0;
-        for (int possibleValue0 : possibleValues) {
-            int[] temp = {possibleValue0, 0, 0, 0, 0, 0, 0, 0, 0};
-            for (int possibleValue1 : possibleValues) {
-                temp[1] = possibleValue1;
-                for (int possibleValue2 : possibleValues) {
-                    temp[2] = possibleValue2;
-                    for (int possibleValue3 : possibleValues) {
-                        temp[3] = possibleValue3;
-                        for (int possibleValue4 : possibleValues) {
-                            temp[4] = possibleValue4;
-                            for (int possibleValue5 : possibleValues) {
-                                temp[5] = possibleValue5;
-                                for (int possibleValue6 : possibleValues) {
-                                    temp[6] = possibleValue6;
-                                    for (int possibleValue7 : possibleValues) {
-                                        temp[7] = possibleValue7;
-                                        for (int possibleValue8 : possibleValues) {
-                                            temp[8] = possibleValue8;
-                                            System.arraycopy(temp, 0, permutations[row], 0, 9);
-                                            row++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return permutations;
-    }
-    */
-
-    /**
-     * Generate all possible input matrices.
-     *
-     * @return An array (size 19683, or 3^9) of double[9], each of which
-     * represents a 3x3 matrix in row major form.
-     */
 	private int[][] generateAllPermutations() {
         int[] possibleValues  = { -1, 0, 1 };
         int rows = threeRaiseNine;
