@@ -32,6 +32,7 @@ public class EdgeDetectionRunner {
     private JPanel edgeDetectionRunnerForm;
     private JLabel referenceLabel;
     private JLabel outputLabel;
+    private JFrame holdingFrame;
 
     private BufferedImage inputImage = null;
     private BufferedImage outputImage = null;
@@ -56,11 +57,11 @@ public class EdgeDetectionRunner {
             public void caretUpdate(CaretEvent e) { validateIterationCount(); }
         });
 
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(edgeDetectionRunnerForm);
-        frame.pack();
-        frame.setVisible(true);
+        holdingFrame = new JFrame();
+        holdingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        holdingFrame.getContentPane().add(edgeDetectionRunnerForm);
+        holdingFrame.pack();
+        holdingFrame.setVisible(true);
         trainButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 trainMap();
@@ -136,6 +137,7 @@ public class EdgeDetectionRunner {
         normalImage = ed.normalizeImage(outputImage);
 
         displayImages();
+        holdingFrame.pack();
     }
 
     private void displayImages() {
