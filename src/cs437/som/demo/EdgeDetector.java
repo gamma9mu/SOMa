@@ -53,7 +53,7 @@ public class EdgeDetector {
      * @param iterations The number of iterations used in training the SOM.
      */
     private EdgeDetector(int iterations) {
-        SOMBuilber somb = new SOMBuilber(9, iterations);
+        SOMBuilder somb = new SOMBuilder(9, iterations);
         somb.setVisible(true);
         som = somb.getMap();
     }
