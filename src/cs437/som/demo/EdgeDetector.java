@@ -265,6 +265,20 @@ public class EdgeDetector {
         return mostCommonColor;
     }
 
+    /**
+     * Create a "difference" matrix from a point in an image.  The matrix is a
+     * 3x3 grid of numbers.  The central number represents the point in
+     * question.  The remaining numbers in the matrix are -1 if the point in
+     * the image having the same positional relationship as then number in the
+     * matrix does not exist (ie., it would be off the image), or 1 if the
+     * Euclidean distance of the red, green, and blue values of the color are
+     * greater than {@code MINIMUM_COLOR_DISTANCE} from the reference pixel.
+     *
+     * @param img The image to extract data from.
+     * @param x The x-axis coordinate of the point to process.
+     * @param y The y-axis coordinate of the point to process.
+     * @return The matrix as described above.
+     */
     private int[] getDifferenceMatrix(BufferedImage img, int x, int y) {
         int[] matrix = new int[9];
 
