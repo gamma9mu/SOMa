@@ -14,7 +14,7 @@ public class SOM2dPlotter extends JFrame {
     public static final int WIDTH = 400;
     public static final int HEIGHT = 400;
 
-    SelfOrganizingMap map = null;
+    SelfOrganizingMap som = null;
     private int neuronCount = 0;
 
     /**
@@ -23,10 +23,11 @@ public class SOM2dPlotter extends JFrame {
      */
     public SOM2dPlotter(SelfOrganizingMap map) {
         super("SOM Plot");
+        if (map.getInputLength() != 2) {
+            throw new IllegalArgumentException("SOM does not som 2d inputs");
+        }
 
-        if (map.getInputLength() != 2) throw new IllegalArgumentException("SOM does not map 2d inputs");
-
-        this.map = map;
+        this.som = map;
         neuronCount = map.getNeuronCount();
         setSize(WIDTH, HEIGHT);
         setVisible(true);
@@ -49,8 +50,8 @@ public class SOM2dPlotter extends JFrame {
         double xmin = Double.MAX_VALUE, xmax = Double.MIN_VALUE;
         double ymin = Double.MAX_VALUE, ymax = Double.MIN_VALUE;
         for (int i = 0; i < neuronCount; i++) {
-            points[i][0] = map.getWeight(i, 0);
-            points[i][1] = map.getWeight(i, 1);
+            points[i][0] = som.getWeight(i, 0);
+            points[i][1] = som.getWeight(i, 1);
             xmin = Math.min(xmin, points[i][0]);
             ymin = Math.min(ymin, points[i][1]);
             xmax = Math.max(xmax, points[i][0]);
@@ -73,6 +74,6 @@ public class SOM2dPlotter extends JFrame {
 
     @Override
     public String toString() {
-        return "SOM2dPlotter{map=" + map + '}';
+        return "SOM2dPlotter{som=" + som + '}';
     }
 }
