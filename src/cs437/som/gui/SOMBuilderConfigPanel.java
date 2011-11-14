@@ -1,5 +1,6 @@
-package cs437.som;
+package cs437.som.gui;
 
+import cs437.som.*;
 import cs437.som.distancemetrics.ChebyshevDistanceMetric;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
 import cs437.som.distancemetrics.ManhattanDistanceMetric;
@@ -15,6 +16,7 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.SwingPropertyChangeSupport;
 import java.awt.*;
+import java.awt.Dimension;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.regex.Pattern;
@@ -100,7 +102,7 @@ public class SOMBuilderConfigPanel {
     public TrainableSelfOrganizingMap createSOM(int inputSize, int expectedIterations) {
         int x = Integer.parseInt(widthText.getText());
         int y = Integer.parseInt(heightText.getText());
-        Dimension dimension = new Dimension(x, y);
+        cs437.som.Dimension dimension = new cs437.som.Dimension(x, y);
         CustomizableSOM som = new CustomizableSOM(dimension, inputSize, expectedIterations);
 
         som.setGridTypeStrategy(gridType());
