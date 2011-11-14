@@ -35,9 +35,9 @@ public class SOMBuilderConfigPanel {
     private JComboBox topologyCmb;
     private JPanel SOMBuilderConfigPanel;
 
-    private Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
+    private final Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
     private boolean valid = false;
-    private PropertyChangeSupport propertyChangeSupport =
+    private final PropertyChangeSupport propertyChangeSupport =
             new SwingPropertyChangeSupport(this, true);
 
     /**

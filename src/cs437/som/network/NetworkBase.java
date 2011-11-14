@@ -16,12 +16,12 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
     public static final double alpha = 0.08;
 
     protected int time = 1;
-    protected int neuronCount;
-    protected int inputVectorSize;
-    protected int expectedIterations;
+    protected final int neuronCount;
+    protected final int inputVectorSize;
+    protected final int expectedIterations;
 
-    protected double[][] weightMatrix;
-    protected Dimension gridSize;
+    protected final double[][] weightMatrix;
+    protected final Dimension gridSize;
 
     /**
      * Constructs the common functionality for SOMs.

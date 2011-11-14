@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  * reference image.
  */
 public class EdgeDetectionRunner implements PropertyChangeListener {
-    private static Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
+    private static final Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
 
     private JRadioButton exhaustiveRadioButton;
     private JRadioButton sampledRadioButton;
