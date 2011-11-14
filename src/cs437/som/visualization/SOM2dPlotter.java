@@ -1,6 +1,6 @@
 package cs437.som.visualization;
 
-import cs437.som.SOM;
+import cs437.som.SelfOrganizingMap;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -14,13 +14,13 @@ public class SOM2dPlotter extends JFrame {
     
     public static final int WIDTH = 400;
     public static final int HEIGHT = 400;
-    SOM map = null;
+    SelfOrganizingMap map = null;
 
     /**
      * Create and setup a dot plot for a 2D input SOM.
      * @param map The SOM to plot.
      */
-    public SOM2dPlotter(SOM map) {
+    public SOM2dPlotter(SelfOrganizingMap map) {
         super("SOM Plot");
 
         if (map.getInputLength() != 2) throw new IllegalArgumentException("SOM does not map 2d inputs");

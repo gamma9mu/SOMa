@@ -27,7 +27,7 @@
 
 package cs437.som.visualization;
 
-import cs437.som.SOM;
+import cs437.som.SelfOrganizingMap;
 import cs437.som.Dimension;
 
 import javax.swing.*;
@@ -43,7 +43,7 @@ public class SOM3dPlotter extends JFrame {
     
     public static final int WIDTH = 500;
     public static final int HEIGHT = 500;
-    SOM map = null;
+    SelfOrganizingMap map = null;
     Dimension dims;
     BufferedImage img;
 
@@ -51,7 +51,7 @@ public class SOM3dPlotter extends JFrame {
      * Create and setup a dot plot for a 3D input SOM.
      * @param map The SOM to plot.
      */
-    public SOM3dPlotter(SOM map) {
+    public SOM3dPlotter(SelfOrganizingMap map) {
         super("SOM Plot");
 
         if (map.getInputLength() != 3) throw new IllegalArgumentException("SOM does not map 3d inputs");

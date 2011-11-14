@@ -3,7 +3,7 @@ package cs437.som;
 /**
  * Interface for handling differing self-organizing uniformly.
  */
-public interface TrainableSelfOrganizingMap extends SOM {
+public interface TrainableSelfOrganizingMap extends SelfOrganizingMap {
     /**
      * Get the expected iteration count for map training.  This value should be
      * passed to the map upon construction and is used for scaling functions
