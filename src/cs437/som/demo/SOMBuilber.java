@@ -8,6 +8,10 @@ import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * A dialog for gathering a self-organizing map's configuration from an
+ * application's user.
+ */
 public class SOMBuilber extends JDialog implements PropertyChangeListener {
     private static final long serialVersionUID = 0L;
 
@@ -21,6 +25,15 @@ public class SOMBuilber extends JDialog implements PropertyChangeListener {
     private int inputSize;
     private int expectedIterations;
 
+    /**
+     * Create a new SOMBuilber that will, if successful, return a trainable
+     * self-organizing map that expects {@code inputSize} as the length of its
+     * input vector and {@code expectedIterations} iterations of training.
+     * 
+     * @param inputSize The input vector length for the generated map.
+     * @param expectedIterations  The expected amount of training iterations
+     * for the generated map.
+     */
     public SOMBuilber(int inputSize, int expectedIterations) {
         this.inputSize = inputSize;
         this.expectedIterations = expectedIterations;
@@ -60,14 +73,30 @@ public class SOMBuilber extends JDialog implements PropertyChangeListener {
 
     }
 
+    /**
+     * Get the self-organizing map as configured by input to the form, if one
+     * exists.
+     *
+     * @return A trainable self-organizing map if the user selected 'OK.'  The
+     * return result will be {@code null} if the user cancelled the dialog.
+     */
     public TrainableSelfOrganizingMap getMap() {
         return map;
     }
 
+    /**
+     * Listen for validity changes on the SOMBuilderConfigPanel.
+     *
+     * {@inheritDoc}
+     */
     public void propertyChange(PropertyChangeEvent evt) {
         buttonOK.setEnabled(mapConfigPanel.isValid());
     }
 
+    /**
+     * Demo main for SOMBuilber form.
+     * @param args ignored.
+     */
     public static void main(String[] args) {
         SOMBuilber dialog = new SOMBuilber(10, 1000);
         dialog.pack();
