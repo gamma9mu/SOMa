@@ -185,4 +185,13 @@ public class SOMBuilderConfigPanel {
 
         valid = pass;
     }
+
+    /**
+     * Get the actual JPanel for inclusion in a form.
+     *
+     * @return A JPanel for configuring a CustomizableSOM.
+     */
+    public JPanel getSOMBuilderConfigPanel() {
+        return SOMBuilderConfigPanel;
+    }
 }
