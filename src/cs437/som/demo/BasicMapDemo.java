@@ -1,7 +1,7 @@
 package cs437.som.demo;
 
 import cs437.som.Dimension;
-import cs437.som.SelfOrganizingMap;
+import cs437.som.TrainableSelfOrganizingMap;
 import cs437.som.network.BasicSquareGridSOM;
 import cs437.som.visualization.SOM2dPlotter;
 
@@ -19,14 +19,14 @@ public class BasicMapDemo {
     private static final double nearnessOffest = 0.5;
     private static final int MAPPING_LINE_WIDTH = 330;
 
-    private SelfOrganizingMap som = null;
+    private TrainableSelfOrganizingMap som = null;
     private Logger logger = Logger.getLogger("BasicMapDemo");
 
     /**
      * Create a new SOM demo.
      * @param map An untrained SOM to watch.
      */
-    public BasicMapDemo(SelfOrganizingMap map) {
+    public BasicMapDemo(TrainableSelfOrganizingMap map) {
         som = map;
     }
 

@@ -1,7 +1,7 @@
 package cs437.som.demo;
 
 import cs437.som.Dimension;
-import cs437.som.SelfOrganizingMap;
+import cs437.som.TrainableSelfOrganizingMap;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.network.CustomizableSOM;
 import cs437.som.topology.SquareGrid;
@@ -18,14 +18,14 @@ public class ColorMapDemo {
     private static final int iterDelay = 20; /* ms */
     private static final int MAPPING_LINE_WIDTH = 330;
 
-    private SelfOrganizingMap som = null;
+    private TrainableSelfOrganizingMap som = null;
     private Logger logger = Logger.getLogger("ColorMapDemo");
 
     /**
      * Create a new SOM demo.
      * @param map An untrained SOM to watch.
      */
-    public ColorMapDemo(SelfOrganizingMap map) {
+    public ColorMapDemo(TrainableSelfOrganizingMap map) {
         som = map;
     }
 

@@ -1,7 +1,7 @@
 package cs437.som.demo;
 
 import cs437.som.Dimension;
-import cs437.som.SelfOrganizingMap;
+import cs437.som.TrainableSelfOrganizingMap;
 import cs437.som.distancemetrics.*;
 import cs437.som.learningrate.*;
 import cs437.som.neighborhood.*;
@@ -123,7 +123,7 @@ public class SOMBuilber extends JDialog {
         buttonOK.setEnabled(isInputConsistent);
     }
 
-    public SelfOrganizingMap getMap() {
+    public TrainableSelfOrganizingMap getMap() {
         return map;
     }
 

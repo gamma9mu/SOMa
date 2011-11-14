@@ -1,18 +1,9 @@
 package cs437.som;
 
 /**
- * Interface for handling differing self-organizing uniformly.
+ * gamma @ 11/13/11 8:49 PM
  */
-public interface SelfOrganizingMap {
-    /**
-     * Get the expected iteration count for map training.  This value should be
-     * passed to the map upon construction and is used for scaling functions
-     * during training.
-     *
-     * @return The expected number of iterations for map training.
-     */
-    int getExpectedIterations();
-
+public interface SOM {
     /**
      * Get the expected vector length for training the map and matching neurons.
      *
@@ -60,18 +51,4 @@ public interface SelfOrganizingMap {
      * @return The index of the neuron closest to input.
      */
     int getBestMatchingNeuron(int[] input);
-
-    /**
-     * Train the map with a vector.
-     *
-     * @param data The vector to train with.
-     */
-    void trainWith(double[] data);
-
-    /**
-     * Train the map with a vector. Integer convenience method.
-     *
-     * @param data The vector to train with.
-     */
-    void trainWith(int[] data);
 }

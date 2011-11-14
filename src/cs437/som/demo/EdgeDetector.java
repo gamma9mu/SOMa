@@ -1,6 +1,6 @@
 package cs437.som.demo;
 
-import cs437.som.SelfOrganizingMap;
+import cs437.som.TrainableSelfOrganizingMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -30,7 +30,7 @@ public class EdgeDetector {
     static final int FRAME_LOCATION_OFFSET = 400;
 
     /** The ED's SOM */
-    private SelfOrganizingMap som = null;
+    private TrainableSelfOrganizingMap som = null;
 
     /** The number of possible 3x3 matrices with each element having 3 possible
      * values.  This is the expected number of iterations for a SOM that will
@@ -67,7 +67,7 @@ public class EdgeDetector {
      * ownership of the SOM.
      * @return An exhaustively trained EdgeDetector.
      */
-    public static EdgeDetector trainExhaustivelyFromMap(SelfOrganizingMap map) {
+    public static EdgeDetector trainExhaustivelyFromMap(TrainableSelfOrganizingMap map) {
         EdgeDetector ed = new EdgeDetector();
         ed.som = map;
         ed.trainExhaustively();
@@ -83,7 +83,7 @@ public class EdgeDetector {
      * @param samples The number of input samples to train with.
      * @return An exhaustively trained EdgeDetector.
      */
-    public static EdgeDetector trainRandomlyFromMap(SelfOrganizingMap map,
+    public static EdgeDetector trainRandomlyFromMap(TrainableSelfOrganizingMap map,
                                                     int samples) {
         EdgeDetector ed = new EdgeDetector();
         ed.som = map;
