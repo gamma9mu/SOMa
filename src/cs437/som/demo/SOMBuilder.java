@@ -12,7 +12,7 @@ import java.beans.PropertyChangeListener;
  * A dialog for gathering a self-organizing map's configuration from an
  * application's user.
  */
-public class SOMBuilber extends JDialog implements PropertyChangeListener {
+public class SOMBuilder extends JDialog implements PropertyChangeListener {
     private static final long serialVersionUID = 0L;
 
     private JPanel contentPane;
@@ -26,7 +26,7 @@ public class SOMBuilber extends JDialog implements PropertyChangeListener {
     private int expectedIterations;
 
     /**
-     * Create a new SOMBuilber that will, if successful, return a trainable
+     * Create a new SOMBuilder that will, if successful, return a trainable
      * self-organizing map that expects {@code inputSize} as the length of its
      * input vector and {@code expectedIterations} iterations of training.
      * 
@@ -34,7 +34,7 @@ public class SOMBuilber extends JDialog implements PropertyChangeListener {
      * @param expectedIterations  The expected amount of training iterations
      * for the generated map.
      */
-    public SOMBuilber(int inputSize, int expectedIterations) {
+    public SOMBuilder(int inputSize, int expectedIterations) {
         this.inputSize = inputSize;
         this.expectedIterations = expectedIterations;
 
@@ -46,8 +46,8 @@ public class SOMBuilber extends JDialog implements PropertyChangeListener {
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                map = mapConfigPanel.createSOM(SOMBuilber.this.inputSize,
-                        SOMBuilber.this.expectedIterations);
+                map = mapConfigPanel.createSOM(SOMBuilder.this.inputSize,
+                        SOMBuilder.this.expectedIterations);
                 dispose();
             }
         });
@@ -95,11 +95,11 @@ public class SOMBuilber extends JDialog implements PropertyChangeListener {
     }
 
     /**
-     * Demo main for SOMBuilber form.
+     * Demo main for SOMBuilder form.
      * @param args ignored.
      */
     public static void main(String[] args) {
-        SOMBuilber dialog = new SOMBuilber(10, 1000);
+        SOMBuilder dialog = new SOMBuilder(10, 1000);
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
@@ -107,6 +107,6 @@ public class SOMBuilber extends JDialog implements PropertyChangeListener {
 
     @Override
     public String toString() {
-        return "SOMBuilber";
+        return "SOMBuilder";
     }
 }
