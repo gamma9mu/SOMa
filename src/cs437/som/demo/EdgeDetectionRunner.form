@@ -82,7 +82,8 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Train"/>
+                  <enabled value="false"/>
+                  <text value="&amp;Train"/>
                 </properties>
               </component>
               <component id="d6ef7" class="javax.swing.JButton" binding="runButton" default-binding="true">
@@ -90,7 +91,8 @@
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Run"/>
+                  <enabled value="false"/>
+                  <text value="&amp;Run"/>
                 </properties>
               </component>
               <hspacer id="72dcc">
@@ -148,17 +150,21 @@
           </component>
         </children>
       </grid>
-      <component id="b2022" class="cs437.som.demo.ImageFrame" binding="reference" custom-create="true">
+      <component id="91c2e" class="javax.swing.JLabel" binding="referenceLabel">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
-      <component id="ade98" class="cs437.som.demo.ImageFrame" binding="output" custom-create="true">
+      <component id="9479a" class="javax.swing.JLabel" binding="outputLabel">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
     </children>
   </grid>
