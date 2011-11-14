@@ -54,8 +54,6 @@ public class EdgeDetector {
      */
     private EdgeDetector(int iterations) {
         SOMBuilber somb = new SOMBuilber(9, iterations);
-        somb.pack();
-        somb.setModal(true);
         somb.setVisible(true);
         som = somb.getMap();
     }
