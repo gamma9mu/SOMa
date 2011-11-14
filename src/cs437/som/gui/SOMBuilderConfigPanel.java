@@ -6,6 +6,7 @@ import cs437.som.distancemetrics.ChebyshevDistanceMetric;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
 import cs437.som.distancemetrics.ManhattanDistanceMetric;
 import cs437.som.learningrate.ConstantLearningRateFunction;
+import cs437.som.learningrate.ExponentialDecayLearningRateFunction;
 import cs437.som.learningrate.HyperbolicLearningRateFunction;
 import cs437.som.neighborhood.*;
 import cs437.som.network.CustomizableSOM;
@@ -48,6 +49,7 @@ public class SOMBuilderConfigPanel {
 
         learningRateCmb.addItem("Constant Learning Rate Function");
         learningRateCmb.addItem("Hyperbolic Learning Rate Function");
+        learningRateCmb.addItem("Exponential Decay Learning Rate Function");
 
         neighborhoodCmb.addItem("Constant Neighborhood Width Function");
         neighborhoodCmb.addItem("Linear Decay Neighborhood Width Function");
@@ -146,6 +148,9 @@ public class SOMBuilderConfigPanel {
         switch (learningRateCmb.getSelectedIndex()) {
             case 1:
                 lrf = new HyperbolicLearningRateFunction(0.8, 0.1);
+                break;
+            case 2:
+                lrf = new ExponentialDecayLearningRateFunction(0.8);
                 break;
             default:
                 lrf =  new ConstantLearningRateFunction(0.2);
