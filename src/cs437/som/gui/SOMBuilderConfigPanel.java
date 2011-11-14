@@ -144,7 +144,7 @@ public class SOMBuilderConfigPanel {
      * @param map The map who's learning rate function will be set.
      */
     private void learningRateType(CustomizableSOM map) {
-        LearningRateFunction lrf = null;
+        LearningRateFunction lrf;
         switch (learningRateCmb.getSelectedIndex()) {
             case 1:
                 lrf = new HyperbolicLearningRateFunction(0.8, 0.1);
@@ -165,7 +165,7 @@ public class SOMBuilderConfigPanel {
      * @param map The map who's neighborhood function will be set.
      */
     private void neighborhoodType(CustomizableSOM map) {
-        NeighborhoodWidthFunction nwf = null;
+        NeighborhoodWidthFunction nwf;
         switch (neighborhoodCmb.getSelectedIndex()) {
             case 1:
                 nwf = new LinearDecayNeighborhoodWidthFunction(10.0);
@@ -195,7 +195,7 @@ public class SOMBuilderConfigPanel {
      * @param map The map who's distance type will be set
      */
     private void distanceType(CustomizableSOM map) {
-        DistanceMetric dm = null;
+        DistanceMetric dm;
         switch (distanceCmb.getSelectedIndex()) {
             case 1:
                 dm = new ChebyshevDistanceMetric();
