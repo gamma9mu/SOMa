@@ -16,9 +16,13 @@ public class SOM3dPlotter extends JFrame {
     
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
-    private SelfOrganizingMap map = null;
+    static final int MAX_ALPHA = 0xFF000000;
+    static final int BYTE_MAX = 255;
+    static final int BYTE_WIDTH = 8;
+    private SelfOrganizingMap som = null;
     private Dimension dims;
     private BufferedImage img;
+    private int neuronCount = 0;
 
     /**
      * Create and setup a dot plot for a 3D input SOM.
@@ -27,11 +31,14 @@ public class SOM3dPlotter extends JFrame {
     public SOM3dPlotter(SelfOrganizingMap map) {
         super("SOM Plot");
 
-        if (map.getInputLength() != 3) throw new IllegalArgumentException("SOM does not map 3d inputs");
+        if (map.getInputLength() != 3) {
+            throw new IllegalArgumentException("SOM does not map 3d inputs");
+        }
 
-        this.map = map;
+        som = map;
+        dims = som.getGridSize();
+        neuronCount = dims.area;
 
-        dims = this.map.getGridSize();
         img = new BufferedImage(dims.x, dims.y, BufferedImage.TYPE_INT_ARGB);
 
         setSize(WIDTH, HEIGHT);
@@ -46,14 +53,13 @@ public class SOM3dPlotter extends JFrame {
     public void draw() {
         Graphics g = getBufferStrategy().getDrawGraphics();
 
-        int neuronCount = map.getNeuronCount();
         int[] pts = new int[neuronCount];
 
         for (int i = 0; i < neuronCount; i++) {
-            pts[i] = 0xFF000000;
-            pts[i] += (int)(map.getWeight(i,0)*255)<<16;
-            pts[i] += (int)(map.getWeight(i,1)*255)<<8;
-            pts[i] += (int)(map.getWeight(i,2)*255);
+            pts[i] = MAX_ALPHA;
+            pts[i] |= (int)(som.getWeight(i, 0) * BYTE_MAX) << (2 * BYTE_WIDTH);
+            pts[i] |= (int)(som.getWeight(i, 1) * BYTE_MAX) << BYTE_WIDTH;
+            pts[i] |= (int)(som.getWeight(i, 2) * BYTE_MAX);
         }
 
         img.setRGB(0,0, dims.x, dims.y, pts, 0, dims.x);
@@ -65,6 +71,6 @@ public class SOM3dPlotter extends JFrame {
 
     @Override
     public String toString() {
-        return "SOM3dPlotter{map=" + map + '}';
+        return "SOM3dPlotter{som=" + som + '}';
     }
 }
