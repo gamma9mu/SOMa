@@ -14,11 +14,11 @@ import java.awt.image.BufferedImage;
 public class SOM3dPlotter extends JFrame {
     private static final long serialVersionUID = 0L;
     
-    public static final int WIDTH = 500;
-    public static final int HEIGHT = 500;
-    SelfOrganizingMap map = null;
-    Dimension dims;
-    BufferedImage img;
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 500;
+    private SelfOrganizingMap map = null;
+    private Dimension dims;
+    private BufferedImage img;
 
     /**
      * Create and setup a dot plot for a 3D input SOM.
