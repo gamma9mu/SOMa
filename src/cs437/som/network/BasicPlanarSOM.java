@@ -59,6 +59,8 @@ public class BasicPlanarSOM extends NetworkBase {
 
     @Override
     public void write(OutputStreamWriter destination) throws IOException {
-        throw new UnsupportedOperationException("BasicPlanarGridSOM write");
+        destination.write(String.format("Map type: BasicPlanarGridSOM%n"));
+        super.write(destination);
+        destination.flush();
     }
 }
