@@ -2,6 +2,8 @@ package cs437.som.network;
 
 import cs437.som.Dimension;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 
 /**
@@ -51,5 +53,10 @@ public class BasicSquareGridSOM extends NetworkBase {
         return "BasicSquareGridSOM{time=" + time +
                 ", weightMatrix=" + (weightMatrix == null ? null : Arrays.asList(weightMatrix)) +
                 ", neuronCount=" + neuronCount + ", inputSize=" + inputVectorSize + '}';
+    }
+
+    @Override
+    public void write(OutputStreamWriter destination) throws IOException {
+        throw new UnsupportedOperationException("BasicSquareGridSOM write");
     }
 }

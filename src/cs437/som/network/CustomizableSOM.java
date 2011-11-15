@@ -6,6 +6,8 @@ import cs437.som.learningrate.ConstantLearningRateFunction;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.topology.SquareGrid;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -192,5 +194,9 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
                 ", learningRateFunctionStrategy=" + learningRateFunctionStrategy +
                 ", neighborhoodWidthFunctionStrategy=" + neighborhoodWidthFunctionStrategy +
                 '}';
+    }
+
+    public void write(OutputStreamWriter destination) throws IOException {
+        throw new UnsupportedOperationException("CustomizableSOM write");
     }
 }
