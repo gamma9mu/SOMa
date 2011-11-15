@@ -9,6 +9,7 @@ import cs437.som.topology.SquareGrid;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -197,6 +198,29 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
     }
 
     public void write(OutputStreamWriter destination) throws IOException {
-        throw new UnsupportedOperationException("CustomizableSOM write");
+        destination.write(String.format("Map type: CustomizableSOM%n"));
+
+        destination.write(String.format("Grid dimensions: %d, %d%n",
+                gridSize.x, gridSize.y));
+        destination.write(String.format("Input length: %d%n", inputSize));
+
+        destination.write(String.format("Distance metric: %s%n",
+                distanceMetricStrategy));
+        destination.write(String.format("Learning rate function: %s%n",
+                learningRateFunctionStrategy));
+        destination.write(String.format("Neighborhood width function: %s%n",
+                neighborhoodWidthFunctionStrategy));
+        destination.write(String.format("Grid type: %s%n",
+                gridTypeStrategy));
+
+        destination.write(String.format("Iterations: %d of %d%n", iterations,
+                expectedIterations));
+
+        destination.write(String.format("Weights:%n"));
+        for (double[] doubles : weightMatrix) {
+            destination.write(String.format("\t%s%n", Arrays.toString(doubles)));
+        }
+        destination.write(String.format("end weights%n"));
+        destination.flush();
     }
 }
