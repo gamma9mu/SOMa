@@ -27,6 +27,10 @@
 
 package cs437.som;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+
 /**
  * Interface for handling differing self-organizing maps uniformly.  This
  * interface is used for maps that were previously trained.
@@ -79,4 +83,11 @@ public interface SelfOrganizingMap {
      * @return The index of the neuron closest to input.
      */
     int getBestMatchingNeuron(int[] input);
+
+    /**
+     * Write the self-organizing map to a stream.
+     *
+     * @param destination Where to write to.
+     */
+    void write(OutputStreamWriter destination) throws IOException;
 }
