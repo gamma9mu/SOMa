@@ -57,6 +57,8 @@ public class BasicSquareGridSOM extends NetworkBase {
 
     @Override
     public void write(OutputStreamWriter destination) throws IOException {
-        throw new UnsupportedOperationException("BasicSquareGridSOM write");
+        destination.write(String.format("Map type: BasicSquareGridSOM%n"));
+        super.write(destination);
+        destination.flush();
     }
 }
