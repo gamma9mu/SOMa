@@ -4,6 +4,8 @@ import cs437.som.Dimension;
 import cs437.som.SOMError;
 import cs437.som.TrainableSelfOrganizingMap;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
@@ -239,5 +241,16 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
                 ", expectedIterations=" + expectedIterations +
                 ", weightMatrix=" + weightString() +
                 '}';
+    }
+
+    public void write(OutputStreamWriter destination) throws IOException {
+        destination.write(String.format("Grid dimensions: %d, %d%n",
+                gridSize.x, gridSize.y));
+        destination.write(String.format("Input length: %d%n", inputVectorSize));
+        destination.write(String.format("Weights:%n"));
+        for (double[] doubles : weightMatrix) {
+            destination.write(String.format("\t%s%n", Arrays.toString(doubles)));
+        }
+        destination.write(String.format("end weights%n"));
     }
 }

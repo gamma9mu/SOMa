@@ -2,6 +2,8 @@ package cs437.som.network;
 
 import cs437.som.Dimension;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 
 /**
@@ -64,4 +66,9 @@ public class BasicHexGridSOM extends NetworkBase {
                 ", neuronCount=" + neuronCount + ", inputSize=" + inputVectorSize + '}';
     }
 
+    @Override
+    public void write(OutputStreamWriter destination) throws IOException {
+        destination.write(String.format("Map type: BasicHexGridSOM%n"));
+        super.write(destination);
+    }
 }
