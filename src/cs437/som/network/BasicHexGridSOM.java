@@ -70,5 +70,6 @@ public class BasicHexGridSOM extends NetworkBase {
     public void write(OutputStreamWriter destination) throws IOException {
         destination.write(String.format("Map type: BasicHexGridSOM%n"));
         super.write(destination);
+        destination.flush();
     }
 }
