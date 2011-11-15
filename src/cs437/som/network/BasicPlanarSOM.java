@@ -2,6 +2,8 @@ package cs437.som.network;
 
 import cs437.som.Dimension;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 
 /**
@@ -53,5 +55,10 @@ public class BasicPlanarSOM extends NetworkBase {
     @Override
     public String toString() {
         return "BasicPlanarSOM{weightMatrix=" + (weightMatrix == null ? null : Arrays.toString(weightMatrix)) + '}';
+    }
+
+    @Override
+    public void write(OutputStreamWriter destination) throws IOException {
+        throw new UnsupportedOperationException("BasicPlanarGridSOM write");
     }
 }
