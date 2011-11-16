@@ -8,22 +8,14 @@ import cs437.som.topology.SquareGrid;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.security.SecureRandom;
-import java.util.Arrays;
-import java.util.Random;
 
 /**
  * A fully customizable self-organizing map.
  */
-public class CustomizableSOM implements TrainableSelfOrganizingMap {
+public class CustomizableSOM extends NetworkBase {
     static final double DEFAULT_LEARNING_RATE = 0.1;
-    private final int neuronCount;
-    private final int inputSize;
-    private final int expectedIterations;
-    private final Dimension gridSize;
 
     private int iterations = 0;
-    private final double[][] weightMatrix;
 
     DistanceMetric distanceMetricStrategy = null;
     LearningRateFunction learningRateFunctionStrategy = null;
@@ -31,14 +23,7 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
     GridType gridTypeStrategy = null;
 
     public CustomizableSOM(Dimension gridSize, int inputSize, int expectedIterations) {
-        this.gridSize = gridSize;
-        this.neuronCount = gridSize.area;
-        this.inputSize = inputSize;
-        this.expectedIterations = expectedIterations;
-
-        weightMatrix = new double[neuronCount][inputSize];
-        initialize();
-
+        super(gridSize, inputSize, expectedIterations);
 
         setDistanceMetricStrategy(new EuclideanDistanceMetric());
         setLearningRateFunctionStrategy(
@@ -88,26 +73,7 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
         }
     }
 
-    public int getNeuronCount() {
-        return neuronCount;
-    }
-
-    public Dimension getGridSize() {
-        return gridSize;
-    }
-
-    public int getExpectedIterations() {
-        return expectedIterations;
-    }
-
-    public int getInputLength() {
-        return inputSize;
-    }
-
-    public double getWeight(int neuron, int weightIndex) {
-        return weightMatrix[neuron][weightIndex];
-    }
-
+    @Override
     public int getBestMatchingNeuron(double[] input) {
         checkInput(input);
 
@@ -123,72 +89,32 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
         return bestMatch;
     }
 
-    public int getBestMatchingNeuron(int[] input) {
-        double[] dbls = new double[input.length];
-        for (int i = 0; i < input.length; i++) {
-            dbls[i] = input[i];
-        }
-        return getBestMatchingNeuron(dbls);
-    }
-
-    public void trainWith(double[] data) {
-        checkInput(data);
-
-        int best = getBestMatchingNeuron(data);
-        adjustNeuronWeights(data, best);
-        adjustNeighborsOf(best, data);
-        iterations++;
-    }
-
-    public void trainWith(int[] data) {
-        double[] dbls = new double[data.length];
-        for (int i = 0; i < data.length; i++) {
-            dbls[i] = data[i];
-        }
-        trainWith(dbls);
-    }
-
-    private void checkInput(double[] input) {
-        if (input.length != inputSize) {
-            throw new IllegalArgumentException("Input vector length does not match network input size.");
-        }
-    }
-
-    private void initialize() {
-        Random r = new SecureRandom();
-        for (int i = 0; i < neuronCount; i++) {
-            for (int j = 0; j < inputSize; j++) {
-                weightMatrix[i][j] = r.nextDouble();
-            }
-        }
-    }
-
     // TODO add option to make dependent on the distance from the BMU
-    private void adjustNeuronWeights(double[] input, int neuron) {
+    @Override
+    protected void adjustNeuronWeights(int neuron, double[] input) {
         for (int i = 0; i < weightMatrix[neuron].length; i++) {
             double delta = input[i] - weightMatrix[neuron][i];
             weightMatrix[neuron][i] += learningRateFunctionStrategy.learningRate(iterations) * delta;
         }
     }
 
-    private void adjustNeighborsOf(int neuron, double[] input) {
-        for (int i = 0; i < neuronCount; i++) {
-            if (i != neuron && inNeighborhoodOf(neuron, i)) {
-                adjustNeuronWeights(input, i);
-            }
-        }
+    @Override
+    protected boolean inNeighborhoodOf(int winningestNeuron, int testNeuron) {
+        return gridTypeStrategy.gridDistance(winningestNeuron, testNeuron)
+                < neighborhoodWidthFunctionStrategy.neighborhoodWidth(iterations);
     }
 
-    private boolean inNeighborhoodOf(int winingestNeuron, int testNeuron) {
-        return gridTypeStrategy.gridDistance(winingestNeuron, testNeuron)
-                < neighborhoodWidthFunctionStrategy.neighborhoodWidth(iterations);
+    @Override
+    protected double neuronDistance(int neuron0, int neuron1) {
+        throw new UnsupportedOperationException(
+                "neuronDistance not used in CustomizableSOM");
     }
 
     @Override
     public String toString() {
         return "CustomizableSOM{neuronCount=" + neuronCount +
                 ", gridSize=" + gridSize +
-                ", inputSize=" + inputSize +
+                ", inputSize=" + inputVectorSize +
                 ", iterations=" + iterations +
                 ", expectedIterations=" + expectedIterations +
                 ", distanceMetricStrategy=" + distanceMetricStrategy +
@@ -197,12 +123,9 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
                 '}';
     }
 
+    @Override
     public void write(OutputStreamWriter destination) throws IOException {
         destination.write(String.format("Map type: CustomizableSOM%n"));
-
-        destination.write(String.format("Grid dimensions: %d, %d%n",
-                gridSize.x, gridSize.y));
-        destination.write(String.format("Input length: %d%n", inputSize));
 
         destination.write(String.format("Distance metric: %s%n",
                 distanceMetricStrategy));
@@ -216,11 +139,7 @@ public class CustomizableSOM implements TrainableSelfOrganizingMap {
         destination.write(String.format("Iterations: %d of %d%n", iterations,
                 expectedIterations));
 
-        destination.write(String.format("Weights:%n"));
-        for (double[] doubles : weightMatrix) {
-            destination.write(String.format("\t%s%n", Arrays.toString(doubles)));
-        }
-        destination.write(String.format("end weights%n"));
+        super.write(destination);
         destination.flush();
     }
 }
