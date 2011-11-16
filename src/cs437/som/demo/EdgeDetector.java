@@ -347,8 +347,9 @@ public class EdgeDetector {
         EdgeDetector ed = new EdgeDetector(100);
         ed.trainWithRandomPermutations(100);
 
-        BufferedImage original = ImageIO.read(new File("image.jpg"));
-        BufferedImage known = ImageIO.read(new File("known_edges.jpg"));
+        Class<EdgeDetector> edc = EdgeDetector.class;
+        BufferedImage original = ImageIO.read(edc.getResourceAsStream("image.jpg"));
+        BufferedImage known = ImageIO.read(edc.getResourceAsStream("known_edges.jpg"));
         BufferedImage detected = ed.runOnImage(original);
 
         writeImage(detected, "out");
