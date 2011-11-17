@@ -10,8 +10,7 @@ import cs437.som.SOMError;
  * differences of the individual components of the 2 vectors.
  *
  * The exact behavior follows the formula:
- *      for v_1, v_2 \in \mathbb{R}^n
- *      \sum_{i=1}^{n}|v_{1_i}-v_{2_i}|
+ *      \text{for} \: v_1, v_2 \in \mathbb{R}^n \sum_{i=1}^{n}|v_{1_i}-v_{2_i}|
  *
  */
 public class ManhattanDistanceMetric implements DistanceMetric {
