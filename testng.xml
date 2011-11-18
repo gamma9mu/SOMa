@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="DistanceMetrics">
+    <test name="ManhattanDistanceMetricTest">
+        <classes>
+            <class name="cs437.som.distancemetrics.ManhattanDistanceMetricTest"/>
+        </classes>
+    </test>
+</suite>
