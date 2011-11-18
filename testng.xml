@@ -7,4 +7,9 @@
             <class name="cs437.som.distancemetrics.ChebyshevDistanceMetricTest"/>
         </classes>
     </test>
+    <test name="LearningRateRunctionTest">
+        <classes>
+            <class name="cs437.som.learningrate.ConstantLearningRateFunctionTest"/>
+        </classes>
+    </test>
 </suite>
