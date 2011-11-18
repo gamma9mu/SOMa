@@ -4,6 +4,7 @@
         <classes>
             <class name="cs437.som.distancemetrics.ManhattanDistanceMetricTest"/>
             <class name="cs437.som.distancemetrics.EuclideanDistanceMetricTest"/>
+            <class name="cs437.som.distancemetrics.ChebyshevDistanceMetricTest"/>
         </classes>
     </test>
 </suite>
