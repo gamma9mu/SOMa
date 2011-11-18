@@ -10,7 +10,7 @@ import cs437.som.SOMError;
  * squares of the differences of the individual components of the 2 vectors.
  *
  * The exact behavior follows the formula:
- *      for v_1, v_2 \in \mathbb{R}^n
+ *      \text{for} \: v_1, v_2 \in \mathbb{R}^n
  *      \sqrt{\sum_{i=1}^{n}(v_{1_i}-v_{2_i})^2}
  *
  */
