@@ -10,6 +10,7 @@
     <test name="LearningRateRunctionTest">
         <classes>
             <class name="cs437.som.learningrate.ConstantLearningRateFunctionTest"/>
+            <class name="cs437.som.learningrate.HyperbolicLearningRateFunctionTest"/>
         </classes>
     </test>
 </suite>
