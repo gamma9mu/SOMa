@@ -24,7 +24,7 @@ public class SOM2dPlotter extends JFrame {
     public SOM2dPlotter(SelfOrganizingMap map) {
         super("SOM Plot");
         if (map.getInputLength() != 2) {
-            throw new IllegalArgumentException("SOM does not som 2d inputs");
+            throw new IllegalArgumentException("\"map\" must accept 2-tuple input.");
         }
 
         this.som = map;
