@@ -31,6 +31,13 @@ import java.util.Arrays;
  */
 public class BasicSquareGridSOM extends NetworkBase {
 
+    /**
+     * Create a new BasicSquareGridSOM.
+     *
+     * @param gridSize The neuron grid dimensions.
+     * @param inputVectorSize The input vector size.
+     * @param expectedIterations The expected number of training iterations.
+     */
     public BasicSquareGridSOM(Dimension gridSize, int inputVectorSize,
                               int expectedIterations) {
         super(gridSize, inputVectorSize, expectedIterations);
