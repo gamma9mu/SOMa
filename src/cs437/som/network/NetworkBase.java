@@ -32,7 +32,8 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
      * @param inputVectorSize The length of expected input vectors
      * @param expectedIterations The expected count of iterations for training.
      */
-    protected NetworkBase(Dimension gridSize, int inputVectorSize, int expectedIterations) {
+    protected NetworkBase(Dimension gridSize, int inputVectorSize,
+                          int expectedIterations) {
         this.inputVectorSize = inputVectorSize;
         this.expectedIterations = expectedIterations;
         this.gridSize = gridSize;
@@ -120,8 +121,9 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
     }
 
     /**
-     * Calculate the learning rate (alpha in most equations) for the current iteration.
-     * The current iteration will be taken from the object's current count
+     * Calculate the learning rate (alpha in most equations) for the current
+     * iteration. The current iteration will be taken from the object's current
+     * count
      *
      * @return The learning rate for the current iteration.
      */
@@ -139,7 +141,8 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
      */
     protected void checkInput(double[] input) throws SOMError {
         if (input.length != inputVectorSize) {
-            throw new SOMError("Input vector length does not match network input size.");
+            throw new SOMError(
+                    "Input vector length does not match network input size.");
         }
     }
 
@@ -184,27 +187,32 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
     }
 
     /**
-     * Decide whether a neuron is in another neuron's neighborhood.  The parameters imply a specific
-     * ordering, but in most cases this is an unnecessary constraint.  This would only be the case if
-     * d(i, j) != d(j, i).  Asymmetric metrics are likely very uncommon, and it should be safe to
+     * Decide whether a neuron is in another neuron's neighborhood.  The
+     * parameters imply a specific ordering, but in most cases this is an
+     * unnecessary constraint.  This would only be the case if d(i, j) != d(j, i).
+     * Asymmetric metrics are likely very uncommon, and it should be safe to
      * ignore this constraint.
      *
-     * @param winningestNeuron The winning neuron who's neighborhood we are testing.
+     * @param bestMatchingNeuron The winning neuron who's neighborhood we are
+     * testing.
      * @param testNeuron The neuron we're testing for neighborhood inclusion.
-     * @return true if the testNeuron is in the neighborhood of winningestNeuron, false otherwise
+     * @return true if the testNeuron is in the neighborhood of
+     * bestMatchingNeuron, false otherwise
      */
-    protected boolean inNeighborhoodOf(int winningestNeuron, int testNeuron) {
-        return neuronDistance(winningestNeuron, testNeuron) < neighborhoodWidth();
+    protected boolean inNeighborhoodOf(int bestMatchingNeuron, int testNeuron) {
+        return neuronDistance(bestMatchingNeuron, testNeuron) < neighborhoodWidth();
     }
 
     /**
-     * Get the width of the neighborhood of adjustment at a given iteration.  The iteration is
-     * taken from the object's current count.
+     * Get the width of the neighborhood of adjustment at a given iteration.
+     * The iteration is taken from the object's current count.
      *
-     * @return The width of the neighborhood of adjustment for the current iteration.
+     * @return The width of the neighborhood of adjustment for the current
+     * iteration.
      */
     protected double neighborhoodWidth() {
-        return INITIAL_NEIGHBORHOOD_WIDTH * (1.0 - (time / (double) expectedIterations));
+        return INITIAL_NEIGHBORHOOD_WIDTH *
+                (1.0 - (time / (double) expectedIterations));
     }
 
     /**
@@ -217,7 +225,8 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
     protected abstract double neuronDistance(int neuron0, int neuron1);
 
     /**
-     * Measure the distance from a neuron (specifically, its weight vector) to an input vector.
+     * Measure the distance from a neuron (specifically, its weight vector) to
+     * an input vector.
      *
      * @param neuron The index of the neuron in question.
      * @param input The input vector.

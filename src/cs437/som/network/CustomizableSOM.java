@@ -99,8 +99,8 @@ public class CustomizableSOM extends NetworkBase {
     }
 
     @Override
-    protected boolean inNeighborhoodOf(int winningestNeuron, int testNeuron) {
-        return gridTypeStrategy.gridDistance(winningestNeuron, testNeuron)
+    protected boolean inNeighborhoodOf(int bestMatchingNeuron, int testNeuron) {
+        return gridTypeStrategy.gridDistance(bestMatchingNeuron, testNeuron)
                 < neighborhoodWidthFunctionStrategy.neighborhoodWidth(iterations);
     }
 
