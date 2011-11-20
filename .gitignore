@@ -1,9 +1,11 @@
 .idea/
 out/
+build/
 doc/
 documents/
 reference/
 SOMa.iml
+SOMa.jar
 out.png
 out_normalized.png
 sun_checks.xml
