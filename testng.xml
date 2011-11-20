@@ -17,6 +17,7 @@
     <test name="Topology">
         <classes>
             <class name="cs437.som.topology.SquareGridTest"/>
+            <class name="cs437.som.topology.SkewHexagonalGridTest"/>
         </classes>
     </test>
 </suite>
