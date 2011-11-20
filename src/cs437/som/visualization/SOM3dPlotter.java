@@ -13,12 +13,23 @@ import java.awt.image.BufferedImage;
  */
 public class SOM3dPlotter extends JFrame {
     private static final long serialVersionUID = 0L;
-    
-    private static final int WIDTH = 500;
-    private static final int HEIGHT = 500;
-    static final int MAX_ALPHA = 0xFF000000;
-    static final int BYTE_MAX = 255;
-    static final int BYTE_WIDTH = 8;
+
+    /**
+     * The frame width.
+     */
+    public static final int WIDTH = 500;
+
+    /**
+     * The frame height.
+     */
+    public static final int HEIGHT = 500;
+
+    // The maximum pixel alpha.
+    private static final int MAX_ALPHA = 0xFF000000;
+    // The maximum 8-bit byte value.
+    private static final int BYTE_MAX = 255;
+    private static final int BYTE_WIDTH = 8;
+
     private SelfOrganizingMap som = null;
     private Dimension dims;
     private BufferedImage img;
