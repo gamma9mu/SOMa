@@ -16,13 +16,13 @@ public class HyperbolicLearningRateFunctionTest {
         HyperbolicLearningRateFunction hlrf =
                 new HyperbolicLearningRateFunction(START_RATE, END_RATE);
         hlrf.setExpectedIterations(ITERATIONS);
-        assertEquals(hlrf.learningRate(1), START_RATE, MAXIMUM_DIFFERENCE);
+        assertEquals(hlrf.learningRate(0), START_RATE, MAXIMUM_DIFFERENCE);
         assertEquals(hlrf.learningRate(ITERATIONS), END_RATE, MAXIMUM_DIFFERENCE);
 
         double last = hlrf.learningRate(1);
         for (int i = 2; i < ITERATIONS; i += 10) {
             double current = hlrf.learningRate(i);
-            assertTrue(current < last);
+            assertTrue(current < last, "Should consistently decay.");
             last = current;
         }
 
