@@ -14,15 +14,45 @@ import java.util.Random;
  * Common functionality for basic self-organizing maps.
  */
 public abstract class NetworkBase implements TrainableSelfOrganizingMap {
+    /**
+     * The initial, default neighborhood width.
+     */
     public static final double INITIAL_NEIGHBORHOOD_WIDTH = 5.0;
+
+    /**
+     * The default learning rate.
+     */
     public static final double alpha = 0.08;
 
-    protected int time = 1;
+    /**
+     * The current training iteration.
+     */
+    protected int time = 0;
+
+    /**
+     * The count of neurons.
+     */
     protected final int neuronCount;
+
+    /**
+     * The length of the input vector.
+     */
     protected final int inputVectorSize;
+
+    /**
+     * The expected number of training iterations.
+     */
     protected final int expectedIterations;
 
+    /**
+     * A matrix of the neurons input weights.  The "left" index is the neuron
+     * and the "right" index is the input weight.
+     */
     protected final double[][] weightMatrix;
+
+    /**
+     * The dimensions of the map's neuron grid.
+     */
     protected final Dimension gridSize;
 
     /**
