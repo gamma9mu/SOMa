@@ -31,7 +31,8 @@ import java.util.Arrays;
  */
 public class BasicHexGridSOM extends NetworkBase {
 
-    public BasicHexGridSOM(Dimension gridSize, int inputVectorSize, int expectedIterations) {
+    public BasicHexGridSOM(Dimension gridSize, int inputVectorSize,
+                           int expectedIterations) {
         super(gridSize, inputVectorSize, expectedIterations);
     }
 
@@ -62,8 +63,10 @@ public class BasicHexGridSOM extends NetworkBase {
     @Override
     public String toString() {
         return "BasicHexGridSOM{time=" + time +
-                ", weightMatrix=" + (weightMatrix == null ? null : Arrays.asList(weightMatrix)) +
-                ", neuronCount=" + neuronCount + ", inputSize=" + inputVectorSize + '}';
+                ", weightMatrix=" +
+                (weightMatrix == null ? null : Arrays.asList(weightMatrix)) +
+                ", neuronCount=" + neuronCount +
+                ", inputSize=" + inputVectorSize + '}';
     }
 
     @Override
