@@ -14,4 +14,9 @@
             <class name="cs437.som.learningrate.HyperbolicLearningRateFunctionTest"/>
         </classes>
     </test>
+    <test name="Topology">
+        <classes>
+            <class name="cs437.som.topology.SquareGridTest"/>
+        </classes>
+    </test>
 </suite>
