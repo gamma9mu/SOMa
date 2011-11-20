@@ -31,6 +31,13 @@ import java.util.Arrays;
  */
 public class BasicPlanarSOM extends NetworkBase {
 
+    /**
+     * Create a new BasicPlanarSOM.
+     *
+     * @param neuronCount The number of neurons to employ.
+     * @param inputVectorSize The input vector size.
+     * @param expectedIterations The expected number of training iterations.
+     */
     public BasicPlanarSOM(int neuronCount, int inputVectorSize,
                           int expectedIterations) {
         super(new Dimension(neuronCount, 1), inputVectorSize, expectedIterations);
