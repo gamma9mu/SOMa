@@ -22,6 +22,12 @@ public class HyperbolicNeighborhoodWidthFunction
     private final double widthRatio;
     private final double finalWidth;
 
+    /**
+     * Create an hyperbolic neighborhood width function.
+     *
+     * @param initialWidth The initial width of the neighborhood.
+     * @param finalWidth The final width of the neighborhood.
+     */
     public HyperbolicNeighborhoodWidthFunction(double initialWidth,
                                                double finalWidth) {
         this.initialWidth = initialWidth;
