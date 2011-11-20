@@ -31,7 +31,8 @@ import java.util.Arrays;
  */
 public class BasicPlanarSOM extends NetworkBase {
 
-    public BasicPlanarSOM(int neuronCount, int inputVectorSize, int expectedIterations) {
+    public BasicPlanarSOM(int neuronCount, int inputVectorSize,
+                          int expectedIterations) {
         super(new Dimension(neuronCount, 1), inputVectorSize, expectedIterations);
     }
 
@@ -54,7 +55,9 @@ public class BasicPlanarSOM extends NetworkBase {
 
     @Override
     public String toString() {
-        return "BasicPlanarSOM{weightMatrix=" + (weightMatrix == null ? null : Arrays.toString(weightMatrix)) + '}';
+        return "BasicPlanarSOM{weightMatrix=" +
+                (weightMatrix == null ? null : Arrays.toString(weightMatrix))
+                + '}';
     }
 
     @Override
