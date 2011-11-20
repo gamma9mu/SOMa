@@ -31,7 +31,8 @@ import java.util.Arrays;
  */
 public class BasicSquareGridSOM extends NetworkBase {
 
-    public BasicSquareGridSOM(Dimension gridSize, int inputVectorSize, int expectedIterations) {
+    public BasicSquareGridSOM(Dimension gridSize, int inputVectorSize,
+                              int expectedIterations) {
         super(gridSize, inputVectorSize, expectedIterations);
     }
 
@@ -51,8 +52,10 @@ public class BasicSquareGridSOM extends NetworkBase {
     @Override
     public String toString() {
         return "BasicSquareGridSOM{time=" + time +
-                ", weightMatrix=" + (weightMatrix == null ? null : Arrays.asList(weightMatrix)) +
-                ", neuronCount=" + neuronCount + ", inputSize=" + inputVectorSize + '}';
+                ", weightMatrix=" +
+                (weightMatrix == null ? null : Arrays.asList(weightMatrix)) +
+                ", neuronCount=" + neuronCount +
+                ", inputSize=" + inputVectorSize + '}';
     }
 
     @Override
