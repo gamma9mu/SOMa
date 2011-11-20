@@ -1,22 +1,21 @@
 package cs437.som;
 
-import cs437.som.network.BasicHexGridSOM;
-import cs437.som.network.CustomizableSOM;
-
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.regex.Pattern;
 
 /**
  * Reads a self-organizing map from a file.
  */
 public class FileReader {
+    private static final Pattern COLON_SPLIT = Pattern.compile(":");
     private TrainableSelfOrganizingMap tsom = null;
 
     private FileReader(File input) throws IOException {
         BufferedReader isr = new BufferedReader(
                 new InputStreamReader(new FileInputStream(input)));
-        String[] kv = isr.readLine().split(":");
+        String[] kv = COLON_SPLIT.split(isr.readLine());
         if (kv.length != 2) {
             throw new SOMError(
                     "Input file is malformed: first line must be a map type statement.");
@@ -38,14 +37,10 @@ public class FileReader {
         }
     }
 
-    private TrainableSelfOrganizingMap getMap() {
-        return tsom;
-    }
-
     public static TrainableSelfOrganizingMap read(File file)
             throws IOException {
         FileReader fileReader = new FileReader(file);
-        return fileReader.getMap();
+        return fileReader.tsom;
     }
 
     public static TrainableSelfOrganizingMap read(String filename)
