@@ -10,11 +10,18 @@ import java.awt.*;
  */
 public class SOM2dPlotter extends JFrame {
     private static final long serialVersionUID = 0L;
-    
+
+    /**
+     * The frame width.
+     */
     public static final int WIDTH = 400;
+
+    /**
+     * The frame height.
+     */
     public static final int HEIGHT = 400;
 
-    SelfOrganizingMap som = null;
+    private SelfOrganizingMap som = null;
     private int neuronCount = 0;
 
     /**
