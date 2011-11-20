@@ -14,15 +14,43 @@ import java.io.OutputStreamWriter;
  * A fully customizable self-organizing map.
  */
 public class CustomizableSOM extends NetworkBase {
-    static final double DEFAULT_LEARNING_RATE = 0.1;
+    /**
+     * The default learning rate for a non-parametrized CustomizableSOM.
+     */
+    public static final double DEFAULT_LEARNING_RATE = 0.1;
 
-    protected DistanceMetric distanceMetricStrategy = null;
-    protected LearningRateFunction learningRateFunctionStrategy = null;
-    protected NeighborhoodWidthFunction neighborhoodWidthFunctionStrategy = null;
-    protected GridType gridTypeStrategy = null;
+    /**
+     * The distance metric strategy being employed by the CustomizableSOM.
+     */
+    protected DistanceMetric distanceMetric = null;
 
-    protected boolean neighborhoodScaleAdjustments = false;
+    /**
+     * The learning rate strategy being employed by the CustomizableSOM.
+     */
+    protected LearningRateFunction learningRate = null;
 
+    /**
+     * The neighborhood width strategy being employed by the CustomizableSOM.
+     */
+    protected NeighborhoodWidthFunction neighborhoodWidth = null;
+
+    /**
+     * The grid type strategy being employed by the CustomizableSOM.
+     */
+    protected GridType gridType = null;
+
+    /**
+     * Whether to use neighborhood membership to scale the learning rate.
+     */
+    protected boolean neighborhoodScaling = false;
+
+    /**
+     * Create a new CustomizableSOM.
+     *
+     * @param gridSize The neuron grid dimensions.
+     * @param inputSize The input vector size.
+     * @param expectedIterations The expected number of training iterations.
+     */
     public CustomizableSOM(Dimension gridSize, int inputSize, int expectedIterations) {
         super(gridSize, inputSize, expectedIterations);
 
@@ -47,7 +75,7 @@ public class CustomizableSOM extends NetworkBase {
      */
     public void setDistanceMetricStrategy(DistanceMetric strategy) {
         if (time == 0) {
-            distanceMetricStrategy = strategy;
+            distanceMetric = strategy;
         } else {
             throw new SOMError("Cannot change distance strategy after training has begun.");
         }
@@ -61,8 +89,8 @@ public class CustomizableSOM extends NetworkBase {
      */
     public void setLearningRateFunctionStrategy(LearningRateFunction strategy) {
         if (time == 0) {
-            learningRateFunctionStrategy = strategy;
-            learningRateFunctionStrategy.setExpectedIterations(expectedIterations);
+            learningRate = strategy;
+            learningRate.setExpectedIterations(expectedIterations);
         } else {
             throw new SOMError("Cannot change learning rate strategy after training has begun.");
         }
@@ -76,8 +104,8 @@ public class CustomizableSOM extends NetworkBase {
      */
     public void setNeighborhoodWidthFunctionStrategy(NeighborhoodWidthFunction strategy) {
         if (time == 0) {
-            neighborhoodWidthFunctionStrategy = strategy;
-            neighborhoodWidthFunctionStrategy.setExpectedIterations(expectedIterations);
+            neighborhoodWidth = strategy;
+            neighborhoodWidth.setExpectedIterations(expectedIterations);
         } else {
             throw new SOMError("Cannot change neighborhood width strategy after training has begun.");
         }
@@ -91,7 +119,7 @@ public class CustomizableSOM extends NetworkBase {
      * false otherwise.
      */
     public boolean isNeighborhoodScaleAdjustments() {
-        return neighborhoodScaleAdjustments;
+        return neighborhoodScaling;
     }
 
     /**
@@ -101,12 +129,12 @@ public class CustomizableSOM extends NetworkBase {
      */
     public void setNeighborhoodScaleAdjustments(boolean enable) {
         ContinuousUnitNormal unw =
-                (ContinuousUnitNormal) neighborhoodWidthFunctionStrategy;
+                (ContinuousUnitNormal) neighborhoodWidth;
         if (unw == null && enable) { // check only needed if enable is true
-            throw new SOMError(String.valueOf(neighborhoodWidthFunctionStrategy)
+            throw new SOMError(String.valueOf(neighborhoodWidth)
                     + " cannot be used to scale weight adjustments.");
         }
-        neighborhoodScaleAdjustments = enable;
+        neighborhoodScaling = enable;
     }
 
     /**
@@ -118,7 +146,7 @@ public class CustomizableSOM extends NetworkBase {
      * false otherwise.
      */
     public boolean canNeighborhoodScaleAdjustments() {
-        return neighborhoodWidthFunctionStrategy instanceof ContinuousUnitNormal;
+        return neighborhoodWidth instanceof ContinuousUnitNormal;
     }
 
     /**
@@ -129,8 +157,8 @@ public class CustomizableSOM extends NetworkBase {
      */
     public void setGridTypeStrategy(GridType strategy) {
         if (time == 0) {
-            gridTypeStrategy = strategy;
-            gridTypeStrategy.setNeuronCount(gridSize);
+            gridType = strategy;
+            gridType.setNeuronCount(gridSize);
         } else {
             throw new SOMError("Cannot change grid type strategy after training has begun.");
         }
@@ -141,9 +169,9 @@ public class CustomizableSOM extends NetworkBase {
         checkInput(input);
 
         int bestMatch = 0;
-        double lowestDistance2 = distanceMetricStrategy.distance(weightMatrix[0], input);
+        double lowestDistance2 = distanceMetric.distance(weightMatrix[0], input);
         for (int i = 1; i < neuronCount; i++) {
-            double distance2temp = distanceMetricStrategy.distance(weightMatrix[i], input);
+            double distance2temp = distanceMetric.distance(weightMatrix[i], input);
             if (distance2temp < lowestDistance2) {
                 lowestDistance2 = distance2temp;
                 bestMatch = i;
@@ -156,9 +184,9 @@ public class CustomizableSOM extends NetworkBase {
     protected void adjustNeuronWeights(int neuron, double[] input) {
         for (int i = 0; i < weightMatrix[neuron].length; i++) {
             double delta = input[i] - weightMatrix[neuron][i];
-            delta *= learningRateFunctionStrategy.learningRate(time);
-            if (neighborhoodScaleAdjustments) {
-                delta *= neighborhoodWidthFunctionStrategy.neighborhoodWidth(time);
+            delta *= learningRate.learningRate(time);
+            if (neighborhoodScaling) {
+                delta *= neighborhoodWidth.neighborhoodWidth(time);
             }
             weightMatrix[neuron][i] += delta;
         }
@@ -166,8 +194,8 @@ public class CustomizableSOM extends NetworkBase {
 
     @Override
     protected boolean inNeighborhoodOf(int bestMatchingNeuron, int testNeuron) {
-        return gridTypeStrategy.gridDistance(bestMatchingNeuron, testNeuron)
-                < neighborhoodWidthFunctionStrategy.neighborhoodWidth(time);
+        return gridType.gridDistance(bestMatchingNeuron, testNeuron)
+                < neighborhoodWidth.neighborhoodWidth(time);
     }
 
     @Override
@@ -183,11 +211,11 @@ public class CustomizableSOM extends NetworkBase {
                 ", inputSize=" + inputVectorSize +
                 ", time=" + time +
                 ", expectedIterations=" + expectedIterations +
-                ", distanceMetricStrategy=" + distanceMetricStrategy +
-                ", learningRateFunctionStrategy=" +
-                learningRateFunctionStrategy +
-                ", neighborhoodWidthFunctionStrategy=" +
-                neighborhoodWidthFunctionStrategy +
+                ", distanceMetric=" + distanceMetric +
+                ", learningRate=" +
+                learningRate +
+                ", neighborhoodWidth=" +
+                neighborhoodWidth +
                 '}';
     }
 
@@ -196,13 +224,13 @@ public class CustomizableSOM extends NetworkBase {
         destination.write(String.format("Map type: CustomizableSOM%n"));
 
         destination.write(String.format("Distance metric: %s%n",
-                distanceMetricStrategy));
+                distanceMetric));
         destination.write(String.format("Learning rate function: %s%n",
-                learningRateFunctionStrategy));
+                learningRate));
         destination.write(String.format("Neighborhood width function: %s%n",
-                neighborhoodWidthFunctionStrategy));
+                neighborhoodWidth));
         destination.write(String.format("Grid type: %s%n",
-                gridTypeStrategy));
+                gridType));
 
         destination.write(String.format("Iterations: %d of %d%n", time,
                 expectedIterations));
