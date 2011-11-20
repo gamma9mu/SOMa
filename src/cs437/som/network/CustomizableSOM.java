@@ -94,7 +94,8 @@ public class CustomizableSOM extends NetworkBase {
     protected void adjustNeuronWeights(int neuron, double[] input) {
         for (int i = 0; i < weightMatrix[neuron].length; i++) {
             double delta = input[i] - weightMatrix[neuron][i];
-            weightMatrix[neuron][i] += learningRateFunctionStrategy.learningRate(iterations) * delta;
+            delta *= learningRateFunctionStrategy.learningRate(iterations);
+            weightMatrix[neuron][i] += delta;
         }
     }
 
@@ -118,8 +119,10 @@ public class CustomizableSOM extends NetworkBase {
                 ", iterations=" + iterations +
                 ", expectedIterations=" + expectedIterations +
                 ", distanceMetricStrategy=" + distanceMetricStrategy +
-                ", learningRateFunctionStrategy=" + learningRateFunctionStrategy +
-                ", neighborhoodWidthFunctionStrategy=" + neighborhoodWidthFunctionStrategy +
+                ", learningRateFunctionStrategy=" +
+                learningRateFunctionStrategy +
+                ", neighborhoodWidthFunctionStrategy=" +
+                neighborhoodWidthFunctionStrategy +
                 '}';
     }
 
