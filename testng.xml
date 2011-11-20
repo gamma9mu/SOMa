@@ -23,6 +23,7 @@
     <test name="NeighborhoodWidthFunctionTest">
         <classes>
             <class name="cs437.som.neighborhood.ConstantNeighborhoodWidthFunctionTest"/>
+            <class name="cs437.som.neighborhood.ExponentialDecayNeighborhoodWidthTest"/>
         </classes>
     </test>
 </suite>
