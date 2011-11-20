@@ -3,6 +3,7 @@ package cs437.som.network;
 import cs437.som.*;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
 import cs437.som.learningrate.ConstantLearningRateFunction;
+import cs437.som.neighborhood.ContinuousUnitNormal;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.topology.SquareGrid;
 
@@ -15,12 +16,12 @@ import java.io.OutputStreamWriter;
 public class CustomizableSOM extends NetworkBase {
     static final double DEFAULT_LEARNING_RATE = 0.1;
 
-    private int iterations = 0;
+    protected DistanceMetric distanceMetricStrategy = null;
+    protected LearningRateFunction learningRateFunctionStrategy = null;
+    protected NeighborhoodWidthFunction neighborhoodWidthFunctionStrategy = null;
+    protected GridType gridTypeStrategy = null;
 
-    DistanceMetric distanceMetricStrategy = null;
-    LearningRateFunction learningRateFunctionStrategy = null;
-    NeighborhoodWidthFunction neighborhoodWidthFunctionStrategy = null;
-    GridType gridTypeStrategy = null;
+    protected boolean neighborhoodScaleAdjustments = false;
 
     public CustomizableSOM(Dimension gridSize, int inputSize, int expectedIterations) {
         super(gridSize, inputSize, expectedIterations);
@@ -38,16 +39,28 @@ public class CustomizableSOM extends NetworkBase {
                 new LinearDecayNeighborhoodWidthFunction(gridRadius));
     }
 
+    /**
+     * Provide a distance metric strategy object to the CustomizableSOM.
+     * Ownership of {@code strategy} is transferred to the CustomizableSOM.
+     *
+     * @param strategy A configured DistanceMetric.
+     */
     public void setDistanceMetricStrategy(DistanceMetric strategy) {
-        if (iterations == 0) {
+        if (time == 0) {
             distanceMetricStrategy = strategy;
         } else {
             throw new SOMError("Cannot change distance strategy after training has begun.");
         }
     }
 
+    /**
+     * Provide a learning rate strategy object to the CustomizableSOM.
+     * Ownership of {@code strategy} is transferred to the CustomizableSOM.
+     *
+     * @param strategy A configured LearningRateFunction.
+     */
     public void setLearningRateFunctionStrategy(LearningRateFunction strategy) {
-        if (iterations == 0) {
+        if (time == 0) {
             learningRateFunctionStrategy = strategy;
             learningRateFunctionStrategy.setExpectedIterations(expectedIterations);
         } else {
@@ -55,8 +68,14 @@ public class CustomizableSOM extends NetworkBase {
         }
     }
 
+    /**
+     * Provide a neighborhood width strategy object to the CustomizableSOM.
+     * Ownership of {@code strategy} is transferred to the CustomizableSOM.
+     *
+     * @param strategy A configured NeighborhoodWidthFunction.
+     */
     public void setNeighborhoodWidthFunctionStrategy(NeighborhoodWidthFunction strategy) {
-        if (iterations == 0) {
+        if (time == 0) {
             neighborhoodWidthFunctionStrategy = strategy;
             neighborhoodWidthFunctionStrategy.setExpectedIterations(expectedIterations);
         } else {
@@ -64,8 +83,52 @@ public class CustomizableSOM extends NetworkBase {
         }
     }
 
+    /**
+     * Determine if the neighborhood width strategy is being used to scale the
+     * learning rate of the neurons.
+     *
+     * @return True if the neighborhood width is scaling the learning rate,
+     * false otherwise.
+     */
+    public boolean isNeighborhoodScaleAdjustments() {
+        return neighborhoodScaleAdjustments;
+    }
+
+    /**
+     * Turn on/off neighborhood scaling of the learning rate.
+     *
+     * @param enable true enables scaling, false disables it.
+     */
+    public void setNeighborhoodScaleAdjustments(boolean enable) {
+        ContinuousUnitNormal unw =
+                (ContinuousUnitNormal) neighborhoodWidthFunctionStrategy;
+        if (unw == null && enable) { // check only needed if enable is true
+            throw new SOMError(String.valueOf(neighborhoodWidthFunctionStrategy)
+                    + " cannot be used to scale weight adjustments.");
+        }
+        neighborhoodScaleAdjustments = enable;
+    }
+
+    /**
+     * Determine if the current neighborhood width strategy employed by the
+     * CustomizableSOM is capable of being used to scale the learning rate of
+     * the neurons.
+     *
+     * @return True if the neighborhood width strategy offers this capability,
+     * false otherwise.
+     */
+    public boolean canNeighborhoodScaleAdjustments() {
+        return neighborhoodWidthFunctionStrategy instanceof ContinuousUnitNormal;
+    }
+
+    /**
+     * Provide a grid strategy object to the CustomizableSOM. Ownership of
+     * {@code strategy} is transferred to the CustomizableSOM.
+     *
+     * @param strategy A configured GridType.
+     */
     public void setGridTypeStrategy(GridType strategy) {
-        if (iterations == 0) {
+        if (time == 0) {
             gridTypeStrategy = strategy;
             gridTypeStrategy.setNeuronCount(gridSize);
         } else {
@@ -89,12 +152,14 @@ public class CustomizableSOM extends NetworkBase {
         return bestMatch;
     }
 
-    // TODO add option to make dependent on the distance from the BMU
     @Override
     protected void adjustNeuronWeights(int neuron, double[] input) {
         for (int i = 0; i < weightMatrix[neuron].length; i++) {
             double delta = input[i] - weightMatrix[neuron][i];
-            delta *= learningRateFunctionStrategy.learningRate(iterations);
+            delta *= learningRateFunctionStrategy.learningRate(time);
+            if (neighborhoodScaleAdjustments) {
+                delta *= neighborhoodWidthFunctionStrategy.neighborhoodWidth(time);
+            }
             weightMatrix[neuron][i] += delta;
         }
     }
@@ -102,7 +167,7 @@ public class CustomizableSOM extends NetworkBase {
     @Override
     protected boolean inNeighborhoodOf(int bestMatchingNeuron, int testNeuron) {
         return gridTypeStrategy.gridDistance(bestMatchingNeuron, testNeuron)
-                < neighborhoodWidthFunctionStrategy.neighborhoodWidth(iterations);
+                < neighborhoodWidthFunctionStrategy.neighborhoodWidth(time);
     }
 
     @Override
@@ -116,7 +181,7 @@ public class CustomizableSOM extends NetworkBase {
         return "CustomizableSOM{neuronCount=" + neuronCount +
                 ", gridSize=" + gridSize +
                 ", inputSize=" + inputVectorSize +
-                ", iterations=" + iterations +
+                ", time=" + time +
                 ", expectedIterations=" + expectedIterations +
                 ", distanceMetricStrategy=" + distanceMetricStrategy +
                 ", learningRateFunctionStrategy=" +
@@ -139,7 +204,7 @@ public class CustomizableSOM extends NetworkBase {
         destination.write(String.format("Grid type: %s%n",
                 gridTypeStrategy));
 
-        destination.write(String.format("Iterations: %d of %d%n", iterations,
+        destination.write(String.format("Iterations: %d of %d%n", time,
                 expectedIterations));
 
         super.write(destination);
