@@ -28,6 +28,7 @@
             <class name="cs437.som.neighborhood.GaussianNeighborhoodWidthFunctionTest"/>
             <class name="cs437.som.neighborhood.HyperbolicNeighborhoodWidthFunctionTest"/>
             <class name="cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunctionTest"/>
+            <class name="cs437.som.neighborhood.MexicanHatNeighborhoodWidthFunctionTest"/>
         </classes>
     </test>
 </suite>
