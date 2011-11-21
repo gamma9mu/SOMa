@@ -8,7 +8,7 @@ import static org.testng.Assert.assertTrue;
 public class ExponentialDecayLearningRateFunctionTest {
     private static final double MAXIMUM_DIFFERENCE = 0.0000000000000001;
     private static final int ITERATIONS = 1000;
-    static final double LEARNING_RATE = 1.0;
+    private static final double LEARNING_RATE = 1.0;
 
     @Test
     public void testLearningRate() throws Exception {

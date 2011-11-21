@@ -6,8 +6,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class GaussianNeighborhoodWidthFunctionTest {
-    static final int ITERATIONS = 1000;
-    static final double STANDARD_DEVIATION = 100.0;
+    private static final int ITERATIONS = 1000;
+    private static final double STANDARD_DEVIATION = 100.0;
     private static final int[] SAMPLES = {0, 1, 10, 100, 200, 500, 1000};
     private static final double[] SAMPLE_RESULTS =
             {0.00398942, 0.00398922, 0.00396953, 0.00241971, 0.00053991,
