@@ -23,7 +23,7 @@ public class EdgeDetector {
     /** The minimum distance between 2 colors to classify as a change in detail */
     private static final int MINIMUM_COLOR_DISTANCE = 60;
 
-    /** Better than stdout... */
+    /** Better than standard out... */
     private static final Logger log = Logger.getLogger("EdgeDetector");
     private static final int BYTEMASK = 0xFF;
     private static final int TWO_BYTE_SHIFT = 16;
