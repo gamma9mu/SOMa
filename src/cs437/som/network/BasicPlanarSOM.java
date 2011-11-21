@@ -88,53 +88,71 @@ public class BasicPlanarSOM extends NetworkBase {
      * @throws IOException if something fails while reading the stream.
      */
     public static BasicPlanarSOM read(BufferedReader input) throws IOException {
-        Pattern dimensionRegEx = Pattern.compile(
+        SOMFileReader sfr = new SOMFileReader();
+        sfr.parse(input);
+
+        BasicPlanarSOM bhgsom = new BasicPlanarSOM(
+                sfr.dimension.x, sfr.inputVectorSize, sfr.iterations);
+        bhgsom.weightMatrix = readWeightMatrix(
+                input, sfr.dimension.area, sfr.inputVectorSize);
+        return bhgsom;
+    }
+
+    private static class SOMFileReader {
+        private static final Pattern dimensionRegEx = Pattern.compile(
                 "(?:grid)?\\s*dimensions\\s*:\\s*(\\d+)\\s*,\\s*(\\d+)",
                 Pattern.CASE_INSENSITIVE);
-        Pattern inputVectorSizeRegEx = Pattern.compile(
-            "(?:input)?\\s*length\\s*:\\s*(\\d+)",
-            Pattern.CASE_INSENSITIVE);
-        Pattern iterationsRegEx = Pattern.compile("iterations\\s*:\\s*(\\d+)",
-                Pattern.CASE_INSENSITIVE);
-        Pattern weightRegEx = Pattern.compile("weights\\s*(?::)",
-                Pattern.CASE_INSENSITIVE);
+        private static final Pattern inputVectorSizeRegEx = Pattern.compile(
+                "(?:input)?\\s*length\\s*:\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
+        private static final Pattern iterationsRegEx = Pattern.compile(
+                "iterations\\s*:\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
+        private static final Pattern weightRegEx = Pattern.compile(
+                "weights\\s*(?::)", Pattern.CASE_INSENSITIVE);
 
-        Dimension dimension = null;
-        int inputVectorSize = 0;
-        int iterations = 0;
+        public Dimension dimension = null;
+        public int inputVectorSize = 0;
+        public int iterations = 0;
 
-        String line = input.readLine();
-        Matcher match = weightRegEx.matcher(line);
-        while (! match.matches() && input.ready()) {
+        public void parse(BufferedReader input) throws IOException {
+            String line = input.readLine();
+            Matcher match = weightRegEx.matcher(line);
+            while (! match.matches() && input.ready()) {
+                matchDimension(line);
+                matchInputVectorSize(line);
+                matchIterations(line);
+
+                line = input.readLine();
+                match = weightRegEx.matcher(line);
+            }
+
+            if (dimension == null || inputVectorSize < 1) {
+                throw new SOMError("A valid dimension and input vector size must" +
+                        " appear in a map's configuration%nand they must appear " +
+                        "before the weight matrix.");
+            }
+        }
+
+        private void matchIterations(String line) {
+            Matcher iterationsMatch = iterationsRegEx.matcher(line);
+            if (iterationsMatch.matches()) {
+                iterations = Integer.parseInt(iterationsMatch.group(1));
+            }
+        }
+
+        private void matchInputVectorSize(String line) {
+            Matcher inputMatch = inputVectorSizeRegEx.matcher(line);
+            if (inputMatch.matches()) {
+                inputVectorSize = Integer.parseInt(inputMatch.group(1));
+            }
+        }
+
+        private void matchDimension(String line) {
             Matcher dimMatch = dimensionRegEx.matcher(line);
             if (dimMatch.matches()) {
                 dimension = new Dimension(Integer.parseInt(dimMatch.group(1)),
                         Integer.parseInt(dimMatch.group(2)));
             }
-
-            Matcher inputMatch = inputVectorSizeRegEx.matcher(line);
-            if (inputMatch.matches()) {
-                inputVectorSize = Integer.parseInt(inputMatch.group(1));
-            }
-
-            Matcher iterationsMatch = iterationsRegEx.matcher(line);
-            if (iterationsMatch.matches()) {
-                iterations = Integer.parseInt(iterationsMatch.group(1));
-            }
-            line = input.readLine();
-            match = weightRegEx.matcher(line);
         }
 
-        if (dimension == null || inputVectorSize < 1) {
-            throw new SOMError("A valid dimension and input vector size must" +
-                    " appear in a map's configuration%nand they must appear " +
-                    "before the weight matrix.");
-        }
-
-        BasicPlanarSOM bhgsom =
-                new BasicPlanarSOM(dimension.x, inputVectorSize, iterations);
-        bhgsom.weightMatrix =
-                readWeightMatrix(input, dimension.area, inputVectorSize);
-        return bhgsom;
     }
 }
