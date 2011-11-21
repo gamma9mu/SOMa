@@ -26,6 +26,7 @@
             <class name="cs437.som.neighborhood.ExponentialDecayNeighborhoodWidthTest"/>
             <class name="cs437.som.neighborhood.HyperbolicNeighborhoodWidthFunctionTest"/>
             <class name="cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunctionTest"/>
+            <class name="cs437.som.neighborhood.CompoundNeighborhoodTest"/>
         </classes>
     </test>
 </suite>
