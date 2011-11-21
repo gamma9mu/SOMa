@@ -9,7 +9,7 @@ import cs437.som.NeighborhoodWidthFunction;
  *
  * <pre>
  * The exact behavior follows the formula:
- *      \frac{1}{\sigma \sqrt{2 \pi}} e^{\frac{t^2}{2\sigma^2}}
+ *      \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{t^2}{2\sigma^2}}
  *  where
  *      \sigma is the standard deviation of the Gaussian
  *      e      is the base of the natural logarithm
@@ -36,7 +36,7 @@ public class GaussianNeighborhoodWidthFunction
 
     public double neighborhoodWidth(int iteration) {
         return coefficient *
-                Math.exp((iteration * iteration) / (2 * stdDeviation * stdDeviation));
+                Math.exp(-(iteration * iteration) / (2 * stdDeviation * stdDeviation));
     }
 
     @Override
