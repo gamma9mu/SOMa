@@ -31,6 +31,7 @@ public class FileReader {
         } catch (NoSuchMethodException e) {
             throw new SOMError("Map type " + className + " cannot be loaded from a file.");
         } catch (InvocationTargetException e) {
+            e.printStackTrace();
             throw new SOMError("Internal error.");
         } catch (IllegalAccessException e) {
             throw new SOMError("Internal error.");
@@ -50,7 +51,7 @@ public class FileReader {
     }
 
     public static void main(String[] args) throws IOException {
-        FileReader.read("custom.som");
+        FileReader.read("basic.som");
     }
 
     @Override
