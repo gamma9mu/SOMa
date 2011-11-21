@@ -146,39 +146,4 @@ public class BasicHexGridSOM extends NetworkBase {
                 readWeightMatrix(input, dimension.area, inputVectorSize);
         return bhgsom;
     }
-
-    /**
-     * Read a weight matrix from a stored map.
-     *
-     * @param input The input to read from
-     * @param entryCount The number of neurons to read for.
-     * @param length The input vector length.
-     * @return A weight matrix that can be dropped into a SOM.
-     * @throws IOException if something fails while reading the stream.
-     */
-    protected static double[][] readWeightMatrix(BufferedReader input,
-                int entryCount, int length) throws IOException {
-        Pattern endTagRegEx = Pattern.compile("end\\s*(?:weights)",
-                Pattern.CASE_INSENSITIVE);
-        Pattern weightVectorRegEx = Pattern.compile(
-            "([+-]?[0-9]*\\.?[0-9]+(?:[Ee][+-]?[0-9]+)?)(?:,?\\s*)?");
-
-        int readLines = 0;
-        double[][] weights = new double[entryCount][length];
-
-        String line = input.readLine();
-        while (readLines < entryCount && input.ready() &&
-                !endTagRegEx.matcher(line).matches()) {
-            Matcher weightMatch = weightVectorRegEx.matcher(line);
-            for (int i = 0; i < length; i++) {
-                weightMatch.find();
-                weights[readLines][i] =
-                        Double.parseDouble(weightMatch.group(1));
-            }
-            line = input.readLine();
-            readLines++;
-        }
-
-        return weights;
-    }
 }
