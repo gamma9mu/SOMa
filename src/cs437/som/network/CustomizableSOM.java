@@ -14,10 +14,6 @@ import java.io.OutputStreamWriter;
  * A fully customizable self-organizing map.
  */
 public class CustomizableSOM extends NetworkBase {
-    /**
-     * The default learning rate for a non-parametrized CustomizableSOM.
-     */
-    public static final double DEFAULT_LEARNING_RATE = 0.1;
 
     /**
      * The distance metric strategy being employed by the CustomizableSOM.
