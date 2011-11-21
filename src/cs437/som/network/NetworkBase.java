@@ -48,7 +48,7 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
      * A matrix of the neurons input weights.  The "left" index is the neuron
      * and the "right" index is the input weight.
      */
-    protected final double[][] weightMatrix;
+    protected double[][] weightMatrix;
 
     /**
      * The dimensions of the map's neuron grid.
