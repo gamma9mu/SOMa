@@ -1,5 +1,6 @@
 SOMa is a self-organizing map library for Java.
 
+About
 The aim of SOMa is to provide programmers with a comprehensive library for
 using or exploring self-organizing maps.  A few basic SOMs are provided,
 preconfigured for simple use, as well as a highly configurable version, which
@@ -7,7 +8,15 @@ provides detailed control over the map's operation.
 
 Maps can be saved to plain text files in an easily readable format.
 
-Javadoc is the best source for usage and help.
+Documentation
+Javadoc is the best source for usage and help.  There are some demonstrations
+of SOMa's use in the demo package, which may be useful to get an understanding
+of its usage.
 
+Building
+SOMa includes an Ant build script.  Just open a terminal, navigate to the root
+directory of the project and type "ant".
+
+Why the name?
 The name comes from _Brave_New_World_ by Aldous Huxley.  Hopefully, SOMa can
 provide you with at least one restful weekend...
