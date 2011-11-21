@@ -8,8 +8,8 @@ import static org.testng.Assert.assertTrue;
 public class HyperbolicLearningRateFunctionTest {
     private static final double MAXIMUM_DIFFERENCE = 0.0000000000000001;
     private static final int ITERATIONS = 1000;
-    static final double START_RATE = 0.7;
-    static final double END_RATE = 0.1;
+    private static final double START_RATE = 0.7;
+    private static final double END_RATE = 0.1;
 
     @Test
     public void testLearningRate() throws Exception {

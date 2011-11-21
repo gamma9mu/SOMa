@@ -25,10 +25,10 @@ public class EdgeDetector {
 
     /** Better than stdout... */
     private static final Logger log = Logger.getLogger("EdgeDetector");
-    static final int BYTEMASK = 0xFF;
-    static final int TWO_BYTE_SHIFT = 16;
-    static final int ONE_BYTE_SHIFT = 8;
-    static final int FRAME_LOCATION_OFFSET = 400;
+    private static final int BYTEMASK = 0xFF;
+    private static final int TWO_BYTE_SHIFT = 16;
+    private static final int ONE_BYTE_SHIFT = 8;
+    private static final int FRAME_LOCATION_OFFSET = 400;
 
     /** The ED's SOM */
     private TrainableSelfOrganizingMap som = null;

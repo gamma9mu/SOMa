@@ -7,7 +7,7 @@ import static org.testng.Assert.assertEquals;
 public class ConstantLearningRateFunctionTest {
     private static final double MAXIMUM_DIFFERENCE = 0.0000000000000001;
     private static final int ITERATIONS = 1000;
-    static final double LEARNING_RATE = 0.2;
+    private static final double LEARNING_RATE = 0.2;
 
     @Test
     public void testLearningRate() throws Exception {
