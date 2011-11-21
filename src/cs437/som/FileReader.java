@@ -49,10 +49,6 @@ public class FileReader {
         return read(file);
     }
 
-    public static void main(String[] args) throws IOException {
-        FileReader.read("basic.som");
-    }
-
     @Override
     public String toString() {
         return "FileReader";
