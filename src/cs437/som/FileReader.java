@@ -31,10 +31,9 @@ public class FileReader {
         } catch (NoSuchMethodException e) {
             throw new SOMError("Map type " + className + " cannot be loaded from a file.");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
-            throw new SOMError("Internal error.");
+            throw new SOMError(e.getCause().getMessage());
         } catch (IllegalAccessException e) {
-            throw new SOMError("Internal error.");
+            throw new SOMError("Internal error while parsing: " + e.getMessage());
         }
     }
 
