@@ -22,7 +22,7 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
     /**
      * The default learning rate.
      */
-    public static final double alpha = 0.08;
+    public static final double DEFAULT_LEARNING_RATE = 0.1;
 
     /**
      * The current training iteration.
@@ -158,7 +158,7 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
      * @return The learning rate for the current iteration.
      */
     protected double learningRate() {
-        return alpha;
+        return DEFAULT_LEARNING_RATE;
     }
 
     /**
