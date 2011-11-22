@@ -87,9 +87,9 @@ public class BasicSquareGridSOM extends NetworkBase {
                 sfr.parse(input);
 
         BasicSquareGridSOM bsgsom = new BasicSquareGridSOM(
-                sfr.dimension, sfr.inputVectorSize, sfr.iterations);
+                sfr.getDimension(), sfr.getInputVectorSize(), sfr.getIterations());
         bsgsom.weightMatrix = readWeightMatrix(
-                input, sfr.dimension.area, sfr.inputVectorSize);
+                input, sfr.getDimension().area, sfr.getInputVectorSize());
         return bsgsom;
     }
 }

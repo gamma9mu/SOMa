@@ -258,9 +258,9 @@ public class CustomizableSOM extends NetworkBase {
         sfr.parse(input);
 
         CustomizableSOM bpsom = new CustomizableSOM(
-                sfr.dimension, sfr.inputVectorSize, sfr.iterations);
+                sfr.getDimension(), sfr.getInputVectorSize(), sfr.getIterations());
         bpsom.weightMatrix = readWeightMatrix(
-                input, sfr.dimension.area, sfr.inputVectorSize);
+                input, sfr.getDimension().area, sfr.getInputVectorSize());
 
         if (sfr.distanceMetric != null)
             bpsom.distanceMetric = sfr.distanceMetric;

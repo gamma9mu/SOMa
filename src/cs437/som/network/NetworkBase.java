@@ -342,9 +342,9 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
         private static final Pattern weightRegEx = Pattern.compile(
                 "weights\\s*(?::)", Pattern.CASE_INSENSITIVE);
 
-        public Dimension dimension = null;
-        public int inputVectorSize = 0;
-        public int iterations = 0;
+        private Dimension dimension = null;
+        private int inputVectorSize = 0;
+        protected int iterations = 0;
 
         public void parse(BufferedReader input) throws IOException {
             String line = input.readLine();
@@ -399,5 +399,16 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
             return false;
         }
 
+        public Dimension getDimension() {
+            return dimension;
+        }
+
+        public int getInputVectorSize() {
+            return inputVectorSize;
+        }
+
+        public int getIterations() {
+            return iterations;
+        }
     }
 }
