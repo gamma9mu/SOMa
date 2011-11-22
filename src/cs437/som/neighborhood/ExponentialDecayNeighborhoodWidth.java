@@ -41,4 +41,8 @@ public class ExponentialDecayNeighborhoodWidth implements NeighborhoodWidthFunct
     public String toString() {
         return "ExponentialDecayNeighborhoodWidth " + initialNeighborhoodWidth;
     }
+
+    public ExponentialDecayNeighborhoodWidth(String parameters) {
+        initialNeighborhoodWidth = Double.parseDouble(parameters);
+    }
 }
