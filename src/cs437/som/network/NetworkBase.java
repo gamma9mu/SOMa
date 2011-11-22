@@ -350,9 +350,11 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
             String line = input.readLine();
             Matcher match = weightRegEx.matcher(line);
             while (! match.matches() && input.ready()) {
-                matchDimension(line);
-                matchInputVectorSize(line);
-                matchIterations(line);
+                if (!matchDimension(line)
+                        && !matchInputVectorSize(line)
+                        && !matchIterations(line)) {
+                    unmatchedLine(line);
+                }
 
                 line = input.readLine();
                 match = weightRegEx.matcher(line);
@@ -365,26 +367,35 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
             }
         }
 
-        private void matchIterations(String line) {
+        protected void unmatchedLine(String line) {
+        }
+
+        private boolean matchIterations(String line) {
             Matcher iterationsMatch = iterationsRegEx.matcher(line);
             if (iterationsMatch.matches()) {
                 iterations = Integer.parseInt(iterationsMatch.group(1));
+                return true;
             }
+            return false;
         }
 
-        private void matchInputVectorSize(String line) {
+        private boolean matchInputVectorSize(String line) {
             Matcher inputMatch = inputVectorSizeRegEx.matcher(line);
             if (inputMatch.matches()) {
                 inputVectorSize = Integer.parseInt(inputMatch.group(1));
+                return true;
             }
+            return false;
         }
 
-        private void matchDimension(String line) {
+        private boolean matchDimension(String line) {
             Matcher dimMatch = dimensionRegEx.matcher(line);
             if (dimMatch.matches()) {
                 dimension = new Dimension(Integer.parseInt(dimMatch.group(1)),
                         Integer.parseInt(dimMatch.group(2)));
+                return true;
             }
+            return false;
         }
 
     }
