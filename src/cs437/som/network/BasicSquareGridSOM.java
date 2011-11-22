@@ -11,8 +11,8 @@ import java.util.Arrays;
  *
  * An simple example usage:
  *
- * <code>
  * <pre>
+ * {@code
  * private static final int iterations = 500;
  *
  * public static void main(String[] args) {
@@ -26,8 +26,9 @@ import java.util.Arrays;
  *
  *     // At this point, the SOM would be queried for it's BMU.
  * }
- * </pre>
+ * }
  * </code>
+ * </pre>
  */
 public class BasicSquareGridSOM extends NetworkBase {
 
