@@ -40,4 +40,8 @@ public class LinearDecayNeighborhoodWidthFunction implements NeighborhoodWidthFu
     public String toString() {
         return "LinearDecayNeighborhoodWidthFunction " + initialNeighborhoodWidth;
     }
+
+    public LinearDecayNeighborhoodWidthFunction(String parameters) {
+        initialNeighborhoodWidth = Double.parseDouble(parameters);
+    }
 }
