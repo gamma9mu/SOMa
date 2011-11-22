@@ -86,4 +86,10 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
     public String toString() {
         return "CompoundNeighborhood";
     }
+
+    public CompoundNeighborhood(String parameters) {
+        // todo IMPLEMENT!!!
+        throw new UnsupportedOperationException(
+                "CompoundNeighborhood cannot be loaded from a file yet.");
+    }
 }
