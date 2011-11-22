@@ -15,14 +15,14 @@ import java.util.Random;
  */
 public abstract class NetworkBase implements TrainableSelfOrganizingMap {
     /**
-     * The initial, default neighborhood width.
-     */
-    public static final double INITIAL_NEIGHBORHOOD_WIDTH = 5.0;
-
-    /**
      * The default learning rate.
      */
     public static final double DEFAULT_LEARNING_RATE = 0.1;
+
+    /**
+     * The initial, default neighborhood width.
+     */
+    public final double initialNeighborhoodWidth;
 
     /**
      * The current training iteration.
@@ -68,6 +68,8 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
         this.expectedIterations = expectedIterations;
         this.gridSize = gridSize;
         this.neuronCount = gridSize.area;
+
+        initialNeighborhoodWidth = Math.min(gridSize.x, gridSize.y) / 2;
 
         weightMatrix = new double[neuronCount][inputVectorSize];
         initialize();
@@ -241,7 +243,7 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
      * iteration.
      */
     protected double neighborhoodWidth() {
-        return INITIAL_NEIGHBORHOOD_WIDTH *
+        return initialNeighborhoodWidth *
                 (1.0 - (time / (double) expectedIterations));
     }
 
