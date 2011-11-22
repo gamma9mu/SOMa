@@ -361,9 +361,10 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
             }
 
             if (dimension == null || inputVectorSize < 1) {
-                throw new SOMError("A valid dimension and input vector size must" +
-                        " appear in a map's configuration%nand they must appear " +
-                        "before the weight matrix.");
+                throw new SOMError(String.format(
+                        "A valid dimension and input vector size must appear in "
+                        + "a map's configuration%nand they must appear before "
+                        + "the weight matrix."));
             }
         }
 
