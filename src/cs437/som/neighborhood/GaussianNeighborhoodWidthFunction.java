@@ -43,4 +43,9 @@ public class GaussianNeighborhoodWidthFunction
     public String toString() {
         return "GaussianNeighborhoodWidthFunction " + stdDeviation;
     }
+
+    public GaussianNeighborhoodWidthFunction(String parameters) {
+        stdDeviation = Double.parseDouble(parameters);
+        coefficient = 1 / (stdDeviation * Math.sqrt(2 * Math.PI));
+    }
 }
