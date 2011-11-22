@@ -90,8 +90,7 @@ public class BasicPlanarSOM extends NetworkBase {
 
         BasicPlanarSOM bpsom = new BasicPlanarSOM(
                 sfr.getDimension().x, sfr.getInputVectorSize(), sfr.getIterations());
-        bpsom.weightMatrix = readWeightMatrix(
-                input, sfr.getDimension().area, sfr.getInputVectorSize());
+        bpsom.weightMatrix = sfr.getWeights();
         return bpsom;
     }
 
