@@ -91,11 +91,11 @@ public class BasicPlanarSOM extends NetworkBase {
         SOMFileReader sfr = new SOMFileReader();
         sfr.parse(input);
 
-        BasicPlanarSOM bhgsom = new BasicPlanarSOM(
+        BasicPlanarSOM bpsom = new BasicPlanarSOM(
                 sfr.dimension.x, sfr.inputVectorSize, sfr.iterations);
-        bhgsom.weightMatrix = readWeightMatrix(
+        bpsom.weightMatrix = readWeightMatrix(
                 input, sfr.dimension.area, sfr.inputVectorSize);
-        return bhgsom;
+        return bpsom;
     }
 
 }
