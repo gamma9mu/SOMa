@@ -270,6 +270,8 @@ public class CustomizableSOM extends NetworkBase {
         if (sfr.neighborhoodWidth != null)
             bpsom.neighborhoodWidth = sfr.neighborhoodWidth;
 
+        bpsom.time = sfr.time;
+
         return bpsom;
     }
 
@@ -284,7 +286,11 @@ public class CustomizableSOM extends NetworkBase {
             Pattern.CASE_INSENSITIVE);
         private static final Pattern gridTypeRegEx = Pattern.compile(
             "(?:grid)?\\s*type\\s*:\\s*(\\w*)", Pattern.CASE_INSENSITIVE);
+        private static final Pattern iterationsRegEx = Pattern.compile(
+            "iterations\\s*:\\s*(\\d*)\\s*of\\s*(\\d*)",
+                Pattern.CASE_INSENSITIVE);
 
+        public int time = 0;
         public DistanceMetric distanceMetric = null;
         public LearningRateFunction learningRate = null;
         public NeighborhoodWidthFunction neighborhoodWidth = null;
@@ -292,11 +298,23 @@ public class CustomizableSOM extends NetworkBase {
 
         @Override
         protected void unmatchedLine(String line) {
-            if (!matchDistanceMetric(line)
+            if (!matchIterations(line)
+                    && !matchDistanceMetric(line)
                     && !matchGridType(line)
                     && !matchLearningRate(line)) {
                 matchNeighborhood(line);
             }
+        }
+
+        @Override
+        protected boolean matchIterations(String line) {
+            Matcher iterationsMatch = iterationsRegEx.matcher(line);
+            if (iterationsMatch.matches()) {
+                time = Integer.parseInt(iterationsMatch.group(1));
+                iterations = Integer.parseInt(iterationsMatch.group(2));
+                return true;
+            }
+            return false;
         }
 
         private boolean matchDistanceMetric(String line) {
