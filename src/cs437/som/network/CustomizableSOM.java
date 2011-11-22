@@ -289,6 +289,14 @@ public class CustomizableSOM extends NetworkBase {
         }
 
         private boolean matchNeighborhood(String line) {
+            Matcher neighborhoodMatch = neighborhoodRegEx.matcher(line);
+            if (neighborhoodMatch.matches()) {
+                neighborhoodWidth = (NeighborhoodWidthFunction)
+                        instantiateFromString("cs437.som.neighborhood",
+                        neighborhoodMatch.group(1),
+                        neighborhoodMatch.group(2));
+                return true;
+            }
             return false;
         }
 
