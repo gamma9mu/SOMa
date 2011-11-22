@@ -8,8 +8,14 @@ import static org.testng.Assert.assertTrue;
 public class HyperbolicLearningRateFunctionTest {
     private static final double MAXIMUM_DIFFERENCE = 0.0000000000000001;
     private static final int ITERATIONS = 1000;
-    private static final double START_RATE = 0.7;
-    private static final double END_RATE = 0.1;
+    private static final double START_RATE = 0.8;
+    private static final double END_RATE = 0.01;
+
+    private static final int[] SAMPLES = {0,100,200,500,1000};
+    private static final double[] SAMPLE_RESULTS =
+            {0.8, 0.516156, 0.333021, 0.0894427, 0.01};
+    private static final double[] SAMPLE_ACCURACY =
+            {1.0e-1, 1.0e-6, 1.0e-6, 1.0e-7, 1.0e-2};
 
     @Test
     public void testLearningRate() throws Exception {
@@ -26,6 +32,10 @@ public class HyperbolicLearningRateFunctionTest {
             last = current;
         }
 
-        // todo check against perfect hyperbola
+        // Verify the function fits known samples
+        for (int j = 0; j < SAMPLES.length; j++) {
+            assertEquals(hlrf.learningRate(SAMPLES[j]), SAMPLE_RESULTS[j],
+                    SAMPLE_ACCURACY[j]);
+        }
     }
 }
