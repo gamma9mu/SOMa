@@ -262,19 +262,19 @@ public class CustomizableSOM extends NetworkBase {
         bpsom.weightMatrix = readWeightMatrix(
                 input, sfr.getDimension().area, sfr.getInputVectorSize());
 
-        if (sfr.distanceMetric != null)
-            bpsom.distanceMetric = sfr.distanceMetric;
+        if (sfr.getDistanceMetric() != null)
+            bpsom.distanceMetric = sfr.getDistanceMetric();
 
-        if (sfr.learningRate != null)
-            bpsom.learningRate = sfr.learningRate;
+        if (sfr.getLearningRate() != null)
+            bpsom.learningRate = sfr.getLearningRate();
 
-        if (sfr.gridType != null)
-            bpsom.gridType = sfr.gridType;
+        if (sfr.getGridType() != null)
+            bpsom.gridType = sfr.getGridType();
 
-        if (sfr.neighborhoodWidth != null)
-            bpsom.neighborhoodWidth = sfr.neighborhoodWidth;
+        if (sfr.getNeighborhoodWidth() != null)
+            bpsom.neighborhoodWidth = sfr.getNeighborhoodWidth();
 
-        bpsom.time = sfr.time;
+        bpsom.time = sfr.getTime();
 
         return bpsom;
     }
@@ -294,11 +294,11 @@ public class CustomizableSOM extends NetworkBase {
             "iterations\\s*:\\s*(\\d*)\\s*of\\s*(\\d*)",
                 Pattern.CASE_INSENSITIVE);
 
-        public int time = 0;
-        public DistanceMetric distanceMetric = null;
-        public LearningRateFunction learningRate = null;
-        public NeighborhoodWidthFunction neighborhoodWidth = null;
-        public GridType gridType = null;
+        private int time = 0;
+        private DistanceMetric distanceMetric = null;
+        private LearningRateFunction learningRate = null;
+        private NeighborhoodWidthFunction neighborhoodWidth = null;
+        private GridType gridType = null;
 
         @Override
         protected void unmatchedLine(String line) {
@@ -403,6 +403,26 @@ public class CustomizableSOM extends NetworkBase {
                         ": bad arguments.");
             }
             return object;
+        }
+
+        public int getTime() {
+            return time;
+        }
+
+        public DistanceMetric getDistanceMetric() {
+            return distanceMetric;
+        }
+
+        public LearningRateFunction getLearningRate() {
+            return learningRate;
+        }
+
+        public NeighborhoodWidthFunction getNeighborhoodWidth() {
+            return neighborhoodWidth;
+        }
+
+        public GridType getGridType() {
+            return gridType;
         }
     }
 }
