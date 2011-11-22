@@ -262,6 +262,8 @@ public class CustomizableSOM extends NetworkBase {
         protected void unmatchedLine(String line) {
             if (matchDistanceMetric(line))
                 ;
+            else if (matchGridType(line))
+                ;
         }
 
         private boolean matchDistanceMetric(String line) {
@@ -284,6 +286,13 @@ public class CustomizableSOM extends NetworkBase {
         }
 
         private boolean matchGridType(String line) {
+            Matcher gridTypeMatch = gridTypeRegEx.matcher(line);
+            if (gridTypeMatch.matches()) {
+                gridType = (GridType)
+                        instantiateClass("cs437.som.topology",
+                        gridTypeMatch.group(1));
+                return true;
+            }
             return false;
         }
 
