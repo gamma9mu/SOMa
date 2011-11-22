@@ -7,7 +7,9 @@ import cs437.som.TrainableSelfOrganizingMap;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -54,6 +56,7 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
      * The dimensions of the map's neuron grid.
      */
     protected final Dimension gridSize;
+    private Random random;
 
     /**
      * Constructs the common functionality for SOMs.
@@ -69,7 +72,7 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
         this.gridSize = gridSize;
         this.neuronCount = gridSize.area;
 
-        initialNeighborhoodWidth = Math.min(gridSize.x, gridSize.y) / 2;
+        initialNeighborhoodWidth = Math.min(gridSize.x, gridSize.y) / 3;
 
         weightMatrix = new double[neuronCount][inputVectorSize];
         initialize();
@@ -88,6 +91,23 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
             }
         }
         return bestMatch;
+    }
+
+    protected int getBMUDuringTraining(double[] input) {
+        List<Integer> bmuList = new ArrayList<Integer>(10);
+        double lowestDistance2 = distanceToInput(0, input);
+        bmuList.add(0);
+        for (int i = 1; i < neuronCount; i++) {
+            double distance2temp = distanceToInput(i, input);
+            if (Math.abs(distance2temp - lowestDistance2) < /*0.1/time*/1.0e-6) {
+                bmuList.add(i);
+            } else if (distance2temp < lowestDistance2) {
+                lowestDistance2 = distance2temp;
+                bmuList.clear();
+                bmuList.add(i);
+            }
+        }
+        return bmuList.get(random.nextInt(bmuList.size()));
     }
 
     public int getBestMatchingNeuron(int[] input) {
@@ -121,7 +141,7 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
     public void trainWith(double[] data) {
         checkInput(data);
 
-        int best = getBestMatchingNeuron(data);
+        int best = getBMUDuringTraining(data);
         adjustNeuronWeights(best, data);
         adjustNeighborsOf(best, data);
         time++;
@@ -182,10 +202,10 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
      * Initializes the neuron's weight matrix to all random doubles.
      */
     private void initialize() {
-        Random r = new SecureRandom();
+        random = new SecureRandom();
         for (int i = 0; i < neuronCount; i++) {
             for (int j = 0; j < inputVectorSize; j++) {
-                weightMatrix[i][j] = r.nextDouble();
+                weightMatrix[i][j] = random.nextDouble();
             }
         }
     }
