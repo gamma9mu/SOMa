@@ -4,14 +4,11 @@ import cs437.som.Dimension;
 import cs437.som.SOMError;
 import cs437.som.TrainableSelfOrganizingMap;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Common functionality for basic self-organizing maps.
