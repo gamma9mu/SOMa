@@ -347,7 +347,8 @@ public class CustomizableSOM extends NetworkBase {
             } catch (NoSuchMethodException e) {
                 throw new SOMError("Cannot create " + className);
             } catch (InvocationTargetException e) {
-                throw new SOMError("Cannot create " + className);
+                throw new SOMError("Cannot create " + className +
+                        ": bad arguments.");
             }
             return object;
         }
