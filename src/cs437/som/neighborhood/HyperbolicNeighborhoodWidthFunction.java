@@ -47,4 +47,11 @@ public class HyperbolicNeighborhoodWidthFunction
     public String toString() {
         return "HyperbolicNeighborhoodWidthFunction " + initialWidth + ' ' + finalWidth;
     }
+
+    public HyperbolicNeighborhoodWidthFunction(String parameters) {
+        String[] arguments = parameters.split("\\s*", 2);
+        initialWidth = Double.parseDouble(arguments[0]);
+        finalWidth = Double.parseDouble(arguments[1]);
+        widthRatio = finalWidth / initialWidth;
+    }
 }
