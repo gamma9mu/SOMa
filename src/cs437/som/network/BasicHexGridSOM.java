@@ -97,53 +97,13 @@ public class BasicHexGridSOM extends NetworkBase {
      * @throws IOException if something fails while reading the stream.
      */
     public static BasicHexGridSOM read(BufferedReader input) throws IOException {
-        Pattern dimensionRegEx = Pattern.compile(
-                "(?:grid)?\\s*dimensions\\s*:\\s*(\\d+)\\s*,\\s*(\\d+)",
-                Pattern.CASE_INSENSITIVE);
-        Pattern inputVectorSizeRegEx = Pattern.compile(
-            "(?:input)?\\s*length\\s*:\\s*(\\d+)",
-            Pattern.CASE_INSENSITIVE);
-        Pattern iterationsRegEx = Pattern.compile("iterations\\s*:\\s*(\\d+)",
-                Pattern.CASE_INSENSITIVE);
-        Pattern weightRegEx = Pattern.compile("weights\\s*(?::)",
-                Pattern.CASE_INSENSITIVE);
+        SOMFileReader sfr = new SOMFileReader();
+                sfr.parse(input);
 
-        Dimension dimension = null;
-        int inputVectorSize = 0;
-        int iterations = 0;
-
-        String line = input.readLine();
-        Matcher match = weightRegEx.matcher(line);
-        while (! match.matches() && input.ready()) {
-            Matcher dimMatch = dimensionRegEx.matcher(line);
-            if (dimMatch.matches()) {
-                dimension = new Dimension(Integer.parseInt(dimMatch.group(1)),
-                        Integer.parseInt(dimMatch.group(2)));
-            }
-
-            Matcher inputMatch = inputVectorSizeRegEx.matcher(line);
-            if (inputMatch.matches()) {
-                inputVectorSize = Integer.parseInt(inputMatch.group(1));
-            }
-
-            Matcher iterationsMatch = iterationsRegEx.matcher(line);
-            if (iterationsMatch.matches()) {
-                iterations = Integer.parseInt(iterationsMatch.group(1));
-            }
-            line = input.readLine();
-            match = weightRegEx.matcher(line);
-        }
-
-        if (dimension == null || inputVectorSize < 1) {
-            throw new SOMError("A valid dimension and input vector size must" +
-                    " appear in a map's configuration%nand they must appear " +
-                    "before the weight matrix.");
-        }
-
-        BasicHexGridSOM bhgsom =
-                new BasicHexGridSOM(dimension, inputVectorSize, iterations);
-        bhgsom.weightMatrix =
-                readWeightMatrix(input, dimension.area, inputVectorSize);
+        BasicHexGridSOM bhgsom = new BasicHexGridSOM(
+                sfr.dimension, sfr.inputVectorSize, sfr.iterations);
+        bhgsom.weightMatrix = readWeightMatrix(
+                input, sfr.dimension.area, sfr.inputVectorSize);
         return bhgsom;
     }
 }
