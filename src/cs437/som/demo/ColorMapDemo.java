@@ -2,6 +2,8 @@ package cs437.som.demo;
 
 import cs437.som.Dimension;
 import cs437.som.TrainableSelfOrganizingMap;
+import cs437.som.network.BasicHexGridSOM;
+import cs437.som.network.BasicSquareGridSOM;
 import cs437.som.network.CustomizableSOM;
 import cs437.som.visualization.SOM3dPlotter;
 
@@ -54,7 +56,7 @@ public class ColorMapDemo {
 
     public static void main(String[] args) {
         Dimension dimension = new Dimension(MAP_DIMENSION, MAP_DIMENSION);
-        CustomizableSOM som = new CustomizableSOM(dimension, 3, 1000);
+        TrainableSelfOrganizingMap som = new CustomizableSOM(dimension, 3, 1000);
         new ColorMapDemo(som).run();
     }
 
