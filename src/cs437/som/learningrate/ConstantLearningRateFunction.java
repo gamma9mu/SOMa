@@ -29,4 +29,8 @@ public class ConstantLearningRateFunction implements LearningRateFunction {
     public String toString() {
         return "ConstantLearningRateFunction " + learningRate;
     }
+
+    public ConstantLearningRateFunction(String parameters) {
+        learningRate = Double.parseDouble(parameters);
+    }
 }
