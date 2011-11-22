@@ -267,18 +267,9 @@ public class CustomizableSOM extends NetworkBase {
         private boolean matchDistanceMetric(String line) {
             Matcher distanceMatch = distanceMetricRegEx.matcher(line);
             if (distanceMatch.matches()) {
-                String className = "cs437.som.distancemetrics" +
-                        distanceMatch.group(1);
-                try {
-                    Class<?> cls = Class.forName(className);
-                    distanceMetric = (DistanceMetric) cls.newInstance();
-                } catch (ClassNotFoundException e) {
-                    throw new SOMError("Cannot find " + className);
-                } catch (InstantiationException e) {
-                    throw new SOMError("Cannot create " + className);
-                } catch (IllegalAccessException e) {
-                    throw new SOMError("Cannot create " + className);
-                }
+                distanceMetric = (DistanceMetric)
+                        instantiateClass("cs437.som.distancemetrics",
+                        distanceMatch.group(1));
                 return true;
             }
             return false;
@@ -296,5 +287,20 @@ public class CustomizableSOM extends NetworkBase {
             return false;
         }
 
+        private Object instantiateClass(String pkg, String cls) {
+            String className = pkg + cls;
+            Object object;
+            try {
+                Class<?> clsObj = Class.forName(className);
+                object = clsObj.newInstance();
+            } catch (ClassNotFoundException e) {
+                throw new SOMError("Cannot find " + className);
+            } catch (InstantiationException e) {
+                throw new SOMError("Cannot create " + className);
+            } catch (IllegalAccessException e) {
+                throw new SOMError("Cannot create " + className);
+            }
+            return object;
+        }
     }
 }
