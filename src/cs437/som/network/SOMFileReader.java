@@ -26,6 +26,12 @@ class SOMFileReader {
     private int inputVectorSize = 0;
     protected int iterations = 0;
 
+    /**
+     * Parse a self-organizing map from an input stream.
+     *
+     * @param input The input stream.
+     * @throws IOException When an I/O error occurs.
+     */
     public void parse(BufferedReader input) throws IOException {
         String line = input.readLine();
         Matcher match = weightRegEx.matcher(line);
@@ -48,9 +54,22 @@ class SOMFileReader {
         }
     }
 
+    /**
+     * If SOMFileReader does not recognize, it calls this method.  The default
+     * behavior is doing nothing.  This method is provided for extension in
+     * subclasses.
+     *
+     * @param line The unrecognized line.
+     */
     protected void unmatchedLine(String line) {
     }
 
+    /**
+     * Match an iteration line.
+     *
+     * @param line The input's line to attempt to match and extract from.
+     * @return {@code true} if the line is matched, {@code false} otherwise.
+     */
     protected boolean matchIterations(String line) {
         Matcher iterationsMatch = iterationsRegEx.matcher(line);
         if (iterationsMatch.matches()) {
@@ -60,6 +79,12 @@ class SOMFileReader {
         return false;
     }
 
+    /**
+     * Match an input vector size line.
+     *
+     * @param line The input's line to attempt to match and extract from.
+     * @return {@code true} if the line is matched, {@code false} otherwise.
+     */
     private boolean matchInputVectorSize(String line) {
         Matcher inputMatch = inputVectorSizeRegEx.matcher(line);
         if (inputMatch.matches()) {
@@ -69,6 +94,12 @@ class SOMFileReader {
         return false;
     }
 
+    /**
+     * Match a dimension line.
+     *
+     * @param line The input's line to attempt to match and extract from.
+     * @return {@code true} if the line is matched, {@code false} otherwise.
+     */
     private boolean matchDimension(String line) {
         Matcher dimMatch = dimensionRegEx.matcher(line);
         if (dimMatch.matches()) {
@@ -79,14 +110,29 @@ class SOMFileReader {
         return false;
     }
 
+    /**
+     * Retrieve the parsed dimension.
+     *
+     * @return The dimensions from the input stream.
+     */
     public Dimension getDimension() {
         return dimension;
     }
 
+    /**
+     * Retrieve the parsed input vector size.
+     *
+     * @return The input vector size from the input stream.
+     */
     public int getInputVectorSize() {
         return inputVectorSize;
     }
 
+    /**
+     * Return the parsed iteration count.
+     *
+     * @return The iteration count from the input stream.
+     */
     public int getIterations() {
         return iterations;
     }
