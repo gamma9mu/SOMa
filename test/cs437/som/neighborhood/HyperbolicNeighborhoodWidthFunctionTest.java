@@ -11,6 +11,12 @@ public class HyperbolicNeighborhoodWidthFunctionTest {
     private static final double START_WIDTH = 10.0;
     private static final double END_WIDTH = 1.0;
 
+    private static final int[] SAMPLES = {0,100,200,500,1000};
+    private static final double[] SAMPLE_RESULTS =
+            {10, 7.94328, 6.30957, 3.16228, 1};
+    private static final double[] SAMPLE_ACCURACY =
+            {1.0e-10, 1.0e-5, 1.0e-5, 1.0e-5, 1.0e-10};
+
     @Test
     public void testNeighborhoodWidth() throws Exception {
         HyperbolicNeighborhoodWidthFunction hnwf =
@@ -30,6 +36,10 @@ public class HyperbolicNeighborhoodWidthFunctionTest {
                     "Hyperbolic function should be less than linear.");
         }
 
-        // todo check against perfect hyperbola
+        // Verify the function fits known samples
+        for (int j = 0; j < SAMPLES.length; j++) {
+            assertEquals(hnwf.neighborhoodWidth(SAMPLES[j]), SAMPLE_RESULTS[j],
+                    SAMPLE_ACCURACY[j]);
+        }
     }
 }
