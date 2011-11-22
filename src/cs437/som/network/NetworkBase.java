@@ -371,7 +371,7 @@ public abstract class NetworkBase implements TrainableSelfOrganizingMap {
         protected void unmatchedLine(String line) {
         }
 
-        private boolean matchIterations(String line) {
+        protected boolean matchIterations(String line) {
             Matcher iterationsMatch = iterationsRegEx.matcher(line);
             if (iterationsMatch.matches()) {
                 iterations = Integer.parseInt(iterationsMatch.group(1));
