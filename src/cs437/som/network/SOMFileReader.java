@@ -26,6 +26,8 @@ class SOMFileReader {
     private int inputVectorSize = 0;
     protected int iterations = 0;
 
+    private double[][] weights = null;
+
     /**
      * Parse a self-organizing map from an input stream.
      *
@@ -52,6 +54,8 @@ class SOMFileReader {
                             + "a map's configuration%nand they must appear before "
                             + "the weight matrix."));
         }
+
+        readWeightMatrix(input);
     }
 
     /**
@@ -111,6 +115,35 @@ class SOMFileReader {
     }
 
     /**
+     * Read a weight matrix from a stored map.
+     *
+     * @param input The input to read from
+     * @throws java.io.IOException if something fails while reading the stream.
+     */
+    protected void readWeightMatrix(BufferedReader input) throws IOException {
+        Pattern endTagRegEx = Pattern.compile("end\\s*(?:weights)",
+                Pattern.CASE_INSENSITIVE);
+        Pattern weightVectorRegEx = Pattern.compile(
+                "([+-]?[0-9]*\\.?[0-9]+(?:[Ee][+-]?[0-9]+)?)(?:,?\\s*)?");
+
+        weights = new double[dimension.area][inputVectorSize];
+
+        String line = input.readLine();
+        int readLines = 0;
+        while (readLines < dimension.area && input.ready() &&
+                !endTagRegEx.matcher(line).matches()) {
+            Matcher weightMatch = weightVectorRegEx.matcher(line);
+            for (int i = 0; i < inputVectorSize; i++) {
+                weightMatch.find();
+                weights[readLines][i] =
+                        Double.parseDouble(weightMatch.group(1));
+            }
+            line = input.readLine();
+            readLines++;
+        }
+    }
+
+    /**
      * Retrieve the parsed dimension.
      *
      * @return The dimensions from the input stream.
@@ -140,5 +173,14 @@ class SOMFileReader {
     @Override
     public String toString() {
         return "SOMFileReader";
+    }
+
+    /**
+     * Get the parsed weight vector.
+     *
+     * @return The weight vector from the input stream.
+     */
+    public double[][] getWeights() {
+        return weights;
     }
 }

@@ -100,8 +100,7 @@ public class BasicHexGridSOM extends NetworkBase {
 
         BasicHexGridSOM bhgsom = new BasicHexGridSOM(
                 sfr.getDimension(), sfr.getInputVectorSize(), sfr.getIterations());
-        bhgsom.weightMatrix = readWeightMatrix(
-                input, sfr.getDimension().area, sfr.getInputVectorSize());
+        bhgsom.weightMatrix = sfr.getWeights();
         return bhgsom;
     }
 }
