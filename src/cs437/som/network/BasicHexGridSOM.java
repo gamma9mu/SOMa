@@ -99,9 +99,9 @@ public class BasicHexGridSOM extends NetworkBase {
                 sfr.parse(input);
 
         BasicHexGridSOM bhgsom = new BasicHexGridSOM(
-                sfr.dimension, sfr.inputVectorSize, sfr.iterations);
+                sfr.getDimension(), sfr.getInputVectorSize(), sfr.getIterations());
         bhgsom.weightMatrix = readWeightMatrix(
-                input, sfr.dimension.area, sfr.inputVectorSize);
+                input, sfr.getDimension().area, sfr.getInputVectorSize());
         return bhgsom;
     }
 }
