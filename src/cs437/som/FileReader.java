@@ -53,10 +53,4 @@ public class FileReader {
     public String toString() {
         return "FileReader";
     }
-
-    public static void main(String[] args) throws IOException {
-        new FileReader(new File("custom.som")).tsom.write(
-                new FileWriter("custom.out.som")
-        );
-    }
 }
