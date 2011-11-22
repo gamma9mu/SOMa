@@ -9,6 +9,8 @@ import cs437.som.topology.SquareGrid;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A fully customizable self-organizing map.
@@ -233,5 +235,62 @@ public class CustomizableSOM extends NetworkBase {
 
         super.write(destination);
         destination.flush();
+    }
+
+    protected static class CustomSOMFileReader extends SOMFileReader {
+        private static final Pattern distanceMetricRegEx = Pattern.compile(
+            "distance\\s*(?:metric)?\\s*:\\s*(\\w*)", Pattern.CASE_INSENSITIVE);
+        private static final Pattern learningRateRegEx = Pattern.compile(
+            "learning\\s*(?:rate)?\\s*(?:function)?\\s*:\\s*(\\w*)\\s*(.*)",
+            Pattern.CASE_INSENSITIVE);
+        private static final Pattern neighborhoodRegEx = Pattern.compile(
+            "neighborhood\\s*(?:width)?\\s*(?:function)?\\s*:\\s*(\\w*)\\s*(.*)",
+            Pattern.CASE_INSENSITIVE);
+        private static final Pattern gridTypeRegEx = Pattern.compile(
+            "(?:grid)?\\s*type\\s*:\\s*(\\w*)", Pattern.CASE_INSENSITIVE);
+
+        public DistanceMetric distanceMetric = null;
+        public LearningRateFunction learningRate = null;
+        public NeighborhoodWidthFunction neighborhoodWidth = null;
+        public GridType gridType = null;
+
+        @Override
+        protected void unmatchedLine(String line) {
+            if (matchDistanceMetric(line))
+                ;
+        }
+
+        private boolean matchDistanceMetric(String line) {
+            Matcher distanceMatch = distanceMetricRegEx.matcher(line);
+            if (distanceMatch.matches()) {
+                String className = "cs437.som.distancemetrics" +
+                        distanceMatch.group(1);
+                try {
+                    Class<?> cls = Class.forName(className);
+                    distanceMetric = (DistanceMetric) cls.newInstance();
+                } catch (ClassNotFoundException e) {
+                    throw new SOMError("Cannot find " + className);
+                } catch (InstantiationException e) {
+                    throw new SOMError("Cannot create " + className);
+                } catch (IllegalAccessException e) {
+                    throw new SOMError("Cannot create " + className);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private boolean matchLearningRate(String line) {
+            return false;
+        }
+
+        private boolean matchNeighborhood(String line) {
+            return false;
+        }
+
+        private boolean matchGridType(String line) {
+            return false;
+        }
+
     }
 }
