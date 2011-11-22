@@ -9,6 +9,8 @@ import cs437.som.topology.SquareGrid;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -308,6 +310,27 @@ public class CustomizableSOM extends NetworkBase {
             } catch (InstantiationException e) {
                 throw new SOMError("Cannot create " + className);
             } catch (IllegalAccessException e) {
+                throw new SOMError("Cannot create " + className);
+            }
+            return object;
+        }
+
+        private Object instantiateFromString(String pkg, String cls, String args) {
+            String className = pkg + cls;
+            Object object;
+            try {
+                Class<?> clsObj = Class.forName(className);
+                Constructor<?> ctor = clsObj.getConstructor(String.class);
+                object = ctor.newInstance(args);
+            } catch (ClassNotFoundException e) {
+                throw new SOMError("Cannot find " + className);
+            } catch (InstantiationException e) {
+                throw new SOMError("Cannot create " + className);
+            } catch (IllegalAccessException e) {
+                throw new SOMError("Cannot create " + className);
+            } catch (NoSuchMethodException e) {
+                throw new SOMError("Cannot create " + className);
+            } catch (InvocationTargetException e) {
                 throw new SOMError("Cannot create " + className);
             }
             return object;
