@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
-* Provides for reading in self-organizing maps from files.
-*/
+ * Provides for reading in self-organizing maps from files.
+ */
 class SOMFileReader {
     private static final Pattern dimensionRegEx = Pattern.compile(
             "(?:grid)?\\s*dimensions\\s*:\\s*(\\d+)\\s*,\\s*(\\d+)",
@@ -35,7 +35,7 @@ class SOMFileReader {
     public void parse(BufferedReader input) throws IOException {
         String line = input.readLine();
         Matcher match = weightRegEx.matcher(line);
-        while (! match.matches() && input.ready()) {
+        while (!match.matches() && input.ready()) {
             if (!matchDimension(line)
                     && !matchInputVectorSize(line)
                     && !matchIterations(line)) {
@@ -49,8 +49,8 @@ class SOMFileReader {
         if (dimension == null || inputVectorSize < 1) {
             throw new SOMError(String.format(
                     "A valid dimension and input vector size must appear in "
-                    + "a map's configuration%nand they must appear before "
-                    + "the weight matrix."));
+                            + "a map's configuration%nand they must appear before "
+                            + "the weight matrix."));
         }
     }
 
