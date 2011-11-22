@@ -51,4 +51,10 @@ public class MexicanHatNeighborhoodWidthFunction
     public String toString() {
         return "MexicanHatNeighborhoodWidthFunction " + standardDeviation;
     }
+
+    public MexicanHatNeighborhoodWidthFunction(String parameters) {
+        standardDeviation = Double.parseDouble(parameters);
+        coefficient = 2 / (Math.sqrt(3 * standardDeviation) * Math.pow(Math.PI, oneFourth));
+        variance = standardDeviation * standardDeviation;
+    }
 }
