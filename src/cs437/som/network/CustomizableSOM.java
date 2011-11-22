@@ -256,10 +256,11 @@ public class CustomizableSOM extends NetworkBase {
 
         @Override
         protected void unmatchedLine(String line) {
-            if (matchDistanceMetric(line))
-                ;
-            else if (matchGridType(line))
-                ;
+            if (!matchDistanceMetric(line)
+                    && !matchGridType(line)
+                    && !matchLearningRate(line)) {
+                matchNeighborhood(line);
+            }
         }
 
         private boolean matchDistanceMetric(String line) {
