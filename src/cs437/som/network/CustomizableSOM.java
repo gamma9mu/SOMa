@@ -350,7 +350,7 @@ public class CustomizableSOM extends NetworkBase {
         }
 
         private Object instantiateClass(String pkg, String cls) {
-            String className = pkg + cls;
+            String className = pkg + '.' + cls;
             Object object;
             try {
                 Class<?> clsObj = Class.forName(className);
@@ -366,7 +366,7 @@ public class CustomizableSOM extends NetworkBase {
         }
 
         private Object instantiateFromString(String pkg, String cls, String args) {
-            String className = pkg + cls;
+            String className = pkg + '.' + cls;
             Object object;
             try {
                 Class<?> clsObj = Class.forName(className);
