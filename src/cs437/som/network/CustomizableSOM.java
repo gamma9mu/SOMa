@@ -281,6 +281,14 @@ public class CustomizableSOM extends NetworkBase {
         }
 
         private boolean matchLearningRate(String line) {
+            Matcher learningRateMatch = learningRateRegEx.matcher(line);
+            if (learningRateMatch.matches()) {
+                learningRate = (LearningRateFunction)
+                        instantiateFromString("cs437.som.learningrate",
+                        learningRateMatch.group(1),
+                        learningRateMatch.group(2));
+                return true;
+            }
             return false;
         }
 
