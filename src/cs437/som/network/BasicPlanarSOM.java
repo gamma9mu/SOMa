@@ -2,6 +2,7 @@ package cs437.som.network;
 
 import cs437.som.Dimension;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
@@ -16,7 +17,7 @@ import java.util.Arrays;
  * private static final int iterations = 500;
  *
  * public static void main(String[] args) {
- *     TrainableSelfOrganizingMap som = new BasicPlanarGridSOM(7, 2, iterations);
+ *     TrainableSelfOrganizingMap som = new BasicPlanarSOM(7, 2, iterations);
  *     Random r = new SecureRandom();
  *
  *     for (int i = 0; i < iterations; i++) {
@@ -70,8 +71,29 @@ public class BasicPlanarSOM extends NetworkBase {
 
     @Override
     public void write(OutputStreamWriter destination) throws IOException {
-        destination.write(String.format("Map type: BasicPlanarGridSOM%n"));
+        destination.write(String.format("Map type: BasicPlanarSOM%n"));
         super.write(destination);
         destination.flush();
     }
+
+    /**
+     * Read a BasicPlanarSOM from an input stream.
+     *
+     * @param input The stream to read from.  This stream should be passed in
+     * as soon as it is known to represent a BasicPlanarSOM.
+     * @return A BasicPlanarSOM as represented by the contents of
+     * {@code input}.
+     * @throws IOException if something fails while reading the stream.
+     */
+    public static BasicPlanarSOM read(BufferedReader input) throws IOException {
+        SOMFileReader sfr = new SOMFileReader();
+        sfr.parse(input);
+
+        BasicPlanarSOM bpsom = new BasicPlanarSOM(
+                sfr.dimension.x, sfr.inputVectorSize, sfr.iterations);
+        bpsom.weightMatrix = readWeightMatrix(
+                input, sfr.dimension.area, sfr.inputVectorSize);
+        return bpsom;
+    }
+
 }

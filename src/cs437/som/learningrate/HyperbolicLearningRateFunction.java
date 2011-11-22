@@ -44,4 +44,10 @@ public class HyperbolicLearningRateFunction implements LearningRateFunction {
     public String toString() {
         return "HyperbolicLearningRateFunction " + initialRate + ' ' + finalRate;
     }
+
+    public HyperbolicLearningRateFunction(String parameters) {
+        String[] arguments = parameters.split("\\s*", 2);
+        initialRate = Double.parseDouble(arguments[0]);
+        finalRate = Double.parseDouble(arguments[1]);
+    }
 }

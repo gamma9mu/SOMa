@@ -28,4 +28,8 @@ public class ConstantNeighborhoodWidthFunction implements NeighborhoodWidthFunct
     public String toString() {
         return "ConstantNeighborhoodWidthFunction " + neighborhoodWidth;
     }
+
+    public ConstantNeighborhoodWidthFunction(String parameters) {
+        neighborhoodWidth = Double.parseDouble(parameters);
+    }
 }
