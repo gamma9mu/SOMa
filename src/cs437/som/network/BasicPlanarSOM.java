@@ -1,14 +1,11 @@
 package cs437.som.network;
 
 import cs437.som.Dimension;
-import cs437.som.SOMError;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * A basic self-organizing map where the neurons are arranged by their weights.
