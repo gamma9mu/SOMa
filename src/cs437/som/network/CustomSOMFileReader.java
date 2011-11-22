@@ -7,6 +7,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Provides for reading in CustomizableSOMs from input streams.
+ */
 class CustomSOMFileReader extends SOMFileReader {
     private static final Pattern distanceMetricRegEx = Pattern.compile(
             "distance\\s*(?:metric)?\\s*:\\s*(\\w*)", Pattern.CASE_INSENSITIVE);
@@ -49,6 +52,12 @@ class CustomSOMFileReader extends SOMFileReader {
         return false;
     }
 
+    /**
+     * Match a distance metric line.
+     *
+     * @param line The input's line to attempt to match and extract from.
+     * @return {@code true} if the line is matched, {@code false} otherwise.
+     */
     private boolean matchDistanceMetric(String line) {
         Matcher distanceMatch = distanceMetricRegEx.matcher(line);
         if (distanceMatch.matches()) {
@@ -60,6 +69,12 @@ class CustomSOMFileReader extends SOMFileReader {
         return false;
     }
 
+    /**
+     * Match a learning rate function line.
+     *
+     * @param line The input's line to attempt to match and extract from.
+     * @return {@code true} if the line is matched, {@code false} otherwise.
+     */
     private boolean matchLearningRate(String line) {
         Matcher learningRateMatch = learningRateRegEx.matcher(line);
         if (learningRateMatch.matches()) {
@@ -72,6 +87,12 @@ class CustomSOMFileReader extends SOMFileReader {
         return false;
     }
 
+    /**
+     * Match a neighborhood function line.
+     *
+     * @param line The input's line to attempt to match and extract from.
+     * @return {@code true} if the line is matched, {@code false} otherwise.
+     */
     private boolean matchNeighborhood(String line) {
         Matcher neighborhoodMatch = neighborhoodRegEx.matcher(line);
         if (neighborhoodMatch.matches()) {
@@ -84,6 +105,12 @@ class CustomSOMFileReader extends SOMFileReader {
         return false;
     }
 
+    /**
+     * Match a grid type line.
+     *
+     * @param line The input's line to attempt to match and extract from.
+     * @return {@code true} if the line is matched, {@code false} otherwise.
+     */
     private boolean matchGridType(String line) {
         Matcher gridTypeMatch = gridTypeRegEx.matcher(line);
         if (gridTypeMatch.matches()) {
@@ -95,6 +122,13 @@ class CustomSOMFileReader extends SOMFileReader {
         return false;
     }
 
+    /**
+     * Create an object, from its default constructor, by reflection.
+     *
+     * @param pkg The package in which to find the class.
+     * @param cls The class to instantiate.
+     * @return A default constructed object of type {@code cls}.
+     */
     private Object instantiateClass(String pkg, String cls) {
         String className = pkg + '.' + cls;
         Object object;
@@ -111,6 +145,16 @@ class CustomSOMFileReader extends SOMFileReader {
         return object;
     }
 
+    /**
+     * Create an object, from its single string constructor, by reflection.
+     * The single argument is taken as the arguments provided on the line from
+     * the input stream.
+     *
+     * @param pkg The package in which to find the class.
+     * @param cls The class to instantiate.
+     * @param args The arguments {@code String} to provide.
+     * @return A constructed object of type {@code cls}.
+     */
     private Object instantiateFromString(String pkg, String cls, String args) {
         String className = pkg + '.' + cls;
         Object object;
@@ -133,22 +177,47 @@ class CustomSOMFileReader extends SOMFileReader {
         return object;
     }
 
+    /**
+     * Return the parsed time count.
+     *
+     * @return The time count from the input stream.
+     */
     public int getTime() {
         return time;
     }
 
+    /**
+     * Return the parsed distance metric.
+     *
+     * @return The distance metric from the input stream.
+     */
     public DistanceMetric getDistanceMetric() {
         return distanceMetric;
     }
 
+    /**
+     * Return the parsed learning rate function.
+     *
+     * @return The learning rate function from the input stream.
+     */
     public LearningRateFunction getLearningRate() {
         return learningRate;
     }
 
+    /**
+     * Return the parsed neighborhood width function.
+     *
+     * @return The neighborhood function from the input stream.
+     */
     public NeighborhoodWidthFunction getNeighborhoodWidth() {
         return neighborhoodWidth;
     }
 
+    /**
+     * Return the parsed grid type.
+     *
+     * @return The grid type from the input stream.
+     */
     public GridType getGridType() {
         return gridType;
     }
