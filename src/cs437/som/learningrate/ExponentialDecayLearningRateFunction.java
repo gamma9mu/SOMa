@@ -41,4 +41,8 @@ public class ExponentialDecayLearningRateFunction implements LearningRateFunctio
     public String toString() {
         return "ExponentialDecayLearningRateFunction " + initialLearningRate;
     }
+
+    public ExponentialDecayLearningRateFunction(String parameters) {
+        initialLearningRate = Double.parseDouble(parameters);
+    }
 }
