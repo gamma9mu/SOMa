@@ -7,6 +7,7 @@ import cs437.som.neighborhood.ContinuousUnitNormal;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.topology.SquareGrid;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Constructor;
@@ -241,6 +242,39 @@ public class CustomizableSOM extends NetworkBase {
 
         super.write(destination);
         destination.flush();
+    }
+
+    /**
+     * Read a CustomizableSOM from an input stream.
+     *
+     * @param input The stream to read from.  This stream should be passed in
+     * as soon as it is known to represent a CustomizableSOM.
+     * @return A CustomizableSOM as represented by the contents of
+     * {@code input}.
+     * @throws IOException if something fails while reading the stream.
+     */
+    public static CustomizableSOM read(BufferedReader input) throws IOException {
+        CustomSOMFileReader sfr = new CustomSOMFileReader();
+        sfr.parse(input);
+
+        CustomizableSOM bpsom = new CustomizableSOM(
+                sfr.dimension, sfr.inputVectorSize, sfr.iterations);
+        bpsom.weightMatrix = readWeightMatrix(
+                input, sfr.dimension.area, sfr.inputVectorSize);
+
+        if (sfr.distanceMetric != null)
+            bpsom.distanceMetric = sfr.distanceMetric;
+
+        if (sfr.learningRate != null)
+            bpsom.learningRate = sfr.learningRate;
+
+        if (sfr.gridType != null)
+            bpsom.gridType = sfr.gridType;
+
+        if (sfr.neighborhoodWidth != null)
+            bpsom.neighborhoodWidth = sfr.neighborhoodWidth;
+
+        return bpsom;
     }
 
     protected static class CustomSOMFileReader extends SOMFileReader {
