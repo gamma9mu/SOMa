@@ -55,8 +55,8 @@ public class FileReader {
     }
 
     public static void main(String[] args) throws IOException {
-        new FileReader(new File("basicsquare.som")).tsom.write(
-                new FileWriter("basicsquare.out.som")
+        new FileReader(new File("custom.som")).tsom.write(
+                new FileWriter("custom.out.som")
         );
     }
 }
