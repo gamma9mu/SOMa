@@ -1,4 +1,4 @@
-package cs437.som.network;
+package cs437.som.util;
 
 import cs437.som.Dimension;
 import cs437.som.SOMError;
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Provides for reading in self-organizing maps from files.
  */
-class SOMFileReader {
+public class SOMFileReader {
     private static final Pattern dimensionRegEx = Pattern.compile(
             "(?:grid)?\\s*dimensions\\s*:\\s*(\\d+)\\s*,\\s*(\\d+)",
             Pattern.CASE_INSENSITIVE);

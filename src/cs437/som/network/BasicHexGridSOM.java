@@ -1,6 +1,7 @@
 package cs437.som.network;
 
 import cs437.som.Dimension;
+import cs437.som.util.SOMFileReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;

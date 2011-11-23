@@ -1,4 +1,4 @@
-package cs437.som.network;
+package cs437.som.util;
 
 import cs437.som.*;
 
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Provides for reading in CustomizableSOMs from input streams.
  */
-class CustomSOMFileReader extends SOMFileReader {
+public class CustomSOMFileReader extends SOMFileReader {
     private static final Pattern distanceMetricRegEx = Pattern.compile(
             "distance\\s*(?:metric)?\\s*:\\s*(\\w*)", Pattern.CASE_INSENSITIVE);
     private static final Pattern learningRateRegEx = Pattern.compile(
