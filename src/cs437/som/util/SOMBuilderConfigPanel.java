@@ -1,4 +1,4 @@
-package cs437.som.gui;
+package cs437.som.util;
 
 import cs437.som.*;
 import cs437.som.Dimension;
