@@ -6,6 +6,7 @@ import cs437.som.learningrate.ConstantLearningRateFunction;
 import cs437.som.neighborhood.ContinuousUnitNormal;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.topology.SquareGrid;
+import cs437.som.util.CustomSOMFileReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
