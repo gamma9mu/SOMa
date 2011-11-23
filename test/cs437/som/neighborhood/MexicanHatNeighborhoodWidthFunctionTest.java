@@ -1,5 +1,6 @@
 package cs437.som.neighborhood;
 
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -14,40 +15,44 @@ public class MexicanHatNeighborhoodWidthFunctionTest {
                     -1.65612e-21};
     private static final double[] SAMPLE_ACCURACY =
             {1.0e-7, 1.0e-7, 1.0e-7, 1.0e-8, 1.0e-7, 1.0e-11, 1.0e-26};
-    private static final int derivZero = 173; /* .2050807568877293527446341 */
+    private static final int derivativeEqualsZero =
+            173; /* .2050807568877293527446341 */
+    
+    private MexicanHatNeighborhoodWidthFunction gnwf;
+
+    @BeforeTest
+    public void setUp() {
+        gnwf = new MexicanHatNeighborhoodWidthFunction(STANDARD_DEVIATION);
+        gnwf.setExpectedIterations(ITERATIONS);
+    }
 
     @Test
-    public void testNeighborhoodWidth() throws Exception {
-        MexicanHatNeighborhoodWidthFunction gnwf =
-                new MexicanHatNeighborhoodWidthFunction(STANDARD_DEVIATION);
-        gnwf.setExpectedIterations(ITERATIONS);
-
-        // always decreasing before minimum
-        {
-            double last = gnwf.neighborhoodWidth(0);
-            for (int i = 1; i < derivZero; i++) {
-                double current = gnwf.neighborhoodWidth(i);
-                assertTrue(current <= last,
-                        "Must consistently decrease before minimum.");
-                last = current;
-            }
+    public void testAlwaysDecreasingBeforeMinimum() throws Exception {
+        double last = gnwf.neighborhoodWidth(0);
+        for (int i = 1; i < derivativeEqualsZero; i++) {
+            double current = gnwf.neighborhoodWidth(i);
+            assertTrue(current <= last,
+                    "Must consistently decrease before minimum.");
+            last = current;
         }
+    }
 
-        // always increasing after minimum
-        {
-            double last = gnwf.neighborhoodWidth(derivZero);
-            for (int i = derivZero + 1; i < ITERATIONS; i++) {
-                double current = gnwf.neighborhoodWidth(i);
-                assertTrue(current >= last,
-                        "Must consistently increase after minimum. " + i);
-                last = current;
-            }
-        }
-
-        // Verify the function fits known samples
+    @Test
+    public void testBySampling() {
         for (int j = 0; j < SAMPLES.length; j++) {
             assertEquals(gnwf.neighborhoodWidth(SAMPLES[j]), SAMPLE_RESULTS[j],
                     SAMPLE_ACCURACY[j]);
+        }
+    }
+
+    @Test
+    public void testAlwaysIncreasingAfterMinimum() {
+        double last = gnwf.neighborhoodWidth(derivativeEqualsZero);
+        for (int i = derivativeEqualsZero + 1; i < ITERATIONS; i++) {
+            double current = gnwf.neighborhoodWidth(i);
+            assertTrue(current >= last,
+                    "Must consistently increase after minimum. " + i);
+            last = current;
         }
     }
 }
