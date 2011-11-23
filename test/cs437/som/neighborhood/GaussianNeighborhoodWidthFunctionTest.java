@@ -1,5 +1,6 @@
 package cs437.som.neighborhood;
 
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -15,21 +16,26 @@ public class GaussianNeighborhoodWidthFunctionTest {
     private static final double[] SAMPLE_ACCURACY =
             {1.0e-8, 1.0e-8, 1.0e-8, 1.0e-8, 1.0e-8, 1.0e-13, 1.0e-29};
 
-    @Test
-    public void testNeighborhoodWidth() throws Exception {
-        GaussianNeighborhoodWidthFunction gnwf =
-                new GaussianNeighborhoodWidthFunction(STANDARD_DEVIATION);
-        gnwf.setExpectedIterations(ITERATIONS);
+    private GaussianNeighborhoodWidthFunction gnwf;
 
-        // always decreasing
+    @BeforeTest
+    public void setUp() {
+        gnwf = new GaussianNeighborhoodWidthFunction(STANDARD_DEVIATION);
+        gnwf.setExpectedIterations(ITERATIONS);
+    }
+
+    @Test
+    public void testConsistentlyDecreasing() throws Exception {
         double last = gnwf.neighborhoodWidth(0);
         for (int i = 1; i < ITERATIONS; i++) {
             double current = gnwf.neighborhoodWidth(i);
             assertTrue(current <= last, "Must consistently decrease.");
             last = current;
         }
+    }
 
-        // Verify the function fits known samples
+    @Test
+    public void testBySampling() {
         for (int j = 0; j < SAMPLES.length; j++) {
             assertEquals(gnwf.neighborhoodWidth(SAMPLES[j]), SAMPLE_RESULTS[j],
                     SAMPLE_ACCURACY[j]);
