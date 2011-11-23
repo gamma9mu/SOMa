@@ -1,4 +1,7 @@
-package cs437.som;
+package cs437.som.util;
+
+import cs437.som.SOMError;
+import cs437.som.TrainableSelfOrganizingMap;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
