@@ -1,5 +1,6 @@
 package cs437.som.learningrate;
 
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -10,13 +11,21 @@ public class ExponentialDecayLearningRateFunctionTest {
     private static final int ITERATIONS = 1000;
     private static final double LEARNING_RATE = 1.0;
 
+    private ExponentialDecayLearningRateFunction edrf;
+
+    @BeforeTest
+    public void setUp() {
+        edrf = new ExponentialDecayLearningRateFunction(LEARNING_RATE);
+        edrf.setExpectedIterations(ITERATIONS);
+    }
+
     @Test
     public void testLearningRate() throws Exception {
-        ExponentialDecayLearningRateFunction edrf =
-                new ExponentialDecayLearningRateFunction(LEARNING_RATE);
-        edrf.setExpectedIterations(ITERATIONS);
         assertEquals(edrf.learningRate(0), LEARNING_RATE, MAXIMUM_DIFFERENCE);
+    }
 
+    @Test
+    public void testShape() {
         double last = edrf.learningRate(1);
         for (int i = 2; i < ITERATIONS; i += 10) {
             double current = edrf.learningRate(i);
@@ -24,6 +33,11 @@ public class ExponentialDecayLearningRateFunctionTest {
             last = current;
         }
 
+        testLessThanLinear();
+    }
+
+    @Test
+    public void testLessThanLinear() {
         assertEquals(edrf.learningRate(0), LEARNING_RATE,
                 "Exponential decay should be equal with linear at start.");
         for (int i = 1; i < ITERATIONS; i++) {
