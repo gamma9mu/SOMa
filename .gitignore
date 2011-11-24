@@ -1,11 +1,11 @@
 .idea/
 out/
+build/
 doc/
 documents/
 reference/
 SOMa.iml
-image.jpg
-known_edges.jpg
+SOMa.jar
 out.png
 out_normalized.png
 sun_checks.xml

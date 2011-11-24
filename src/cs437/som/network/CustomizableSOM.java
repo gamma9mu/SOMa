@@ -110,44 +110,6 @@ public class CustomizableSOM extends NetworkBase {
     }
 
     /**
-     * Determine if the neighborhood width strategy is being used to scale the
-     * learning rate of the neurons.
-     *
-     * @return True if the neighborhood width is scaling the learning rate,
-     * false otherwise.
-     */
-    public boolean isNeighborhoodScaleAdjustments() {
-        return neighborhoodScaling;
-    }
-
-    /**
-     * Turn on/off neighborhood scaling of the learning rate.
-     *
-     * @param enable true enables scaling, false disables it.
-     */
-    public void setNeighborhoodScaleAdjustments(boolean enable) {
-        ContinuousUnitNormal unw =
-                (ContinuousUnitNormal) neighborhoodWidth;
-        if (unw == null && enable) { // check only needed if enable is true
-            throw new SOMError(String.valueOf(neighborhoodWidth)
-                    + " cannot be used to scale weight adjustments.");
-        }
-        neighborhoodScaling = enable;
-    }
-
-    /**
-     * Determine if the current neighborhood width strategy employed by the
-     * CustomizableSOM is capable of being used to scale the learning rate of
-     * the neurons.
-     *
-     * @return True if the neighborhood width strategy offers this capability,
-     * false otherwise.
-     */
-    public boolean canNeighborhoodScaleAdjustments() {
-        return neighborhoodWidth instanceof ContinuousUnitNormal;
-    }
-
-    /**
      * Provide a grid strategy object to the CustomizableSOM. Ownership of
      * {@code strategy} is transferred to the CustomizableSOM.
      *
@@ -160,6 +122,15 @@ public class CustomizableSOM extends NetworkBase {
         } else {
             throw new SOMError("Cannot change grid type strategy after training has begun.");
         }
+    }
+
+    /**
+     * Turn on/off neighborhood scaling of the learning rate.
+     *
+     * @param enable true enables scaling, false disables it.
+     */
+    public void setNeighborhoodScaleAdjustments(boolean enable) {
+        neighborhoodScaling = enable;
     }
 
     @Override
@@ -178,16 +149,33 @@ public class CustomizableSOM extends NetworkBase {
         return bestMatch;
     }
 
-    @Override
-    protected void adjustNeuronWeights(int neuron, double[] input) {
+    protected void adjustNeuronWeights(int neuron, double[] input, double membership) {
         for (int i = 0; i < weightMatrix[neuron].length; i++) {
             double delta = input[i] - weightMatrix[neuron][i];
             delta *= learningRate.learningRate(time);
-            if (neighborhoodScaling) {
-                delta *= neighborhoodWidth.neighborhoodWidth(time);
-            }
+            if (neighborhoodScaling)
+                delta *= membership;
+
             weightMatrix[neuron][i] += delta;
         }
+    }
+
+    /* so here's my thinking (such as it is):
+     * the learning rates and neighborhood widths are only dependent on time, but
+     *
+     */
+    protected void adjustNeighborsOf(int neuron, double[] input) {
+        for (int i = 0; i < neuronCount; i++) {
+            double membership = neighborhoodMembership(neuron, i);
+            if (i != neuron && membership > 0) {
+                adjustNeuronWeights(i, input, membership);
+            }
+        }
+    }
+
+    protected double neighborhoodMembership(int bestMatchingNeuron, int testNeuron) {
+        return Math.max((neighborhoodWidth.neighborhoodWidth(time)
+                        - gridType.gridDistance(bestMatchingNeuron, testNeuron))/neighborhoodWidth.neighborhoodWidth(0), 0);
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * Common functionality for basic self-organizing maps.
  */
-public abstract class NetworkBase implements TrainableSelfOrganizingMap {
+public abstract class  NetworkBase implements TrainableSelfOrganizingMap {
     /**
      * The default learning rate.
      */
