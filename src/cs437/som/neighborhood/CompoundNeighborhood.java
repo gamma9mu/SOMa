@@ -2,11 +2,10 @@ package cs437.som.neighborhood;
 
 import cs437.som.NeighborhoodWidthFunction;
 import cs437.som.SOMError;
+import cs437.som.util.Reflector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -132,7 +131,7 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
                         + "functions: " + line);
             }
             NeighborhoodWidthFunction nw = (NeighborhoodWidthFunction)
-                    instantiateFromString("cs437.som.neighborhood",
+                    Reflector.instantiateFromString("cs437.som.neighborhood",
                             nwMatch.group(1), nwMatch.group(2));
 
             int startsAt = Integer.parseInt(nwMatch.group(1));
@@ -140,40 +139,5 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
         }
 
         return cnw;
-    }
-
-    /**
-     * Create an object, from its single string constructor, by reflection.
-     * The single argument is taken as the arguments provided on the line from
-     * the input stream.
-     *
-     * @todo This was copied from CustomSOMFileReader.  It should be replaced
-     * witha call to a single method in a common class.
-     *
-     * @param pkg The package in which to find the class.
-     * @param cls The class to instantiate.
-     * @param args The arguments {@code String} to provide.
-     * @return A constructed object of type {@code cls}.
-     */
-    private static Object instantiateFromString(String pkg, String cls, String args) {
-        String className = pkg + '.' + cls;
-        Object object;
-        try {
-            Class<?> clsObj = Class.forName(className);
-            Constructor<?> ctor = clsObj.getConstructor(String.class);
-            object = ctor.newInstance(args);
-        } catch (ClassNotFoundException e) {
-            throw new SOMError("Cannot find " + className);
-        } catch (InstantiationException e) {
-            throw new SOMError("Cannot create " + className);
-        } catch (IllegalAccessException e) {
-            throw new SOMError("Cannot create " + className);
-        } catch (NoSuchMethodException e) {
-            throw new SOMError("Cannot create " + className);
-        } catch (InvocationTargetException e) {
-            throw new SOMError("Cannot create " + className +
-                    ": bad arguments.");
-        }
-        return object;
     }
 }

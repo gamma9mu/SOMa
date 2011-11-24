@@ -19,7 +19,7 @@ public class Reflector {
      * @param args The arguments {@code String} to provide.
      * @return A constructed object of type {@code cls}.
      */
-    static Object instantiateFromString(String pkg, String cls, String args) {
+    public static Object instantiateFromString(String pkg, String cls, String args) {
         String className = pkg + '.' + cls;
         Object object;
         try {
