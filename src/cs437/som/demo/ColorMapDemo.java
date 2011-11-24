@@ -3,6 +3,10 @@ package cs437.som.demo;
 import cs437.som.Dimension;
 import cs437.som.TrainableSelfOrganizingMap;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
+import cs437.som.membership.ConstantNeighborhoodMembershipFunction;
+import cs437.som.membership.GeometricNeighborhoodMembershipFunction;
+import cs437.som.membership.LinearNeighborhoodMembershipFunction;
+import cs437.som.membership.RandomNeighborhoodMembershipFunction;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.network.CustomizableSOM;
 import cs437.som.visualization.SOMColorPlotter;
@@ -31,7 +35,7 @@ public class ColorMapDemo {
         int iterations = som.getExpectedIterations();
         Random r = new SecureRandom();
 
-        int numSamples = 12;
+        int numSamples = 6;
         double[][] samples = new double[numSamples][3]; // number of samples, depth
 
         logger.info("Selecting Training Samples");
@@ -56,10 +60,10 @@ public class ColorMapDemo {
 
     public static void main(String[] args) {
         Dimension dimension = new Dimension(MAP_DIMENSION, MAP_DIMENSION);
-        CustomizableSOM som = new CustomizableSOM(dimension, 3, 5000);
+        CustomizableSOM som = new CustomizableSOM(dimension, 3, 1000);
         som.setDistanceMetricStrategy(new EuclideanDistanceMetric());
         som.setNeighborhoodWidthFunctionStrategy(new LinearDecayNeighborhoodWidthFunction(MAP_DIMENSION));
-        som.setNeighborhoodScaleAdjustments(true);
+        som.setNeighborhoodMembershipFunctionStrategy(new GeometricNeighborhoodMembershipFunction(.75));
         new ColorMapDemo(som).run();
     }
 

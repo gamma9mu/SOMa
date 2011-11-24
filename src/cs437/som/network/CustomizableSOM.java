@@ -2,8 +2,8 @@ package cs437.som.network;
 
 import cs437.som.*;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
+import cs437.som.membership.ConstantNeighborhoodMembershipFunction;
 import cs437.som.learningrate.ConstantLearningRateFunction;
-import cs437.som.neighborhood.ContinuousUnitNormal;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.topology.SquareGrid;
 import cs437.som.util.CustomSOMFileReader;
@@ -31,6 +31,11 @@ public class CustomizableSOM extends NetworkBase {
      * The neighborhood width strategy being employed by the CustomizableSOM.
      */
     protected NeighborhoodWidthFunction neighborhoodWidth = null;
+
+    /**
+     * The neighborhood membership strategy being employed by the CustomizableSOM.
+     */
+    protected NeighborhoodMembershipFunction neighborhoodMembership = null;
 
     /**
      * The grid type strategy being employed by the CustomizableSOM.
@@ -63,6 +68,8 @@ public class CustomizableSOM extends NetworkBase {
         int gridRadius = Math.min(gridSize.x, gridSize.y) / 2;
         setNeighborhoodWidthFunctionStrategy(
                 new LinearDecayNeighborhoodWidthFunction(gridRadius));
+
+        setNeighborhoodMembershipFunctionStrategy(new ConstantNeighborhoodMembershipFunction());
     }
 
     /**
@@ -109,6 +116,14 @@ public class CustomizableSOM extends NetworkBase {
         }
     }
 
+    public void setNeighborhoodMembershipFunctionStrategy(NeighborhoodMembershipFunction strategy) {
+        if (time == 0) {
+            neighborhoodMembership = strategy;
+        } else {
+            throw new SOMError("Cannot change neighborhood membership strategy after training has begun.");
+        }
+    }
+
     /**
      * Provide a grid strategy object to the CustomizableSOM. Ownership of
      * {@code strategy} is transferred to the CustomizableSOM.
@@ -122,15 +137,6 @@ public class CustomizableSOM extends NetworkBase {
         } else {
             throw new SOMError("Cannot change grid type strategy after training has begun.");
         }
-    }
-
-    /**
-     * Turn on/off neighborhood scaling of the learning rate.
-     *
-     * @param enable true enables scaling, false disables it.
-     */
-    public void setNeighborhoodScaleAdjustments(boolean enable) {
-        neighborhoodScaling = enable;
     }
 
     @Override
@@ -153,29 +159,20 @@ public class CustomizableSOM extends NetworkBase {
         for (int i = 0; i < weightMatrix[neuron].length; i++) {
             double delta = input[i] - weightMatrix[neuron][i];
             delta *= learningRate.learningRate(time);
-            if (neighborhoodScaling)
-                delta *= membership;
+            delta *= membership;
 
             weightMatrix[neuron][i] += delta;
         }
     }
 
-    /* so here's my thinking (such as it is):
-     * the learning rates and neighborhood widths are only dependent on time, but
-     *
-     */
     protected void adjustNeighborsOf(int neuron, double[] input) {
         for (int i = 0; i < neuronCount; i++) {
-            double membership = neighborhoodMembership(neuron, i);
+            double membership = neighborhoodMembership.neighborhoodMembership(gridType.gridDistance(neuron, i), neighborhoodWidth.neighborhoodWidth(time));
+
             if (i != neuron && membership > 0) {
                 adjustNeuronWeights(i, input, membership);
             }
         }
-    }
-
-    protected double neighborhoodMembership(int bestMatchingNeuron, int testNeuron) {
-        return Math.max((neighborhoodWidth.neighborhoodWidth(time)
-                        - gridType.gridDistance(bestMatchingNeuron, testNeuron))/neighborhoodWidth.neighborhoodWidth(0), 0);
     }
 
     @Override

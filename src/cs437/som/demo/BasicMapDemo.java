@@ -3,6 +3,7 @@ package cs437.som.demo;
 import cs437.som.Dimension;
 import cs437.som.TrainableSelfOrganizingMap;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
+import cs437.som.membership.LinearNeighborhoodMembershipFunction;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.network.BasicSquareGridSOM;
 import cs437.som.network.CustomizableSOM;
@@ -104,7 +105,7 @@ public class BasicMapDemo {
         CustomizableSOM som = new CustomizableSOM(new Dimension(7,8), 2, 1000);
         som.setDistanceMetricStrategy(new EuclideanDistanceMetric());
         som.setNeighborhoodWidthFunctionStrategy(new LinearDecayNeighborhoodWidthFunction(Math.min(7, 8) / 3));
-
+        som.setNeighborhoodMembershipFunctionStrategy(new LinearNeighborhoodMembershipFunction());
 
         //TrainableSelfOrganizingMap som = new BasicSquareGridSOM(new Dimension(7, 8), 2, 1000);
 

@@ -8,6 +8,10 @@ import cs437.som.distancemetrics.ManhattanDistanceMetric;
 import cs437.som.learningrate.ConstantLearningRateFunction;
 import cs437.som.learningrate.ExponentialDecayLearningRateFunction;
 import cs437.som.learningrate.HyperbolicLearningRateFunction;
+import cs437.som.membership.ConstantNeighborhoodMembershipFunction;
+import cs437.som.membership.ExponentialNeighborhoodMembershipFunction;
+import cs437.som.membership.GeometricNeighborhoodMembershipFunction;
+import cs437.som.membership.LinearNeighborhoodMembershipFunction;
 import cs437.som.neighborhood.*;
 import cs437.som.network.CustomizableSOM;
 import cs437.som.topology.SkewHexagonalGrid;
@@ -34,6 +38,7 @@ public class SOMBuilderConfigPanel {
     private JTextField heightText;
     private JComboBox topologyCmb;
     private JPanel SOMBuilderConfigPanel;
+    private JComboBox membershipCmb;
 
     private final Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
     private boolean valid = false;
@@ -57,6 +62,11 @@ public class SOMBuilderConfigPanel {
         neighborhoodCmb.addItem("Exponential Decay Neighborhood Width");
         neighborhoodCmb.addItem("Gaussian Neighborhood Width Function");
         neighborhoodCmb.addItem("Mexican Hat Neighborhood Width Function");
+
+        membershipCmb.addItem("Constant Neighborhood Membership Function");
+        membershipCmb.addItem("Linear Neighborhood Membership Function");
+        membershipCmb.addItem("Geometric Neighborhood Membership Function");
+        membershipCmb.addItem("Exponential Neighborhood Membership Function");
 
         distanceCmb.addItem("Euclidean Distance Metric");
         distanceCmb.addItem("Chebyshev Distance Metric");
@@ -107,6 +117,7 @@ public class SOMBuilderConfigPanel {
         gridType(som);
         learningRateType(som);
         neighborhoodType(som);
+        membershipType(som);
         distanceType(som);
 
         return som;
@@ -162,7 +173,7 @@ public class SOMBuilderConfigPanel {
      * Translate the neighborhood width selection into the form to a GridType
      * object and set a map's neighborhood function to that.
      *
-     * @param map The map who's neighborhood function will be set.
+     * @param map The map whose neighborhood function will be set.
      */
     private void neighborhoodType(CustomizableSOM map) {
         NeighborhoodWidthFunction nwf;
@@ -186,6 +197,31 @@ public class SOMBuilderConfigPanel {
                 nwf = new ConstantNeighborhoodWidthFunction(1.0);
         }
         map.setNeighborhoodWidthFunctionStrategy(nwf);
+    }
+
+
+    /**
+     * Translate the neighborhood membership selection into the form to a
+     * GridType object and set a map's neighborhood function to that.
+     *
+     * @param map The map whose neighborhood function will be set.
+     */
+    private void membershipType(CustomizableSOM map) {
+        NeighborhoodMembershipFunction nmf;
+        switch (neighborhoodCmb.getSelectedIndex()) {
+            case 1:
+                nmf = new LinearNeighborhoodMembershipFunction();
+                break;
+            case 2:
+                nmf = new GeometricNeighborhoodMembershipFunction(.5);
+                break;
+            case 3:
+                nmf = new ExponentialNeighborhoodMembershipFunction();
+                break;
+            default:
+                nmf = new ConstantNeighborhoodMembershipFunction();
+        }
+        map.setNeighborhoodMembershipFunctionStrategy(nmf);
     }
 
     /**
