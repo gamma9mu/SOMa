@@ -40,4 +40,27 @@ public class Reflector {
         }
         return object;
     }
+
+    /**
+     * Create an object, from its default constructor, by reflection.
+     *
+     * @param pkg The package in which to find the class.
+     * @param cls The class to instantiate.
+     * @return A default constructed object of type {@code cls}.
+     */
+    public static Object instantiateClass(String pkg, String cls) {
+        String className = pkg + '.' + cls;
+        Object object;
+        try {
+            Class<?> clsObj = Class.forName(className);
+            object = clsObj.newInstance();
+        } catch (ClassNotFoundException e) {
+            throw new SOMError("Cannot find " + className);
+        } catch (InstantiationException e) {
+            throw new SOMError("Cannot create " + className);
+        } catch (IllegalAccessException e) {
+            throw new SOMError("Cannot create " + className);
+        }
+        return object;
+    }
 }

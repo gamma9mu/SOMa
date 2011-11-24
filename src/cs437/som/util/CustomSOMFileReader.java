@@ -63,7 +63,7 @@ public class CustomSOMFileReader extends SOMFileReader {
         Matcher distanceMatch = distanceMetricRegEx.matcher(line);
         if (distanceMatch.matches()) {
             distanceMetric = (DistanceMetric)
-                    instantiateClass("cs437.som.distancemetrics",
+                    Reflector.instantiateClass("cs437.som.distancemetrics",
                             distanceMatch.group(1));
             return true;
         }
@@ -121,34 +121,11 @@ public class CustomSOMFileReader extends SOMFileReader {
         Matcher gridTypeMatch = gridTypeRegEx.matcher(line);
         if (gridTypeMatch.matches()) {
             gridType = (GridType)
-                    instantiateClass("cs437.som.topology",
+                    Reflector.instantiateClass("cs437.som.topology",
                             gridTypeMatch.group(1));
             return true;
         }
         return false;
-    }
-
-    /**
-     * Create an object, from its default constructor, by reflection.
-     *
-     * @param pkg The package in which to find the class.
-     * @param cls The class to instantiate.
-     * @return A default constructed object of type {@code cls}.
-     */
-    private Object instantiateClass(String pkg, String cls) {
-        String className = pkg + '.' + cls;
-        Object object;
-        try {
-            Class<?> clsObj = Class.forName(className);
-            object = clsObj.newInstance();
-        } catch (ClassNotFoundException e) {
-            throw new SOMError("Cannot find " + className);
-        } catch (InstantiationException e) {
-            throw new SOMError("Cannot create " + className);
-        } catch (IllegalAccessException e) {
-            throw new SOMError("Cannot create " + className);
-        }
-        return object;
     }
 
     /**
