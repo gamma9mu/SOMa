@@ -1,7 +1,9 @@
 package cs437.som.util;
 
 import cs437.som.*;
+import cs437.som.neighborhood.CompoundNeighborhood;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
@@ -17,7 +19,8 @@ public class CustomSOMFileReader extends SOMFileReader {
             "learning\\s*(?:rate)?\\s*(?:function)?\\s*:\\s*(\\w*)\\s*(.*)",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern neighborhoodRegEx = Pattern.compile(
-            "neighborhood\\s*(?:width)?\\s*(?:function)?\\s*:\\s*(\\w*)\\s*(.*)",
+            "neighborhood\\s*(?:width)?\\s*(?:function)?\\s*:\\s*" +
+                    "(?:(\\w*)\\s*(.*)|(CompoundNeighborhood)\\s*(begin))",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern gridTypeRegEx = Pattern.compile(
             "(?:grid)?\\s*type\\s*:\\s*(\\w*)", Pattern.CASE_INSENSITIVE);
@@ -32,7 +35,7 @@ public class CustomSOMFileReader extends SOMFileReader {
     private GridType gridType = null;
 
     @Override
-    protected void unmatchedLine(String line) {
+    protected void unmatchedLine(String line) throws IOException {
         if (!matchIterations(line)
                 && !matchDistanceMetric(line)
                 && !matchGridType(line)
@@ -92,10 +95,15 @@ public class CustomSOMFileReader extends SOMFileReader {
      *
      * @param line The input's line to attempt to match and extract from.
      * @return {@code true} if the line is matched, {@code false} otherwise.
+     * @throws java.io.IOException if I/O fails.
      */
-    private boolean matchNeighborhood(String line) {
+    private boolean matchNeighborhood(String line) throws IOException {
         Matcher neighborhoodMatch = neighborhoodRegEx.matcher(line);
         if (neighborhoodMatch.matches()) {
+            if (neighborhoodMatch.group(1)
+                    .compareToIgnoreCase("CompoundNeighborhood") == 0) {
+                neighborhoodWidth = CompoundNeighborhood.parse(inputReader);
+            }
             neighborhoodWidth = (NeighborhoodWidthFunction)
                     instantiateFromString("cs437.som.neighborhood",
                             neighborhoodMatch.group(1),

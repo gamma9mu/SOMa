@@ -27,6 +27,7 @@ public class SOMFileReader {
     protected int iterations = 0;
 
     private double[][] weights = null;
+    protected BufferedReader inputReader = null;
 
     /**
      * Parse a self-organizing map from an input stream.
@@ -35,6 +36,7 @@ public class SOMFileReader {
      * @throws IOException When an I/O error occurs.
      */
     public void parse(BufferedReader input) throws IOException {
+        this.inputReader = input;
         String line = input.readLine();
         Matcher match = weightRegEx.matcher(line);
         while (!match.matches() && input.ready()) {
@@ -64,8 +66,9 @@ public class SOMFileReader {
      * subclasses.
      *
      * @param line The unrecognized line.
+     * @throws java.io.IOException if I/O fails.
      */
-    protected void unmatchedLine(String line) {
+    protected void unmatchedLine(String line) throws IOException {
     }
 
     /**

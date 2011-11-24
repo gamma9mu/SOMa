@@ -1,8 +1,16 @@
 package cs437.som.neighborhood;
 
 import cs437.som.NeighborhoodWidthFunction;
+import cs437.som.SOMError;
 
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Collects a series of neighborhood width functions to be used sequentially in
@@ -24,11 +32,14 @@ import java.util.*;
  */
 public class CompoundNeighborhood implements NeighborhoodWidthFunction {
     private int nextTransition = -1;
+    private int expectedIterations = 0;
 
-    private NeighborhoodWidthFunction currentFunction;
-
+    private NeighborhoodWidthFunction currentFunction = null;
     private final Map<Integer, NeighborhoodWidthFunction> widthFunctions
-            = new HashMap<Integer, NeighborhoodWidthFunction>(2);
+            = new TreeMap<Integer, NeighborhoodWidthFunction>();
+
+    public CompoundNeighborhood() {
+    }
 
     public CompoundNeighborhood(NeighborhoodWidthFunction initialWidthFuncton) {
         widthFunctions.put(0, initialWidthFuncton);
@@ -38,6 +49,7 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
     public void setExpectedIterations(int expectedIterations) {
         if (nextTransition == -1) {
             nextTransition = expectedIterations;
+            this.expectedIterations = expectedIterations;
         }
     }
 
@@ -57,6 +69,7 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
      */
     public void addNeighborhood(NeighborhoodWidthFunction neighborhood, int startAt) {
         widthFunctions.put(startAt, neighborhood);
+        nextTransition = findLowest(0);
     }
 
     /**
@@ -70,26 +83,97 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
         }
 
         // Find the next lowest transition point
-        int low = nextTransition;
-        for (Integer i : widthFunctions.keySet()) {
-            if (i < low) {
-                low = i;
-            }
-        }
+        int low = findLowest(nextTransition);
 
         // Move the next function into place.
-        currentFunction = widthFunctions.remove(low);
+        currentFunction = widthFunctions.get(low);
         nextTransition = low;
+    }
+
+    /**
+     * Find the child neighborhood function with the next lowest starting
+     * point.
+     *
+     * @param afterWhere The point after which to accept starting points.
+     * @return The index into {@code widthFunctions} of the matching
+     * neighborhood function.
+     */
+    private int findLowest(int afterWhere) {
+        int match = expectedIterations;
+        for (Integer i : widthFunctions.keySet()) {
+            if (i < match && i > afterWhere) {
+                match = i;
+            }
+        }
+        return match;
     }
 
     @Override
     public String toString() {
-        return "CompoundNeighborhood";
+        StringBuilder sb = new StringBuilder("CompoundNeighborhood begin");
+        for (Map.Entry<Integer, NeighborhoodWidthFunction> next
+                : widthFunctions.entrySet()) {
+            sb.append(String.format("%d %s", next.getKey(), next.getValue()));
+        }
+        sb.append(String.format("%n end"));
+
+        return sb.toString();
     }
 
-    public CompoundNeighborhood(String parameters) {
-        // todo IMPLEMENT!!!
-        throw new UnsupportedOperationException(
-                "CompoundNeighborhood cannot be loaded from a file yet.");
+    public static NeighborhoodWidthFunction parse(BufferedReader reader)
+            throws IOException {
+        Pattern neighborhhodRegEx = Pattern.compile("(\\d*)\\s*(\\w*)\\s*(.*)");
+        CompoundNeighborhood cnw = new CompoundNeighborhood();
+        String line = reader.readLine();
+        while (line.compareToIgnoreCase("end") != 0) {
+            Matcher nwMatch = neighborhhodRegEx.matcher(line);
+            if (!nwMatch.matches()) {
+                throw new SOMError("Bad input while parsing neighborhood "
+                        + "functions: " + line);
+            }
+            NeighborhoodWidthFunction nw = (NeighborhoodWidthFunction)
+                    instantiateFromString("cs437.som.neighborhood",
+                            nwMatch.group(1), nwMatch.group(2));
+
+            int startsAt = Integer.parseInt(nwMatch.group(1));
+            cnw.addNeighborhood(nw, startsAt);
+        }
+
+        return cnw;
+    }
+
+    /**
+     * Create an object, from its single string constructor, by reflection.
+     * The single argument is taken as the arguments provided on the line from
+     * the input stream.
+     *
+     * @todo This was copied from CustomSOMFileReader.  It should be replaced
+     * witha call to a single method in a common class.
+     *
+     * @param pkg The package in which to find the class.
+     * @param cls The class to instantiate.
+     * @param args The arguments {@code String} to provide.
+     * @return A constructed object of type {@code cls}.
+     */
+    private static Object instantiateFromString(String pkg, String cls, String args) {
+        String className = pkg + '.' + cls;
+        Object object;
+        try {
+            Class<?> clsObj = Class.forName(className);
+            Constructor<?> ctor = clsObj.getConstructor(String.class);
+            object = ctor.newInstance(args);
+        } catch (ClassNotFoundException e) {
+            throw new SOMError("Cannot find " + className);
+        } catch (InstantiationException e) {
+            throw new SOMError("Cannot create " + className);
+        } catch (IllegalAccessException e) {
+            throw new SOMError("Cannot create " + className);
+        } catch (NoSuchMethodException e) {
+            throw new SOMError("Cannot create " + className);
+        } catch (InvocationTargetException e) {
+            throw new SOMError("Cannot create " + className +
+                    ": bad arguments.");
+        }
+        return object;
     }
 }
