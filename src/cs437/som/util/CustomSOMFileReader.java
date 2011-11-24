@@ -4,8 +4,6 @@ import cs437.som.*;
 import cs437.som.neighborhood.CompoundNeighborhood;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,7 +80,7 @@ public class CustomSOMFileReader extends SOMFileReader {
         Matcher learningRateMatch = learningRateRegEx.matcher(line);
         if (learningRateMatch.matches()) {
             learningRate = (LearningRateFunction)
-                    instantiateFromString("cs437.som.learningrate",
+                    Reflector.instantiateFromString("cs437.som.learningrate",
                             learningRateMatch.group(1),
                             learningRateMatch.group(2));
             return true;
@@ -105,7 +103,7 @@ public class CustomSOMFileReader extends SOMFileReader {
                 neighborhoodWidth = CompoundNeighborhood.parse(inputReader);
             }
             neighborhoodWidth = (NeighborhoodWidthFunction)
-                    instantiateFromString("cs437.som.neighborhood",
+                    Reflector.instantiateFromString("cs437.som.neighborhood",
                             neighborhoodMatch.group(1),
                             neighborhoodMatch.group(2));
             return true;
@@ -149,38 +147,6 @@ public class CustomSOMFileReader extends SOMFileReader {
             throw new SOMError("Cannot create " + className);
         } catch (IllegalAccessException e) {
             throw new SOMError("Cannot create " + className);
-        }
-        return object;
-    }
-
-    /**
-     * Create an object, from its single string constructor, by reflection.
-     * The single argument is taken as the arguments provided on the line from
-     * the input stream.
-     *
-     * @param pkg The package in which to find the class.
-     * @param cls The class to instantiate.
-     * @param args The arguments {@code String} to provide.
-     * @return A constructed object of type {@code cls}.
-     */
-    private Object instantiateFromString(String pkg, String cls, String args) {
-        String className = pkg + '.' + cls;
-        Object object;
-        try {
-            Class<?> clsObj = Class.forName(className);
-            Constructor<?> ctor = clsObj.getConstructor(String.class);
-            object = ctor.newInstance(args);
-        } catch (ClassNotFoundException e) {
-            throw new SOMError("Cannot find " + className);
-        } catch (InstantiationException e) {
-            throw new SOMError("Cannot create " + className);
-        } catch (IllegalAccessException e) {
-            throw new SOMError("Cannot create " + className);
-        } catch (NoSuchMethodException e) {
-            throw new SOMError("Cannot create " + className);
-        } catch (InvocationTargetException e) {
-            throw new SOMError("Cannot create " + className +
-                    ": bad arguments.");
         }
         return object;
     }
