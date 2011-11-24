@@ -17,8 +17,7 @@ public class CustomSOMFileReader extends SOMFileReader {
             "learning\\s*(?:rate)?\\s*(?:function)?\\s*:\\s*(\\w*)\\s*(.*)",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern neighborhoodRegEx = Pattern.compile(
-            "neighborhood\\s*(?:width)?\\s*(?:function)?\\s*:\\s*" +
-                    "(?:(\\w*)\\s*(.*)|(CompoundNeighborhood)\\s*(begin))",
+            "neighborhood\\s*(?:width)?\\s*(?:function)?\\s*:\\s*(?:(\\w*)\\s*(.*)|(CompoundNeighborhood)\\s*(begin))",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern gridTypeRegEx = Pattern.compile(
             "(?:grid)?\\s*type\\s*:\\s*(\\w*)", Pattern.CASE_INSENSITIVE);
