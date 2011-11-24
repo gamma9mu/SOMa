@@ -119,6 +119,13 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
         return sb.toString();
     }
 
+    /**
+     * Load a CompoundNeighborhood from a stream reader.
+     *
+     * @param reader The stream to read from.
+     * @return A CompoundNeighborhood read from {@code reader}.
+     * @throws IOException if an I/O error occurs.
+     */
     public static NeighborhoodWidthFunction parse(BufferedReader reader)
             throws IOException {
         Pattern neighborhhodRegEx = Pattern.compile("(\\d*)\\s*(\\w*)\\s*(.*)");
