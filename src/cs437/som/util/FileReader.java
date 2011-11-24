@@ -56,4 +56,10 @@ public class FileReader {
     public String toString() {
         return "FileReader";
     }
+
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader(new File("custom-compound.som"));
+        TrainableSelfOrganizingMap som = fr.tsom;
+        som.write(new FileWriter("custom-compound.out.som"));
+    }
 }

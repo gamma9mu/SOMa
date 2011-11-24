@@ -112,9 +112,9 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
         StringBuilder sb = new StringBuilder("CompoundNeighborhood begin");
         for (Map.Entry<Integer, NeighborhoodWidthFunction> next
                 : widthFunctions.entrySet()) {
-            sb.append(String.format("%d %s", next.getKey(), next.getValue()));
+            sb.append(String.format("%n    %d %s", next.getKey(), next.getValue()));
         }
-        sb.append(String.format("%n end"));
+        sb.append(String.format("%nend"));
 
         return sb.toString();
     }
@@ -128,21 +128,26 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
      */
     public static NeighborhoodWidthFunction parse(BufferedReader reader)
             throws IOException {
-        Pattern neighborhhodRegEx = Pattern.compile("(\\d*)\\s*(\\w*)\\s*(.*)");
+        Pattern neighborhhodRegEx = Pattern.compile("\\s*(\\d*)\\s*(\\w*)\\s*(.*)");
+        Pattern endLineRegEx = Pattern.compile("\\s*end.*", Pattern.CASE_INSENSITIVE);
+
         CompoundNeighborhood cnw = new CompoundNeighborhood();
         String line = reader.readLine();
-        while (line.compareToIgnoreCase("end") != 0) {
+        while (! endLineRegEx.matcher(line).matches()) {
             Matcher nwMatch = neighborhhodRegEx.matcher(line);
+
             if (!nwMatch.matches()) {
                 throw new SOMError("Bad input while parsing neighborhood "
                         + "functions: " + line);
             }
+
             NeighborhoodWidthFunction nw = (NeighborhoodWidthFunction)
                     Reflector.instantiateFromString("cs437.som.neighborhood",
-                            nwMatch.group(1), nwMatch.group(2));
+                            nwMatch.group(2), nwMatch.group(3));
 
             int startsAt = Integer.parseInt(nwMatch.group(1));
             cnw.addNeighborhood(nw, startsAt);
+            line = reader.readLine();
         }
 
         return cnw;

@@ -100,11 +100,12 @@ public class CustomSOMFileReader extends SOMFileReader {
             if (neighborhoodMatch.group(1)
                     .compareToIgnoreCase("CompoundNeighborhood") == 0) {
                 neighborhoodWidth = CompoundNeighborhood.parse(inputReader);
+            } else {
+                neighborhoodWidth = (NeighborhoodWidthFunction)
+                        Reflector.instantiateFromString("cs437.som.neighborhood",
+                                neighborhoodMatch.group(1),
+                                neighborhoodMatch.group(2));
             }
-            neighborhoodWidth = (NeighborhoodWidthFunction)
-                    Reflector.instantiateFromString("cs437.som.neighborhood",
-                            neighborhoodMatch.group(1),
-                            neighborhoodMatch.group(2));
             return true;
         }
         return false;
