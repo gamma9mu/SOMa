@@ -276,15 +276,7 @@ public abstract class  NetworkBase implements TrainableSelfOrganizingMap {
      */
     protected abstract double neuronDistance(int neuron0, int neuron1);
 
-    /**
-     * Measure the distance from a neuron (specifically, its weight vector) to
-     * an input vector.
-     *
-     * @param neuron The index of the neuron in question.
-     * @param input The input vector.
-     * @return The distance from the neuron to the vector.
-     */
-    protected double distanceToInput(int neuron, double[] input) {
+    public double distanceToInput(int neuron, double[] input) {
         double sum = 0.0;
         for (int i = 0; i < inputVectorSize; i++) {
             double difference = input[i] - weightMatrix[neuron][i];

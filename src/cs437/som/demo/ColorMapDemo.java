@@ -10,6 +10,7 @@ import cs437.som.membership.RandomNeighborhoodMembershipFunction;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.network.CustomizableSOM;
 import cs437.som.visualization.SOMColorPlotter;
+import cs437.som.visualization.SOMHeatMap;
 
 import java.security.SecureRandom;
 import java.util.Random;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  * Demonstrates maps with 3-dimensional inputs with a visualization during training.
  */
 public class ColorMapDemo {
-    private static final int MAP_DIMENSION = 250;
+    private static final int MAP_DIMENSION = 500;
     private TrainableSelfOrganizingMap som = null;
     private final Logger logger = Logger.getLogger("ColorMapDemo");
 
@@ -35,7 +36,7 @@ public class ColorMapDemo {
         int iterations = som.getExpectedIterations();
         Random r = new SecureRandom();
 
-        int numSamples = 6;
+        int numSamples = 24;
         double[][] samples = new double[numSamples][3]; // number of samples, depth
 
         logger.info("Selecting Training Samples");
@@ -48,19 +49,26 @@ public class ColorMapDemo {
 
         logger.info("Before Training");
 
+        double[] heatMapSample = {1,0,0};
+
         SOMColorPlotter plot = new SOMColorPlotter(som);
+        SOMHeatMap heatMap = new SOMHeatMap(som);
         for (int i = 0; i < iterations; i++) {
             double[] in = samples[r.nextInt(numSamples)];
             som.trainWith(in);
             plot.draw();
+            heatMap.update(heatMapSample);
+            heatMap.draw();
         }
+
+
 
         logger.info("After training");
     }
 
     public static void main(String[] args) {
         Dimension dimension = new Dimension(MAP_DIMENSION, MAP_DIMENSION);
-        CustomizableSOM som = new CustomizableSOM(dimension, 3, 1000);
+        CustomizableSOM som = new CustomizableSOM(dimension, 3, 10000);
         som.setDistanceMetricStrategy(new EuclideanDistanceMetric());
         som.setNeighborhoodWidthFunctionStrategy(new LinearDecayNeighborhoodWidthFunction(MAP_DIMENSION));
         som.setNeighborhoodMembershipFunctionStrategy(new GeometricNeighborhoodMembershipFunction(.75));

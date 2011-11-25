@@ -69,7 +69,8 @@ public class CustomizableSOM extends NetworkBase {
         setNeighborhoodWidthFunctionStrategy(
                 new LinearDecayNeighborhoodWidthFunction(gridRadius));
 
-        setNeighborhoodMembershipFunctionStrategy(new ConstantNeighborhoodMembershipFunction());
+        setNeighborhoodMembershipFunctionStrategy(
+                new ConstantNeighborhoodMembershipFunction());
     }
 
     /**
@@ -167,7 +168,8 @@ public class CustomizableSOM extends NetworkBase {
 
     protected void adjustNeighborsOf(int neuron, double[] input) {
         for (int i = 0; i < neuronCount; i++) {
-            double membership = neighborhoodMembership.neighborhoodMembership(gridType.gridDistance(neuron, i), neighborhoodWidth.neighborhoodWidth(time));
+            double membership = neighborhoodMembership.neighborhoodMembership(
+                    gridType.gridDistance(neuron, i), neighborhoodWidth.neighborhoodWidth(time));
 
             if (i != neuron && membership > 0) {
                 adjustNeuronWeights(i, input, membership);
@@ -176,15 +178,14 @@ public class CustomizableSOM extends NetworkBase {
     }
 
     @Override
-    protected boolean inNeighborhoodOf(int bestMatchingNeuron, int testNeuron) {
-        return gridType.gridDistance(bestMatchingNeuron, testNeuron)
-                < neighborhoodWidth.neighborhoodWidth(time);
-    }
-
-    @Override
     protected double neuronDistance(int neuron0, int neuron1) {
         throw new UnsupportedOperationException(
                 "neuronDistance not used in CustomizableSOM");
+    }
+
+    @Override
+    public double distanceToInput(int neuron, double[] input) {
+        return distanceMetric.distance(weightMatrix[neuron], input);
     }
 
     @Override
