@@ -36,7 +36,7 @@ public class ColorMapDemo {
         int iterations = som.getExpectedIterations();
         Random r = new SecureRandom();
 
-        int numSamples = 24;
+        int numSamples = 6;
         double[][] samples = new double[numSamples][3]; // number of samples, depth
 
         logger.info("Selecting Training Samples");
@@ -61,14 +61,15 @@ public class ColorMapDemo {
             heatMap.draw();
         }
 
-
-
         logger.info("After training");
+        double[] newHeatMapSample = {0,0,1};
+        heatMap.update(newHeatMapSample);
+        heatMap.draw();
     }
 
     public static void main(String[] args) {
         Dimension dimension = new Dimension(MAP_DIMENSION, MAP_DIMENSION);
-        CustomizableSOM som = new CustomizableSOM(dimension, 3, 10000);
+        CustomizableSOM som = new CustomizableSOM(dimension, 3, 1000);
         som.setDistanceMetricStrategy(new EuclideanDistanceMetric());
         som.setNeighborhoodWidthFunctionStrategy(new LinearDecayNeighborhoodWidthFunction(MAP_DIMENSION));
         som.setNeighborhoodMembershipFunctionStrategy(new GeometricNeighborhoodMembershipFunction(.75));

@@ -27,6 +27,7 @@ public class SOMHeatMap extends JFrame {
     private Dimension dims;
     private BufferedImage img;
     private int neuronCount;
+    private double max = 0;
 
     public SOMHeatMap(SelfOrganizingMap map) {
         super("SOM heat map");
@@ -53,7 +54,7 @@ public class SOMHeatMap extends JFrame {
         int[] pts = new int[neuronCount];
 
         double dist, diff;
-        double max = som.distanceToInput(0, sample);
+        max = Math.max(som.distanceToInput(0, sample), max);
         double min = 0;
 
         for (int i = 1; i < neuronCount; i++) {
