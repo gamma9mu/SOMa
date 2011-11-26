@@ -37,9 +37,6 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
     private final Map<Integer, NeighborhoodWidthFunction> widthFunctions
             = new TreeMap<Integer, NeighborhoodWidthFunction>();
 
-    public CompoundNeighborhood() {
-    }
-
     public CompoundNeighborhood(NeighborhoodWidthFunction initialWidthFuncton) {
         widthFunctions.put(0, initialWidthFuncton);
         currentFunction = initialWidthFuncton;
@@ -151,5 +148,11 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
         }
 
         return cnw;
+    }
+
+    public CompoundNeighborhood(String parameters) {
+        // todo IMPLEMENT!!!
+        throw new UnsupportedOperationException(
+                "CompoundNeighborhood cannot be loaded from a file yet.");
     }
 }

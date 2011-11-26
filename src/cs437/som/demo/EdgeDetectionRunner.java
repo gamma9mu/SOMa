@@ -93,10 +93,10 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
         boolean iterationCountValid = validateIterationCount();
         boolean exhaustiveSelected = exhaustiveRadioButton.isSelected();
 
-        boolean eneableTrain = mapValid &&
+        boolean enableTrain = mapValid &&
                 (exhaustiveSelected || iterationCountValid);
 
-        trainButton.setEnabled(eneableTrain);
+        trainButton.setEnabled(enableTrain);
         runButton.setEnabled(ed != null);
     }
 

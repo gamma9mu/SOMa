@@ -2,8 +2,8 @@ package cs437.som.network;
 
 import cs437.som.*;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
+import cs437.som.membership.ConstantNeighborhoodMembershipFunction;
 import cs437.som.learningrate.ConstantLearningRateFunction;
-import cs437.som.neighborhood.ContinuousUnitNormal;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.topology.SquareGrid;
 import cs437.som.util.CustomSOMFileReader;
@@ -33,6 +33,11 @@ public class CustomizableSOM extends NetworkBase {
     protected NeighborhoodWidthFunction neighborhoodWidth = null;
 
     /**
+     * The neighborhood membership strategy being employed by the CustomizableSOM.
+     */
+    protected NeighborhoodMembershipFunction neighborhoodMembership = null;
+
+    /**
      * The grid type strategy being employed by the CustomizableSOM.
      */
     protected GridType gridType = null;
@@ -57,12 +62,20 @@ public class CustomizableSOM extends NetworkBase {
                 new ConstantLearningRateFunction(DEFAULT_LEARNING_RATE));
         setGridTypeStrategy(new SquareGrid());
 
+        setDistanceMetricStrategy(new EuclideanDistanceMetric());
+        setLearningRateFunctionStrategy(
+                new ConstantLearningRateFunction(DEFAULT_LEARNING_RATE));
+        setGridTypeStrategy(new SquareGrid());
+
         // This calculation is based on a recommendation from Dr. Kohonen in
         // Kohonen, Teuvo, 1990: The Self-organizing Map. Proc. of the IEEE,
         // Vol. 78, 1469.
         int gridRadius = Math.min(gridSize.x, gridSize.y) / 2;
         setNeighborhoodWidthFunctionStrategy(
                 new LinearDecayNeighborhoodWidthFunction(gridRadius));
+
+        setNeighborhoodMembershipFunctionStrategy(
+                new ConstantNeighborhoodMembershipFunction());
     }
 
     /**
@@ -109,42 +122,12 @@ public class CustomizableSOM extends NetworkBase {
         }
     }
 
-    /**
-     * Determine if the neighborhood width strategy is being used to scale the
-     * learning rate of the neurons.
-     *
-     * @return True if the neighborhood width is scaling the learning rate,
-     * false otherwise.
-     */
-    public boolean isNeighborhoodScaleAdjustments() {
-        return neighborhoodScaling;
-    }
-
-    /**
-     * Turn on/off neighborhood scaling of the learning rate.
-     *
-     * @param enable true enables scaling, false disables it.
-     */
-    public void setNeighborhoodScaleAdjustments(boolean enable) {
-        ContinuousUnitNormal unw =
-                (ContinuousUnitNormal) neighborhoodWidth;
-        if (unw == null && enable) { // check only needed if enable is true
-            throw new SOMError(String.valueOf(neighborhoodWidth)
-                    + " cannot be used to scale weight adjustments.");
+    public void setNeighborhoodMembershipFunctionStrategy(NeighborhoodMembershipFunction strategy) {
+        if (time == 0) {
+            neighborhoodMembership = strategy;
+        } else {
+            throw new SOMError("Cannot change neighborhood membership strategy after training has begun.");
         }
-        neighborhoodScaling = enable;
-    }
-
-    /**
-     * Determine if the current neighborhood width strategy employed by the
-     * CustomizableSOM is capable of being used to scale the learning rate of
-     * the neurons.
-     *
-     * @return True if the neighborhood width strategy offers this capability,
-     * false otherwise.
-     */
-    public boolean canNeighborhoodScaleAdjustments() {
-        return neighborhoodWidth instanceof ContinuousUnitNormal;
     }
 
     /**
@@ -178,28 +161,36 @@ public class CustomizableSOM extends NetworkBase {
         return bestMatch;
     }
 
-    @Override
-    protected void adjustNeuronWeights(int neuron, double[] input) {
+    protected void adjustNeuronWeights(int neuron, double[] input, double membership) {
         for (int i = 0; i < weightMatrix[neuron].length; i++) {
             double delta = input[i] - weightMatrix[neuron][i];
             delta *= learningRate.learningRate(time);
-            if (neighborhoodScaling) {
-                delta *= neighborhoodWidth.neighborhoodWidth(time);
-            }
+            delta *= membership;
+
             weightMatrix[neuron][i] += delta;
         }
     }
 
-    @Override
-    protected boolean inNeighborhoodOf(int bestMatchingNeuron, int testNeuron) {
-        return gridType.gridDistance(bestMatchingNeuron, testNeuron)
-                < neighborhoodWidth.neighborhoodWidth(time);
+    protected void adjustNeighborsOf(int neuron, double[] input) {
+        for (int i = 0; i < neuronCount; i++) {
+            double membership = neighborhoodMembership.neighborhoodMembership(
+                    gridType.gridDistance(neuron, i), neighborhoodWidth.neighborhoodWidth(time));
+
+            if (i != neuron && membership > 0) {
+                adjustNeuronWeights(i, input, membership);
+            }
+        }
     }
 
     @Override
     protected double neuronDistance(int neuron0, int neuron1) {
         throw new UnsupportedOperationException(
                 "neuronDistance not used in CustomizableSOM");
+    }
+
+    @Override
+    public double distanceToInput(int neuron, double[] input) {
+        return distanceMetric.distance(weightMatrix[neuron], input);
     }
 
     @Override

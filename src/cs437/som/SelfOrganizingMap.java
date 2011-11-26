@@ -57,6 +57,16 @@ public interface SelfOrganizingMap {
     int getBestMatchingNeuron(int[] input);
 
     /**
+     * Measure the distance from a neuron (specifically, its weight vector) to
+     * an input vector.
+     *
+     * @param neuron The index of the neuron in question.
+     * @param input The input vector.
+     * @return The distance from the neuron to the vector.
+     */
+    double distanceToInput(int neuron, double[] input);
+
+    /**
      * Write the self-organizing map to a stream.
      *
      * @param destination Where to write to.

@@ -9,9 +9,9 @@ import java.awt.image.BufferedImage;
 
 /**
  * Visualization for SOM with a 3-dimensional input.
- * Adapted from 2D plotter. Instead of using position to map neuron weights, it uses color.
+ * Adapted from the 2D plotter. Instead of using position to map neuron weights, it uses color.
  */
-public class SOM3dPlotter extends JFrame {
+public class SOMColorPlotter extends JFrame {
     private static final long serialVersionUID = 0L;
 
     /**
@@ -39,11 +39,10 @@ public class SOM3dPlotter extends JFrame {
      * Create and setup a dot plot for a 3D input SOM.
      * @param map The SOM to plot.
      */
-    public SOM3dPlotter(SelfOrganizingMap map) {
+    public SOMColorPlotter(SelfOrganizingMap map) {
         super("SOM Plot");
-
         if (map.getInputLength() != 3) {
-            throw new IllegalArgumentException("SOM does not map 3d inputs");
+            throw new IllegalArgumentException("\"map\" must accept 3-tuple input.");
         }
 
         som = map;
@@ -82,6 +81,6 @@ public class SOM3dPlotter extends JFrame {
 
     @Override
     public String toString() {
-        return "SOM3dPlotter{som=" + som + '}';
+        return "SOMColorPlotter{som=" + som + '}';
     }
 }
