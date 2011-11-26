@@ -37,6 +37,9 @@ public class CompoundNeighborhood implements NeighborhoodWidthFunction {
     private final Map<Integer, NeighborhoodWidthFunction> widthFunctions
             = new TreeMap<Integer, NeighborhoodWidthFunction>();
 
+    public CompoundNeighborhood() {
+    }
+
     public CompoundNeighborhood(NeighborhoodWidthFunction initialWidthFuncton) {
         widthFunctions.put(0, initialWidthFuncton);
         currentFunction = initialWidthFuncton;
