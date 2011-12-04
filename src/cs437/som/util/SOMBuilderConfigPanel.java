@@ -31,14 +31,14 @@ import java.util.regex.Pattern;
  * in a Swing application.
  */
 public class SOMBuilderConfigPanel {
-    private JComboBox learningRateCmb;
-    private JComboBox distanceCmb;
-    private JComboBox neighborhoodCmb;
+    private JComboBox<String> learningRateCmb;
+    private JComboBox<String> distanceCmb;
+    private JComboBox<String> neighborhoodCmb;
     private JTextField widthText;
     private JTextField heightText;
-    private JComboBox topologyCmb;
+    private JComboBox<String> topologyCmb;
     private JPanel SOMBuilderConfigPanel;
-    private JComboBox membershipCmb;
+    private JComboBox<String> membershipCmb;
 
     private final Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
     private boolean valid = false;
