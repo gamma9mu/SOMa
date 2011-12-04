@@ -102,6 +102,7 @@ public class EdgeDetector {
         for (int[] matrix : matrices) {
             som.trainWith(matrix);
         }
+        log.info("Training complete.");
     }
 
     /**
@@ -137,6 +138,7 @@ public class EdgeDetector {
         for (int[] matrix : matrices) {
             som.trainWith(matrix);
         }
+        log.info("Training complete.");
     }
 
     /**

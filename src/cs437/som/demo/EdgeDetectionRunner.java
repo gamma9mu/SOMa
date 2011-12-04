@@ -1,7 +1,7 @@
 package cs437.som.demo;
 
-import cs437.som.util.SOMBuilderConfigPanel;
 import cs437.som.TrainableSelfOrganizingMap;
+import cs437.som.util.SOMBuilderConfigPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -92,6 +91,7 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
         boolean mapValid = mapConfig.isValid();
         boolean iterationCountValid = validateIterationCount();
         boolean exhaustiveSelected = exhaustiveRadioButton.isSelected();
+        if (exhaustiveSelected) iterationCountInput.setBackground(Color.WHITE);
 
         boolean enableTrain = mapValid &&
                 (exhaustiveSelected || iterationCountValid);
@@ -122,6 +122,8 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
      * Create and train an EdgeDetector based on the form input.
      */
     private void trainMap() {
+        runButton.setEnabled(false);
+        
         if (exhaustiveRadioButton.isSelected()) {
             createExhaustiveSOM();
         } else {
@@ -154,8 +156,9 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
      */
     private void runMap() {
         try {
-            inputImage = ImageIO.read(new File("image.jpg"));
-        } catch (IOException ignored) { }
+            Class<EdgeDetector> edc = EdgeDetector.class;
+            inputImage = ImageIO.read(edc.getResourceAsStream("image.jpg"));
+        } catch (IOException e) { e.printStackTrace(); }
 
         outputImage = ed.runOnImage(inputImage);
         normalImage = ed.normalizeImage(outputImage);
