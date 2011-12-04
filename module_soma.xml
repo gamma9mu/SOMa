@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_soma" default="compile.module.soma">
+  <dirname property="module.soma.basedir" file="${ant.file.module_soma}"/>
+  
+  <property name="module.jdk.home.soma" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.soma" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.soma" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.soma" value="${compiler.args}"/>
+  
+  <property name="soma.output.dir" value="${module.soma.basedir}/out/production/SOMa"/>
+  <property name="soma.testoutput.dir" value="${module.soma.basedir}/out/test/SOMa"/>
+  
+  <path id="soma.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+    <pathelement location="lib/forms_rt.jar"/>
+  </path>
+  
+  <path id="soma.module.production.classpath">
+    <path refid="${module.jdk.classpath.soma}"/>
+    <pathelement location="lib/testng-jdk15.jar"/>
+  </path>
+  
+  <path id="soma.runtime.production.module.classpath">
+    <pathelement location="${soma.output.dir}"/>
+    <pathelement location="lib/testng-jdk15.jar"/>
+  </path>
+  
+  <path id="soma.module.classpath">
+    <path refid="${module.jdk.classpath.soma}"/>
+    <pathelement location="${soma.output.dir}"/>
+    <pathelement location="lib/testng-jdk15.jar"/>
+  </path>
+  
+  <path id="soma.runtime.module.classpath">
+    <pathelement location="${soma.testoutput.dir}"/>
+    <pathelement location="${soma.output.dir}"/>
+    <pathelement location="lib/testng-jdk15.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.soma">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.soma">
+    <patternset refid="excluded.from.module.soma"/>
+  </patternset>
+  
+  <path id="soma.module.sourcepath">
+    <dirset dir="${module.soma.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  <path id="soma.module.test.sourcepath">
+    <dirset dir="${module.soma.basedir}">
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.soma" depends="compile.module.soma.production,compile.module.soma.tests" description="Compile module SOMa"/>
+  
+  <target name="compile.module.soma.production" depends="register.custom.compilers" description="Compile module SOMa; production classes">
+    <mkdir dir="${soma.output.dir}"/>
+    <javac2 destdir="${soma.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.soma}/javac" includeantruntime="false">
+      <compilerarg line="${compiler.args.soma}"/>
+      <bootclasspath refid="soma.module.bootclasspath"/>
+      <classpath refid="soma.module.production.classpath"/>
+      <src refid="soma.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.soma"/>
+    </javac2>
+    
+    <copy todir="${soma.output.dir}">
+      <fileset dir="${module.soma.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.soma.tests" depends="register.custom.compilers,compile.module.soma.production" description="compile module SOMa; test classes" unless="skip.tests">
+    <mkdir dir="${soma.testoutput.dir}"/>
+    <javac2 destdir="${soma.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.soma}/javac" includeantruntime="false">
+      <compilerarg line="${compiler.args.soma}"/>
+      <bootclasspath refid="soma.module.bootclasspath"/>
+      <classpath refid="soma.module.classpath"/>
+      <src refid="soma.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.soma"/>
+    </javac2>
+    
+    <copy todir="${soma.testoutput.dir}">
+      <fileset dir="${module.soma.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.soma" description="cleanup module">
+    <delete dir="${soma.output.dir}"/>
+    <delete dir="${soma.testoutput.dir}"/>
+  </target>
+</project>
