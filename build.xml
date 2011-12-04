@@ -116,6 +116,11 @@
   <target name="artifact.soma" depends="init.artifacts, compile.module.soma" description="Build &apos;soma&apos; artifact">
     <property name="artifact.temp.output.soma" value="${artifacts.temp.dir}/soma"/>
     <mkdir dir="${artifact.temp.output.soma}"/>
+    <unjar src="${javac2.home}/forms_rt.jar" dest="${soma.output.dir}">
+        <patternset>
+            <include name="**/*.class"/>
+        </patternset>
+    </unjar>
     <jar destfile="${temp.jar.path.soma.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
       <zipfileset file="${basedir}/src/META-INF/MANIFEST.MF" prefix="META-INF"/>
       <zipfileset dir="${soma.output.dir}"/>
@@ -125,11 +130,6 @@
   
   <target name="build.all.artifacts" depends="artifact.soma" description="Build all artifacts">
     <mkdir dir="${artifact.output.soma}"/>
-    <!--unjar src="${javac2.home}/forms_rt.jar" dest="${artifacts.output.soma}">
-        <patternset>
-            <include name="**/*.class"/>
-        </patternset>
-    </unjar-->
     <copy todir="${artifact.output.soma}">
       <fileset dir="${artifact.temp.output.soma}"/>
     </copy>
