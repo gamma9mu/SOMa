@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SOMHeatMap extends JFrame {
+    private static final long serialVersionUID = 6286480369172697880L;
+    
     // The pixel alpha.
     private static final int ALPHA = 0xFF000000;
     private static final int BYTE_MAX = 255;
