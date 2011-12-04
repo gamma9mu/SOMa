@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
@@ -21,6 +23,7 @@ import java.util.regex.Pattern;
  * reference image.
  */
 public class EdgeDetectionRunner implements PropertyChangeListener {
+    private static Logger log = Logger.getLogger("EdgeDetectionRunner");
     private static final Pattern positiveInteger = Pattern.compile("[1-9]\\d*");
 
     private JRadioButton exhaustiveRadioButton;
@@ -158,7 +161,9 @@ public class EdgeDetectionRunner implements PropertyChangeListener {
         try {
             Class<EdgeDetector> edc = EdgeDetector.class;
             inputImage = ImageIO.read(edc.getResourceAsStream("image.jpg"));
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            log.log(Level.SEVERE, "Could not load image.", e);
+        }
 
         outputImage = ed.runOnImage(inputImage);
         normalImage = ed.normalizeImage(outputImage);
