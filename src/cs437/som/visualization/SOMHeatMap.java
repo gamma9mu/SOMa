@@ -69,7 +69,7 @@ public class SOMHeatMap extends JFrame {
      * @param sample The vector components to which the heat will
      *               correspondence.
      */
-    public void update(double[] sample) {
+    public void refresh(double[] sample) {
         double[] distances = new double[neuronCount];
         int[] pts = new int[neuronCount];
 
@@ -98,6 +98,4 @@ public class SOMHeatMap extends JFrame {
 
         img.setRGB(0,0, dims.x, dims.y, pts, 0, dims.x);
     }
-
-
 }

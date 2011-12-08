@@ -57,7 +57,7 @@ public class ColorMapDemo {
             double[] in = samples[r.nextInt(samples.length)];
             som.trainWith(in);
             plot.draw();
-            heatMap.update(heatMapSample);
+            heatMap.refresh(heatMapSample);
             heatMap.draw();
         }
 
@@ -66,7 +66,7 @@ public class ColorMapDemo {
         double[][] rgb = {{1,0,0},{0,1,0},{0,0,1}};
         while (heatMap.isEnabled()) {
             for (double[] arr : rgb) {
-                heatMap.update(arr);
+                heatMap.refresh(arr);
                 heatMap.draw();
                 try { sleep(1000); } catch (InterruptedException ignored) { }
             }
