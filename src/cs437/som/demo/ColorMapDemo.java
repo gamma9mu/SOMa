@@ -26,9 +26,9 @@ public class ColorMapDemo {
     private final Random r = new SecureRandom();
     private final SOMColorPlotter plot;
 
-    SOMHeatMap heatMap;
+    private SOMHeatMap heatMap;
     // Training samples: blue, green, red, purple, yellow, teal
-    double[][] samples = {{0,0,1},{0,1,0},{1,0,0},{1,0,1},{1,1,0},{0,1,1}};
+    private double[][] samples = {{0,0,1},{0,1,0},{1,0,0},{1,0,1},{1,1,0},{0,1,1}};
 
     /**
      * Create a new SOM demo.
@@ -40,16 +40,19 @@ public class ColorMapDemo {
         heatMap = new SOMHeatMap(som);
         heatMap.setLocation(plot.getX() + plot.getWidth(), plot.getY());
 
-        selectSamples();
+//        selectSamples();
     }
 
+    /**
+     * Run the demonstration.
+     */
     public void run() {
         int iterations = som.getExpectedIterations();
 
         logger.info("Before Training");
-
         double[] heatMapSample = {1,0,0}; // show red component in heat map
 
+        // Train the SOM on the samples, repeatedly update the visuals
         for (int i = 0; i < iterations; i++) {
             double[] in = samples[r.nextInt(samples.length)];
             som.trainWith(in);
@@ -70,6 +73,9 @@ public class ColorMapDemo {
         }
     }
 
+    /**
+     * Select random colors to use in place of the default samples.
+     */
     private void selectSamples() {
         logger.info("Selecting Training Samples");
 
