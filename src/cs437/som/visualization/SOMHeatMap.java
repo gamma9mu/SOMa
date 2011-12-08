@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class SOMHeatMap extends JFrame {
     private static final long serialVersionUID = 6286480369172697880L;
     
-    // The pixel alpha.
+    // The pixel alpha and byte details.
     private static final int ALPHA = 0xFF000000;
     private static final int BYTE_MAX = 255;
     private static final int BYTE_WIDTH = 8;
@@ -31,6 +31,11 @@ public class SOMHeatMap extends JFrame {
     private int neuronCount;
     private double max = 0;
 
+    /**
+     * Create a new SOMHeatMap.
+     *
+     * @param map The SOM to visualize.
+     */
     public SOMHeatMap(SelfOrganizingMap map) {
         super("SOM heat map");
 
@@ -45,12 +50,25 @@ public class SOMHeatMap extends JFrame {
         createBufferStrategy(2);
     }
 
+    /**
+     * Draw the computed image to the frame.
+     */
     public void draw() {
         Graphics g = getBufferStrategy().getDrawGraphics();
         g.drawImage(img.getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT), 0, 0, null);
         getBufferStrategy().show();
     }
 
+    /**
+     * Update the visualization from the SOM.
+     *
+     * If the SOM has changed, this method will update the visualization image
+     * with the new values.  The "heat" will be measured with respect to the
+     * vector components passed as the argument.
+     *
+     * @param sample The vector components to which the heat will
+     *               correspondence.
+     */
     public void update(double[] sample) {
         double[] distances = new double[neuronCount];
         int[] pts = new int[neuronCount];
