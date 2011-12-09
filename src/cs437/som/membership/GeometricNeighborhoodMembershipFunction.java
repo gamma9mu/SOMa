@@ -8,15 +8,13 @@ import cs437.som.NeighborhoodMembershipFunction;
  * The membership of a neuron under this strategy follows the equation:
  * <pre>
  *     \begin{cases}
- *     \left(\frac{w - D(N, N_{bm})}{w}\right)^k & \text{if} D(N, N_{bm}) < w\\
+ *     \left( \frac{w - \delta}{w} \right)^k & \text{if} \delta < w \\
  *     0 & \text{otherwise}
  *     \end{cases}
  * where
  *     w      is the neighborhood width
- *     N      is the neuron in question
- *     N_{bm} is the BMU
+ *     \delta is the distance from the neuron in question to the BMU
  *     k      is the order of the membership function
- *     D(x,y) is the provided distance from the neuron to the BMU
  * </pre>
  */
 public class GeometricNeighborhoodMembershipFunction implements NeighborhoodMembershipFunction {
