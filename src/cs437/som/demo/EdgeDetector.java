@@ -347,6 +347,11 @@ public class EdgeDetector {
 
     public static void main(String[] args) throws IOException {
         EdgeDetector ed = new EdgeDetector(100);
+        if (ed.som == null) {
+            log.warning("SOM configuration was cancelled.");
+            return;
+        }
+
         ed.trainWithRandomPermutations(100);
 
         Class<EdgeDetector> edc = EdgeDetector.class;
