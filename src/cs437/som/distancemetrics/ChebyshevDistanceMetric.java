@@ -10,9 +10,10 @@ import cs437.som.SOMError;
  * the differences of the individual components of the 2 vectors.
  *
  * The exact behavior follows the formula:
+ * <pre>
  *      for v_1, v_2 \in \mathbb{R}^n
  *      \max|v_{1_i} - v_{2_i}|, i=1..n
- *
+ * </pre>
  */
 public class ChebyshevDistanceMetric implements DistanceMetric {
 
