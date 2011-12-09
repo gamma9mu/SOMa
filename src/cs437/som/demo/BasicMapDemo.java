@@ -103,7 +103,7 @@ public class BasicMapDemo {
     public static void main(String[] args) {
         CustomizableSOM som = new CustomizableSOM(new Dimension(7,8), 2, 1000);
         som.setDistanceMetricStrategy(new EuclideanDistanceMetric());
-        som.setNeighborhoodWidthFunctionStrategy(new LinearDecayNeighborhoodWidthFunction(Math.min(7, 8) / 3));
+        som.setNeighborhoodWidthFunctionStrategy(new LinearDecayNeighborhoodWidthFunction(6));
         som.setNeighborhoodMembershipFunctionStrategy(new LinearNeighborhoodMembershipFunction());
 
         new BasicMapDemo(som).run();
