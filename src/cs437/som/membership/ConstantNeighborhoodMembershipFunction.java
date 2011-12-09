@@ -7,6 +7,7 @@ import cs437.som.NeighborhoodMembershipFunction;
  * neuron is within the neighborhood, 0 otherwise.
  */
 public class ConstantNeighborhoodMembershipFunction implements NeighborhoodMembershipFunction {
+    @Override
     public double neighborhoodMembership(double distance, double width) {
         if (distance < width)
             return 1;
