@@ -43,11 +43,6 @@ public class CustomizableSOM extends NetworkBase {
     protected GridType gridType = null;
 
     /**
-     * Whether to use neighborhood membership to scale the learning rate.
-     */
-    protected boolean neighborhoodScaling = false;
-
-    /**
      * Create a new CustomizableSOM.
      *
      * @param gridSize The neuron grid dimensions.
@@ -171,6 +166,7 @@ public class CustomizableSOM extends NetworkBase {
         }
     }
 
+    @Override
     protected void adjustNeighborsOf(int neuron, double[] input) {
         for (int i = 0; i < neuronCount; i++) {
             double membership = neighborhoodMembership.neighborhoodMembership(
@@ -220,6 +216,8 @@ public class CustomizableSOM extends NetworkBase {
                 neighborhoodWidth));
         destination.write(String.format("Grid type: %s%n",
                 gridType));
+        destination.write(String.format("Membership: %s%n",
+                neighborhoodMembership));
 
         destination.write(String.format("Iterations: %d of %d%n", time,
                 expectedIterations));
@@ -256,6 +254,9 @@ public class CustomizableSOM extends NetworkBase {
 
         if (sfr.getNeighborhoodWidth() != null)
             bpsom.neighborhoodWidth = sfr.getNeighborhoodWidth();
+
+        if (sfr.getMembershipFunction() != null)
+            bpsom.neighborhoodMembership = sfr.getMembershipFunction();
 
         bpsom.time = sfr.getTime();
 

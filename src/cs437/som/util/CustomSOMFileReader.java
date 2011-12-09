@@ -24,19 +24,23 @@ public class CustomSOMFileReader extends SOMFileReader {
     private static final Pattern iterationsRegEx = Pattern.compile(
             "iterations\\s*:\\s*(\\d*)\\s*of\\s*(\\d*)",
             Pattern.CASE_INSENSITIVE);
+    private static final Pattern membershipRegEx = Pattern.compile(
+            "membership\\s*:\\s*(\\w*)\\s*(.*)?", Pattern.CASE_INSENSITIVE);
 
     private int time = 0;
     private DistanceMetric distanceMetric = null;
     private LearningRateFunction learningRate = null;
     private NeighborhoodWidthFunction neighborhoodWidth = null;
     private GridType gridType = null;
+    private NeighborhoodMembershipFunction membership = null;
 
     @Override
     protected void unmatchedLine(String line) throws IOException {
         if (!matchIterations(line)
                 && !matchDistanceMetric(line)
                 && !matchGridType(line)
-                && !matchLearningRate(line)) {
+                && !matchLearningRate(line)
+                && !matchMemgership(line)) {
             matchNeighborhood(line);
         }
     }
@@ -86,6 +90,31 @@ public class CustomSOMFileReader extends SOMFileReader {
         }
         return false;
     }
+
+    /**
+     * Match a neighborhood membership function line.
+     *
+     * @param line The input's line to attempt to match and extract from.
+     * @return {@code true} if the line is matched, {@code false} otherwise.
+     */
+    private boolean matchMemgership(String line) {
+        Matcher membershipMatch = membershipRegEx.matcher(line);
+        if (membershipMatch.matches()) {
+            if (membershipMatch.groupCount() == 2) {
+                membership = (NeighborhoodMembershipFunction)
+                        Reflector.instantiateFromDoubleString("cs437.som.membership",
+                                membershipMatch.group(1), membershipMatch.group(2));
+            } else {
+                membership = (NeighborhoodMembershipFunction)
+                        Reflector.instantiateClass("cs437.som.membership",
+                                membershipMatch.group(1));
+            }
+            return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * Match a neighborhood function line.
@@ -171,6 +200,15 @@ public class CustomSOMFileReader extends SOMFileReader {
      */
     public GridType getGridType() {
         return gridType;
+    }
+
+    /**
+     * Return the parsed neighborhood membership function.
+     *
+     * @return The membership function from the input stream.
+     */
+    public NeighborhoodMembershipFunction getMembershipFunction() {
+        return membership;
     }
 
     @Override
