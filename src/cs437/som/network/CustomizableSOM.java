@@ -75,7 +75,7 @@ public class CustomizableSOM extends NetworkBase {
                 new LinearDecayNeighborhoodWidthFunction(gridRadius));
 
         setNeighborhoodMembershipFunctionStrategy(
-                new ConstantNeighborhoodMembershipFunction());
+                new ConstantNeighborhoodMembershipFunction(1));
     }
 
     /**

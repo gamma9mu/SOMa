@@ -218,7 +218,7 @@ public class SOMBuilderConfigPanel {
                 nmf = new ExponentialNeighborhoodMembershipFunction();
                 break;
             default:
-                nmf = new ConstantNeighborhoodMembershipFunction();
+                nmf = new ConstantNeighborhoodMembershipFunction(1);
         }
         map.setNeighborhoodMembershipFunctionStrategy(nmf);
     }
