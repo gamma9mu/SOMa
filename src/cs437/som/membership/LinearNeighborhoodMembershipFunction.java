@@ -7,6 +7,8 @@ import cs437.som.NeighborhoodMembershipFunction;
  * linearly proportional to distance.
  */
 public class LinearNeighborhoodMembershipFunction implements NeighborhoodMembershipFunction {
+
+    @Override
     public double neighborhoodMembership(double distance, double width) {
         if (distance < width)
             return (width - distance) / width;
