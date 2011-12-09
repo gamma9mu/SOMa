@@ -5,7 +5,6 @@ import cs437.som.TrainableSelfOrganizingMap;
 import cs437.som.distancemetrics.EuclideanDistanceMetric;
 import cs437.som.membership.LinearNeighborhoodMembershipFunction;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
-import cs437.som.network.BasicSquareGridSOM;
 import cs437.som.network.CustomizableSOM;
 import cs437.som.visualization.SOM2dPlotter;
 
