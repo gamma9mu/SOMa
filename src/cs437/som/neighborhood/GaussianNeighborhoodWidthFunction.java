@@ -17,7 +17,7 @@ import cs437.som.NeighborhoodWidthFunction;
  * </pre>
  */
 public class GaussianNeighborhoodWidthFunction
-        implements NeighborhoodWidthFunction, ContinuousUnitNormal {
+        implements NeighborhoodWidthFunction {
     private final double stdDeviation;
     private final double coefficient;
 

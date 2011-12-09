@@ -19,7 +19,7 @@ import cs437.som.NeighborhoodWidthFunction;
  * </pre>
  */
 public class MexicanHatNeighborhoodWidthFunction
-        implements NeighborhoodWidthFunction, ContinuousUnitNormal {
+        implements NeighborhoodWidthFunction {
     private static final double oneFourth = 0.25;
     private final double standardDeviation;
     private final double coefficient;
