@@ -156,6 +156,13 @@ public class CustomizableSOM extends NetworkBase {
         return bestMatch;
     }
 
+    /**
+     * Adjust the weights of a neuron to more closely match a given input vector.
+     *
+     * @param neuron The index of the neuron to adjust.
+     * @param input The input vector to adjust towards.
+     * @param membership The neuron's membership in the BMU's neighborhood.
+     */
     protected void adjustNeuronWeights(int neuron, double[] input, double membership) {
         for (int i = 0; i < weightMatrix[neuron].length; i++) {
             double delta = input[i] - weightMatrix[neuron][i];
