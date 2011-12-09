@@ -2,15 +2,13 @@ package cs437.som.membership;
 
 import cs437.som.NeighborhoodMembershipFunction;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 public class RandomNeighborhoodMembershipFunction implements NeighborhoodMembershipFunction {
-    Random r;
+    private Random r = new SecureRandom();
 
-    public RandomNeighborhoodMembershipFunction() {
-        r = new Random();
-    }
-
+    @Override
     public double neighborhoodMembership(double distance, double width) {
         if (distance < width)
             return r.nextDouble();
