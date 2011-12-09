@@ -1,5 +1,13 @@
 SOMa is a self-organizing map library for Java.
 
+
+Requirements
+All external libraries that are used in building, testing and running SOMa are
+included in the lib/ directory.  The runtime libraries are packed into the JAR
+during packaging when built by Ant.  SOMa uses some features from Java 7, so
+the JDKv7 is required for building and JREv7 is required to run SOMa.
+
+
 About
 The aim of SOMa is to provide programmers with a comprehensive library for
 using or exploring self-organizing maps.  A few basic SOMs are provided,
@@ -9,11 +17,13 @@ provides detailed control over the map's operation.
 Maps can be saved to plain text files in an easily readable format and read back
 in to a running application.
 
+
 Documentation
 Javadoc is the best source for usage and help and we have made an effort to
 provide useful and complete javadoc.  There are some source demonstrations of
 SOMa's use in the demo package, which may be useful to get an understanding of
 its usage.
+
 
 Building
 SOMa includes an Ant build script.  The jdk.home property in the file
@@ -21,10 +31,31 @@ SOMa includes an Ant build script.  The jdk.home property in the file
 directory.  After that is done, running Ant will build a JAR file which will be
 located in "out/artifacts/soma/" and will be named "soma.jar".
 
+
+Running the Demonstrations
+Any of the following commands will run a demonstration application when entered
+from the commandline in the directory of soma.jar:
+
+java -cp soma.jar cs437.som.demo.BasicMapDemo
+    Displays a planar mapping of neuron weights as a SOM is trained.
+
+java -cp soma.jar cs437.som.demo.ColorMapDemo
+    Displays a color map and a heat map as a SOM is trained to match 3D vectors.
+
+java -cp soma.jar cs437.som.demo.EdgeDetectionRunner
+    Provides a complete application for testing different SOM configurations in
+    image edge detection.
+
+java -cp soma.jar cs437.som.demo.EdgeDetector
+    Runs a single instance of image edge detection, displaying a reference
+    image, false color image and normalized image.
+
+
 Why the name?
 The name comes from "Brave New World" by Aldous Huxley.  Hopefully, SOMa can
 provide you with at least one restful weekend, and there ends the implications
 of the name that we would like to adopt from the novel.
+
 
 License
 SOMa's license can be found in the file "LICENSE".  The lib/ directory contains
