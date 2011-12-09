@@ -7,6 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * Provides a visualization for self-organizing maps where the neurons distance
+ * to a given vector is highlighted by the intensity of the pixel at the
+ * location corresponding to the neuron's location in the grid.
+ */
 public class SOMHeatMap extends JFrame {
     private static final long serialVersionUID = 6286480369172697880L;
     
