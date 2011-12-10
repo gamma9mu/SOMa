@@ -57,11 +57,6 @@ public class CustomizableSOM extends NetworkBase {
                 new ConstantLearningRateFunction(DEFAULT_LEARNING_RATE));
         setGridTypeStrategy(new SquareGrid());
 
-        setDistanceMetricStrategy(new EuclideanDistanceMetric());
-        setLearningRateFunctionStrategy(
-                new ConstantLearningRateFunction(DEFAULT_LEARNING_RATE));
-        setGridTypeStrategy(new SquareGrid());
-
         // This calculation is based on a recommendation from Dr. Kohonen in
         // Kohonen, Teuvo, 1990: The Self-organizing Map. Proc. of the IEEE,
         // Vol. 78, 1469.
