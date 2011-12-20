@@ -6,6 +6,7 @@ import cs437.som.distancemetrics.EuclideanDistanceMetric;
 import cs437.som.membership.GeometricNeighborhoodMembershipFunction;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.network.CustomizableSOM;
+import cs437.som.topology.OffsetHexagonalGrid;
 import cs437.som.visualization.SOMColorPlotter;
 import cs437.som.visualization.SOMHeatMap;
 
@@ -91,9 +92,10 @@ public class ColorMapDemo {
         CustomizableSOM som = new CustomizableSOM(dimension, 3, 1000);
         som.setDistanceMetricStrategy(new EuclideanDistanceMetric());
         som.setNeighborhoodWidthFunctionStrategy(
-                new LinearDecayNeighborhoodWidthFunction((2.0/3.0)*MAP_DIMENSION));
+                new LinearDecayNeighborhoodWidthFunction((2.0 / 3) * MAP_DIMENSION));
         som.setNeighborhoodMembershipFunctionStrategy(
                 new GeometricNeighborhoodMembershipFunction(0.75));
+        som.setGridTypeStrategy(new OffsetHexagonalGrid());
         new ColorMapDemo(som).run();
     }
 
