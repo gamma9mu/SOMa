@@ -14,8 +14,7 @@ import cs437.som.membership.GeometricNeighborhoodMembershipFunction;
 import cs437.som.membership.LinearNeighborhoodMembershipFunction;
 import cs437.som.neighborhood.*;
 import cs437.som.network.CustomizableSOM;
-import cs437.som.topology.SkewHexagonalGrid;
-import cs437.som.topology.SquareGrid;
+import cs437.som.topology.*;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
@@ -50,7 +49,11 @@ public class SOMBuilderConfigPanel {
      */
     public SOMBuilderConfigPanel() {
         topologyCmb.addItem("Square Grid");
+        topologyCmb.addItem("Toroidal Square Grid");
+        topologyCmb.addItem("vN Square Grid");
+        topologyCmb.addItem("Moore Square Grid");
         topologyCmb.addItem("Skew Hexagonal Grid");
+        topologyCmb.addItem("Offset Hexagonal Grid");
 
         learningRateCmb.addItem("Constant Learning Rate Function");
         learningRateCmb.addItem("Hyperbolic Learning Rate Function");
@@ -141,11 +144,27 @@ public class SOMBuilderConfigPanel {
      * @param map The map who's grid type will be set.
      */
     private void gridType(CustomizableSOM map) {
-        if (topologyCmb.getSelectedIndex() == 1) {
-            map.setGridTypeStrategy(new SkewHexagonalGrid());
-        } else {
-            map.setGridTypeStrategy(new SquareGrid());
+        GridType gridType;
+        switch (topologyCmb.getSelectedIndex()) {
+            case 1:
+                gridType = new ToroidalEuclideanSquare();
+                break;
+            case 2:
+                gridType = new VonNeumann();
+                break;
+            case 3:
+                gridType = new Moore();
+                break;
+            case 4:
+                gridType = new SkewHexagonalGrid();
+                break;
+            case 5:
+                gridType = new OffsetHexagonalGrid();
+                break;
+            default:
+                gridType = new SquareGrid();
         }
+        map.setGridTypeStrategy(gridType);
     }
 
     /**
