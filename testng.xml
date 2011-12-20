@@ -19,6 +19,7 @@
             <class name="cs437.som.topology.SquareGridTest"/>
             <class name="cs437.som.topology.SkewHexagonalGridTest"/>
             <class name="cs437.som.topology.OffsetHexagonalGridTest"/>
+            <class name="cs437.som.topology.ToroidalEuclideanSquareTest"/>
         </classes>
     </test>
     <test name="NeighborhoodWidthFunctionTest">
