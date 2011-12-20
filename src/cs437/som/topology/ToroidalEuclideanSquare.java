@@ -50,11 +50,11 @@ public class ToroidalEuclideanSquare implements GridType {
 
         double dx = Math.abs(x1 - x0);
         if (dx > width / 2) {
-            dx = (width / 2) - dx;
+            dx = width - dx;
         }
         double dy = Math.abs(y1 - y0);
         if (dy > height / 2) {
-            dy = (height / 2) - dy;
+            dy = height - dy;
         }
 
         return Math.sqrt((dy * dy) + (dx * dx));
