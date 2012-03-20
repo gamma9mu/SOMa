@@ -114,4 +114,10 @@ public class SOMHeatMap extends JFrame {
     public void setColorProgression(ColorProgression colorProgression) {
         this.colorProgression = colorProgression;
     }
+
+    @Override
+    public String toString() {
+        return "SOMHeatMap{som=" + som + ", dims=" + dims +
+                ", colorProgression=" + colorProgression + '}';
+    }
 }
