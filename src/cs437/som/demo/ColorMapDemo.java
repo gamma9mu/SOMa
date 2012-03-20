@@ -7,6 +7,8 @@ import cs437.som.membership.GeometricNeighborhoodMembershipFunction;
 import cs437.som.neighborhood.LinearDecayNeighborhoodWidthFunction;
 import cs437.som.network.CustomizableSOM;
 import cs437.som.topology.OffsetHexagonalGrid;
+import cs437.som.visualization.ColorProgression;
+import cs437.som.visualization.GreenToRedHeat;
 import cs437.som.visualization.SOMColorPlotter;
 import cs437.som.visualization.SOMHeatMap;
 
@@ -40,8 +42,6 @@ public class ColorMapDemo {
         plot = new SOMColorPlotter(som);
         heatMap = new SOMHeatMap(som);
         heatMap.setLocation(plot.getX() + plot.getWidth(), plot.getY());
-
-//        selectSamples();
     }
 
     /**
@@ -75,6 +75,23 @@ public class ColorMapDemo {
     }
 
     /**
+     * Cause the ColorMapDemo to randomize the training samples.
+     */
+    public void randomizeSamples() {
+        selectSamples();
+    }
+
+    /**
+     * Provide a {@code ColorProgression} to use when drawing the heat map.
+     *
+     * @param colorProgression    The {@code ColorProgression} the heat map
+     *                            shall use when drawing itself.
+     */
+    public void useColorProgression(ColorProgression colorProgression) {
+        heatMap.setColorProgression(colorProgression);
+    }
+
+    /**
      * Select random colors to use in place of the default samples.
      */
     private void selectSamples() {
@@ -88,6 +105,22 @@ public class ColorMapDemo {
     }
 
     public static void main(String[] args) {
+        boolean randomSamples = false;
+        boolean colorHeatmap = false;
+        for (String arg : args) {
+            if (arg.compareTo("-r") == 0) {
+                    randomSamples = true;
+            } else if (arg.compareTo("-c") == 0) {
+                    colorHeatmap = true;
+            } else if (arg.compareTo("-rc") == 0 || arg.compareTo("-cr") == 0) {
+                    randomSamples = true;
+                    colorHeatmap = true;
+            } else {
+                    System.err.println("Unknown option: \"" + arg + "\"");
+                    System.exit(-1);
+            }
+        }
+        
         Dimension dimension = new Dimension(MAP_DIMENSION, MAP_DIMENSION);
         CustomizableSOM som = new CustomizableSOM(dimension, 3, 1000);
         som.setDistanceMetricStrategy(new EuclideanDistanceMetric());
@@ -96,7 +129,13 @@ public class ColorMapDemo {
         som.setNeighborhoodMembershipFunctionStrategy(
                 new GeometricNeighborhoodMembershipFunction(0.75));
         som.setGridTypeStrategy(new OffsetHexagonalGrid());
-        new ColorMapDemo(som).run();
+        ColorMapDemo cmd = new ColorMapDemo(som);
+        if (colorHeatmap)
+            cmd.useColorProgression(new GreenToRedHeat());
+        if (randomSamples)
+            cmd.randomizeSamples();
+
+        cmd.run();
     }
 
     @Override
