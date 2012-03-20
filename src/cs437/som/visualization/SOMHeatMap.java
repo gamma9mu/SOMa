@@ -14,11 +14,6 @@ import java.awt.image.BufferedImage;
  */
 public class SOMHeatMap extends JFrame {
     private static final long serialVersionUID = 6286480369172697880L;
-    
-    // The pixel alpha and byte details.
-    private static final int ALPHA = 0xFF000000;
-    private static final int BYTE_MAX = 255;
-    private static final int BYTE_WIDTH = 8;
 
     /**
      * The frame width.
