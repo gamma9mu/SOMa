@@ -33,6 +33,7 @@ public class SOMHeatMap extends JFrame {
     private SelfOrganizingMap som;
     private Dimension dims;
     private BufferedImage img;
+    private ColorProgression colorProgression = new GreyScaleHeat();
     private int neuronCount;
     private double max = 0;
 
@@ -78,12 +79,11 @@ public class SOMHeatMap extends JFrame {
         double[] distances = new double[neuronCount];
         int[] pts = new int[neuronCount];
 
-        double dist, diff;
         max = Math.max(som.distanceToInput(0, sample), max);
         double min = 0;
 
         for (int i = 1; i < neuronCount; i++) {
-            dist = som.distanceToInput(i, sample);
+            double dist = som.distanceToInput(i, sample);
             distances[i] = dist;
             if (dist > max)
                 max = dist;
@@ -91,16 +91,32 @@ public class SOMHeatMap extends JFrame {
                 min = dist;
         }
 
-        diff = max - min;
-
         for (int i = 1; i < neuronCount; i++) {
-            int value = BYTE_MAX - (int)(BYTE_MAX * ((distances[i] - min) / max));
-            pts[i] |= ALPHA;
-            pts[i] |= value << (2 * BYTE_WIDTH);
-            pts[i] |= value << BYTE_WIDTH;
-            pts[i] |= value;
+            int value = (int) (((distances[i] - min) / max) * 100);
+            pts[i] = colorProgression.getColor(value).getRGB();
         }
 
         img.setRGB(0,0, dims.x, dims.y, pts, 0, dims.x);
+    }
+
+    /**
+     * Get the current {@code ColorProgression} in use.
+     *
+     * @return a reference to the {@code ColorProgression} object that is in
+     * use by the SOMHeatMap.
+     */
+    public ColorProgression getColorProgression() {
+        return colorProgression;
+    }
+
+    /**
+     * Provide a {@code ColorProgression} to use for displaying the heat at a
+     * location.
+     *
+     * @param colorProgression an instance of a {@code ColorProgression}
+     *                         subclass
+     */
+    public void setColorProgression(ColorProgression colorProgression) {
+        this.colorProgression = colorProgression;
     }
 }
