@@ -17,7 +17,7 @@ public class GreenToRedHeat implements ColorProgression {
             return Color.red;
         else {
             final float hue = ((intensity) * GREEN_HUE_SCALE) / CIRCLE_DEG;
-            final int rgb = Color.HSBtoRGB(hue, 1.0f, 1.0f);
+            final int rgb = Color.HSBtoRGB(hue, 1.0f, 0.8f);
             return new Color(rgb);
         }
     }
